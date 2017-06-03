@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <!-- 订单处理Mapper -->
+<mapper namespace="cn.fenix.ry.dao.RawRecordDao">
+<!-- 查找订单 -->
+    <select id="findAllRawRecord" 
+   	parameterType="string"
+		resultType="map">
+    	select 
+    		rowRecordId,
+			pickingId,
+			materialReturnId,
+			materialStockId,
+			orderNo,
+			productName,
+	   	 	orderAmount,
+			materialModel,
+			unit,
+			expectAmount,
+			stockAmount,
+			requestAmount,
+			pickingDate,
+			pickingAmount,
+	    	backAmount,
+			backDate,
+			pickingTotal,
+			unclaimedAmount,
+			unitPrice,
+	    	weight,
+	    	amount,
+	    	remarks,
+			created,
+	    	updated
+    	 from 
+    	  	rawrecord
+    </select>
+ 
+
+</mapper>

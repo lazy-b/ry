@@ -1,0 +1,60 @@
+@charset "utf-8";
+/*重设css样式*/
+*{
+	outline:0;
+	padding:0;
+	margin:0;
+	border:0;
+}
+/*自己定义的样式*/ 
+/*加个圆角外框，定义最小宽度，加个内边距*/
+#table{
+	padding:5px;
+	margin:5px;
+	
+		
+}
+/*隐藏表标题*/ 
+#table caption{
+	display:none;
+}
+/*设置表格单元格边框合并*/ 
+#table table{
+	font-size:12px;
+	border-collapse: collapse;
+	
+	
+	-webkit-box-shadow: 0 0 0 4px #b2e3e3, 2px 1px 4px 4px rgba(10,10,0,.5);
+    -moz-box-shadow: 0 0 0 4px #b2e3e3, 2px 1px 4px 4px rgba(10,10,0,.5);
+    box-shadow: 0 0 0 4px #b2e3e3, 2px 1px 4px 4px rgba(10,10,0,.5);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+	
+	margin:5px auto;
+	line-height:2em;
+	
+}
+#table td,th{
+	border:1px solid #ccc;
+	padding:0 5px;
+	width:60px;
+}
+/*奇数行和偶数行变换背景颜色*/
+/*table tr:nth-child(even){
+	background-color:#fff;
+}
+table tr:nth-child(odd){
+	background-color:#b2e3e3;
+}*/
+/*设置表头样式*/
+#table th{
+	background-color:#b2e3e3;
+	font-size:large;
+}
+/*设置单元格样式*/
+#table td{
+	padding:0 3px;
+	text-align:center;
+	white-space:nowrap;
+}

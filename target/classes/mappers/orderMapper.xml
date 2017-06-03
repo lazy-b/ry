@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <!-- 订单处理Mapper -->
+<mapper namespace="cn.fenix.ry.dao.OrderDao">
+<!-- 查找所有订单 -->
+    <select id="findAllOrder" 
+   parameterType="string"
+		resultType="map">
+    	select 
+    	 	orderInformationId,rowRecordId,clientId,deliveryRecordId,
+   			orderDate,requiredDate,orderNo,materialCoding,productName,	
+   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
+   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
+   			orderType,price,remarks,created,updated	
+    	 from 
+    		 	orderInformation
+    </select>
+    <!-- 根据订单Id查找订单 -->
+    <select id="findByOrderId" parameterType="String" 
+    	resultType="cn.fenix.ry.entity.OrderInformation">
+    	select 
+    		orderInformationId,rowRecordId,clientId,deliveryRecordId,
+   			orderDate,requiredDate,orderNo,materialCoding,productName,	
+   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
+   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
+   			orderType,price,remarks,created,updated	
+    	from 
+    		orderInformation
+    	where 
+    		orderInformationId=#{id}
+    			
+    
+    </select>
+    
+    <!-- 根据产品名称查找订单 -->
+    <select id="findByProductName" parameterType="String" 
+    	resultType="cn.fenix.ry.entity.OrderInformation">
+    	select 
+    		orderInformationId,rowRecordId,clientId,deliveryRecordId,
+   			orderDate,requiredDate,orderNo,materialCoding,productName,	
+   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
+   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
+   			orderType,price,remarks,created,updated	
+    	from 
+    		orderInformation
+    	where 
+    		productName=#{productName};	
+    </select>
+    
+    <!-- 根据产品名称查找订单 -->
+   <!-- 添加订单 -->
+  <insert id="addOrder"
+		parameterType="cn.fenix.ry.entity.OrderInformation">
+		insert into orderInformation
+			 (orderInformationId,rowRecordId,clientId,deliveryRecordId,
+   			orderDate,requiredDate,orderNo,materialCoding,productName,	
+   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
+   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
+   			orderType,price,remarks,created,updated	
+		values(
+			#{orderInformationId},#{rowRecordId},#{clientId},#{deliveryRecordId},
+   			#{orderDate},#{requiredDate},#{orderNo},#{materialCoding},#{productName},
+   			#{orderAmount},#{spareParts},#{stockAmount},#{planAmount},#{materialModel},
+   			#{purchaseRequirement},#{returnDate},#{shipmentStatus},#{arrangeStatus},
+   			#{orderType},#{price},#{remarks},#{created},#{updated})	
+	</insert>
+	<update id="updateOrder"
+	 	parameterType="map">
+	 	update 
+	 		orderInformation
+		set
+			<if test="rowRecordId!=null">rowRecordId=#{rowRecordId}</if>
+			<if test="clientId!=null">clientId=#{clientId}</if>
+			<if test="deliveryRecordId!=null">deliveryRecordId=#{deliveryRecordId}</if>
+			<if test="orderDate!=null">orderDate=#{orderDate}</if>
+			<if test="requiredDate!=null">requiredDate=#{requiredDate}</if>
+			<if test="orderNo!=null">orderNo=#{orderNo}</if>
+			<if test="materialCoding!=null">materialCoding=#{materialCoding}</if>
+			<if test="productName!=null">productName=#{productName}</if>
+			<if test="orderAmount!=null">orderAmount=#{orderAmount}</if>
+			<if test="spareParts!=null">spareParts=#{spareParts}</if>
+			<if test="stockAmount!=null">stockAmount=#{stockAmount}</if>
+			<if test="planAmount!=null">planAmount=#{planAmount}</if>
+			<if test="materialModel!=null">materialModel=#{materialModel}</if>
+			<if test="purchaseRequirement!=null">purchaseRequirement=#{purchaseRequirement}</if>
+			<if test="returnDate!=null">returnDate=#{returnDate}</if>
+			<if test="shipmentStatus!=null">shipmentStatus=#{shipmentStatus}</if>
+			<if test="arrangeStatus!=null">arrangeStatus=#{arrangeStatus}</if>
+			<if test="orderType!=null">orderType=#{orderType}</if>
+			<if test="price!=null">price=#{price}</if>
+			<if test="remarks!=null">remarks=#{remarks}</if>
+		where 
+			orderInformationId=#{orderInformationId}
+	</update>
+	
+	<delete id="deleteOrder" parameterType="String">
+		delete from orderinformation
+		where orderInformationId=#{id};
+	</delete>
+	<!-- 批量删除 -->
+	<!-- idList 是 参数map中的key，其值是list
+	id 代表 list中每个元素-->
+	<delete id="deleteOrders"
+		parameterType="map">
+		delete from orderInformation
+		where
+			orderInformationId in 
+			<foreach collection="idList"
+				item="id"
+				open="(" separator="," close=")">
+				#{id}
+			</foreach>
+	</delete>	
+</mapper>
