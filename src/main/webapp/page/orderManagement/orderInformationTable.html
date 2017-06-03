@@ -1,26 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 <title>订单信息管理</title>
 <link href="../../common/easyUI/themes/default/easyui.css" rel="stylesheet" type="text/css" />
 <link href="../../common/easyUI/demo/demo.css" rel="stylesheet" type="text/css" />
-<link href="../../common/easyUI/themes/icon.css" rel="stylesheet" type="text/css" />
+<link href="../../common/easyUI/themes/myIcon.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+<link rel="stylesheet" type="text/css" href="../../css/infoForm.css">
 <script src="../../common/easyUI/jquery.min.js" type="text/javascript"></script>
 <script src="../../common/easyUI/jquery.easyui.min.js" type="text/javascript"></script>
-<script src="../../common/lib/jquery.edatagrid.js" type="text/javascript"></script>
-<!-- <script src="../../common/lib/datagrid-filter.js" type="text/javascript"></script> -->
 </head>
 
 <body>
-	<table id="dg"></table>
+	<table id="dg"></table><!-- 数据表格占位 -->
+	<div id="toolbar">
+		<a href="javascript:;" iconCls="icon-add" plain="true" onclick="addRow()" class="easyui-linkbutton">添加行</a>
+		<a href="javascript:;" iconCls="icon-remove" plain="true" onclick="removeRows()" class="easyui-linkbutton">删除选中行</a>
+		<a href="javascript:;" iconCls="icon-edit" plain="true" onclick="editRow()" class="easyui-linkbutton">修改行</a>
+		<a href="javascript:;" iconCls="icon-reload" plain="true" onclick="reloadTable()" class="easyui-linkbutton">重新加载表格</a>
+		<div id="searchBox">
+			<input  class="easyui-searchbox" data-options="prompt:'请输入',menu:'#mm',searcher:doSearch">
+			<div id="mm">
+				<div data-options="name:'name3'">订单号</div>
+				<div data-options="name:'name2'">产品名称</div>
+			</div>
+		</div>
+	</div>
+    <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
+    	<div class="ftitle">新增一条订单信息记录</div>
+    	<form id="fm" method="post"><!-- 表单开始 -->
+    		<div class="fitem">
+    			<label >name1:</label>
+    			<input name="name1" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >name2:</label>
+    			<input name="name2" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >name3:</label>
+    			<input name="name3" class="easyui-validatebox" validType="email">
+    		</div>
+    		<div class="fitem">
+    			<label >name4:</label>
+    			<input name="name4" >
+    		</div>
+    		<div class="fitem">
+    			<label >name5:</label>
+    			<input type="text" name="name5" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >name6:</label>
+    			<input type="text" name="name6" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >name7:</label>
+    			<input type="text" name="name7" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >name8:</label>
+    			<input type="text" name="name8" required class="easyui-validatebox">
+    		</div>
+    	</form><!-- 表单结束 -->
+    	<div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
+    		<a href="javascript:;" iconCls="icon-ok" onclick="save()" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
+    	</div><!-- 表单菜单按钮结束 -->
+    </div><!-- 新增数据窗口结束 -->
 	<script>
-		$('#dg').edatagrid({
-			url:'../../order/list.do',//一个 URL，从服务器检索数据。
-			saveUrl:'#',//一个 URL，向服务器保存数据，并返回添加的行。
-			updateUrl:'#',//一个 URL，向服务器更新数据，并返回更新的行。
-			destroyUrl:'#',//一个 URL，向服务器传送 'id' 参数来销毁该行。
-			autoSave:true,//0自动保存
+		var url='javascript:;';//这个url中存储着新增或者修改操作的url
+		$('#dg').datagrid({
+			url:'datagrid_data.json',//一个 URL，从服务器检索数据。
+			saveUrl:'#',//服务器保存某条记录的操作程序
+			updateUrl:'#',//服务器更新某条记录的操作程序
+			destroyUrl:'#',//服务器删除某条记录的程序
+			toolbar:'#toolbar',
 			fit:true,//表格宽度自适应，不设置默认为false（对于长表格最好设置为true，否则使用体验很差）
 			//fitColumns:true,//列宽度自适应，设置为true后设置的固定宽度不起作用
 			autoRowHeight:false,//设为true则基于该行内容设置行高度，同时降低加载
@@ -29,50 +83,115 @@
 			loadMsg:'加载中、、、、',//从远程加载数据时，显示的提示信息
 			pagination:false,//底部分页栏
 			rownumbers:true,//显示行号
-			columns:[[   
-				{field:'orderInformationId',title:'订单Id',width:80,align:'center',editor:'text'},
-				{field:'rowRecordId',title:'原材料记录Id',width:80,align:'center',editor:'text'},
-				{field:'clientId',title:'客户Id',width:40,align:'center',editor:'text'},
-				{field:'deliveryRecordId',title:'送货记录Id',width:40,align:'center',editor:'text'},
-				{field:'orderDate',title:'下单日期',width:40,align:'center',editor:'text'},
-				{field:'requiredDate',title:'交货日期',width:40,fontsize:20,align:'center',editor:'text'},
-				{field:'orderNo',title:'订单号',width:80,align:'center',editor:'text'},
-				{field:'productName',title:'产品名称',width:180,align:'center',editor:'text'},
-				{field:'materialCoding',title:'物料编码',width:80,align:'center',editor:'text'},
-				{field:'orderAmount',title:'订单数量',width:40,align:'center',editor:'text'},
-				{field:'spareParts',title:'备品',width:40,align:'center',editor:'text'},
-				{field:'stockAmount',title:'库存',width:80,align:'center',editor:'text'},
-				{field:'planAmount',title:'计划数量',width:40,align:'center',editor:'text'},
-				{field:'materialModel',title:'规格型号',width:50,width:80,height:30,align:'center',editor:'text'},
-				{field:'purchaseRequirement',title:'特殊要求',width:80,align:'center',editor:'text'},
-				{field:'returnDate',title:'回复交期',width:40,align:'center',editor:'text'},
-				{field:'shipmentStatus',title:'出货状态',width:30,align:'center',editor:'text'},
-				{field:'arrangeStatus',title:'安排状态',width:30,align:'center',editor:'text'},
-				{field:'orderType',title:'订单类型',width:30,align:'center',editor:'text'},
-				{field:'price',title:'单价',width:30,align:'center',editor:'text'},
-				{field:'remarks',title:'备注',width:30,align:'center',editor:'text'},
-				{field:'created',title:'创建日期',width:30,align:'center',editor:'text'},
-				{field:'updated',title:'更改日期',width:30,align:'center',editor:'text'}
-			]],
-			toolbar:[{
-				text:'添加行',
-				iconCls:'icon-add',
-				handler:function(){$('#dg').edatagrid('addRow');}
-			},{
-				text:'删除行',
-				iconCls:'icon-remove',
-				handler:function(){$('#dg').edatagrid('destroyRow');}
-			},{
-				text:'保存',
-				iconCls:'icon-save',
-				handler:function(){$('#dg').edatagrid('saveRow');}
-			},{
-				text:'撤销修改',
-				iconCls:'icon-undo',
-				handler:function(){$('#dg').edatagrid('cancelRow');}
-			}]
+			columns:[[
+				{field:'ck',checkbox:true},
+				{field:'name3',title:'订单号',width:80,align:'center'},
+				{field:'name5',title:'产品名称',width:80,align:'center'},
+				{field:'name7',title:'数量',width:40,align:'center'},
+				{field:'name8',title:'库存',width:40,align:'center'},
+				{field:'name9',title:'备品',width:40,align:'center'},
+				{field:'name10',title:'需生产数',width:40,fontsize:20,align:'center'},
+				{field:'name1',title:'下单日期',width:80,align:'center'},
+				{field:'name2',title:'要求交货日期',width:80,align:'center'},
+				{field:'name11',title:'要求',width:180,align:'center'},
+				{field:'name12',title:'交期',width:180,align:'center'},
+				{field:'name14',title:'生产状态',width:40,align:'center'},
+				{field:'name13',title:'交货结果',width:40,align:'center'},
+				{field:'name15',title:'备注',width:80,align:'center'},
+				{field:'name16',title:'异常原因',width:40,align:'center'},
+				{field:'name6',title:'规格型号',width:50,width:80,height:30,align:'center'},
+				{field:'name4',title:'物料长编号',width:80,align:'center'},
+				{field:'name17',title:'单价',width:40,align:'center'}
+			]]
 		});
+		function addRow(){
+					$('#dlg').dialog('open').dialog('setTitle','新增订单信息');
+					$('#fm').form('clear');
+					url='saveUrl';//saveUrl指新增表单的处理程序URL
+				}
+		function removeRows(){
+			var rows=$('#dg').datagrid('getSelections');
+			var ids=[];
+			if(rows){
+				for (var i=0;i<rows.length;i++){
+					ids.push(rows[i].id);
+				}
+				$.messager.confirm('警告！','你确定需要删除选中的'+rows.length+'条记录嘛？',function(r){
+					if(r){
+						$.post('destroyUrl',{ids:ids},function(result){
+							if(result.success){
+								$('#dg').datagrid('reload');//删除成功则刷新表格
+							}else{
+								$.messager.show({
+									title:'删除失败！',
+									msg:result.errorMsg
+								});
+							}
+						},'json');
+					}
+				});
+			}else{
+				alert('请选择一条需要删除的数据！');
+			}
+		}
+		function editRow(){
+					var row=$('#dg').datagrid('getSelected');
+					if(row){
+						$('#dlg').dialog('open').dialog('setTitle','编辑订单信息');
+						$('#fm').form('load',row);
+						url='updateUrl?id='+row.id;//updateUrl指编辑表单的处理程序URL
+					}else{
+						alert('请选择一条需要修改的数据！');
+					}
+				}
+		function reloadTable(){$('#dg').datagrid('reload');}
 		//$('#dg').datagrid('enableFilter');//不好用
+		function save(){//表单保存的回调函数
+			$('#fm').form('submit',{
+				url:url,
+				onSubmit:function(){
+					return $(this).form('validate');
+				},
+				success:function(result){
+					var result=eval('('+result+')');
+					if(result.errorMsg){
+						$.messager.show({
+							title:'发生了一个错误',
+							msg:result.errorMsg
+						});
+					}else{
+						$('#dlg').dialog('close');//关闭弹窗
+						$('#dg').datagrid('reload');//更新表格
+					}
+				}
+			});
+		}
+		var rows=null;
+		function doSearch(value,name){
+			// alert('您查找的是:'+name+'='+value+'的结果、、、');
+			rows=rows||$('#dg').datagrid('getRows');
+			var resultRows=[];
+			var reload=false;
+			if(value !=''){
+				for(var i=0;i<rows.length;i++){
+					if(rows[i][name]==value){
+						resultRows.push(rows[i]);
+					}
+				}
+			}
+			if(resultRows.length>0&&resultRows.length<=rows.length){
+				reload=true;
+			}
+			if(reload){
+				$('#dg').datagrid('loadData',resultRows);
+			}else{
+				$('#dg').datagrid('loadData',rows);
+				alert('请输入正确的参数！')
+			}
+			return function(rows){
+				return rows;
+			}
+		}
 	</script>
 </body>
 </html>

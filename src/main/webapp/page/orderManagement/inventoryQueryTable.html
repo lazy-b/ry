@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>交货信息管理</title>
+<title>库存信息管理</title>
 <link href="../../common/easyUI/themes/default/easyui.css" rel="stylesheet" type="text/css" />
 <link href="../../common/easyUI/demo/demo.css" rel="stylesheet" type="text/css" />
 <link href="../../common/easyUI/themes/icon.css" rel="stylesheet" type="text/css" />
@@ -15,7 +15,7 @@
 	<table id="dg"></table>
 <script>
 		$('#dg').edatagrid({
-			url:'deliveryTrackingTable.json',//一个 URL，从服务器检索数据。
+			url:'orderScheduleTable.json',//一个 URL，从服务器检索数据。
 			saveUrl:'#',//一个 URL，向服务器保存数据，并返回添加的行。
 			updateUrl:'#',//一个 URL，向服务器更新数据，并返回更新的行。
 			destroyUrl:'#',//一个 URL，向服务器传送 'id' 参数来销毁该行。
@@ -28,20 +28,14 @@
 			pagination:false,//底部分页栏
 			rownumbers:true,//显示行号
 			columns:[[
-				{field:'name1',title:'订单号',width:80,align:'center',editor:'text'},
-				{field:'name2',title:'订单类型',width:80,align:'center',editor:'text'},
-				{field:'name3',title:'下单日期',width:40,align:'center',editor:'text'},
-				{field:'name4',title:'交期',width:40,align:'center',editor:'text'},
-				{field:'name5',title:'订单数量',width:40,align:'center',editor:'text'},
-				{field:'name6',title:'物料代码',width:40,fontsize:20,align:'center',editor:'text'},
-				{field:'name7',title:'物料规格',width:80,align:'center',editor:'text'},
-				{field:'name8',title:'交货总数',width:80,align:'center',editor:'text'},
-				{field:'name9',title:'退货总数',width:180,align:'center',editor:'text'},
-				{field:'name10',title:'未生产数',width:180,align:'center',editor:'text'},
-				{field:'name11',title:'单价',width:40,align:'center',editor:'text'},
-				{field:'name12',title:'未交金额',width:40,align:'center',editor:'text'},
-				{field:'name13',title:'订单金额',width:40,align:'center',editor:'text'},
-				{field:'name14',title:'备注',width:40,align:'center',editor:'text'}
+				{field:'name1',title:'产品名称',width:80,align:'center',editor:'text'},
+				{field:'name2',title:'产品部件名',width:80,align:'center',editor:'text'},
+				{field:'name3',title:'入库数量',width:40,align:'center',editor:'text'},
+				{field:'name4',title:'入库单号',width:40,align:'center',editor:'text'},
+				{field:'name5',title:'出库日期',width:40,align:'center',editor:'text'},
+				{field:'name6',title:'出库单号',width:40,fontsize:20,align:'center',editor:'text'},
+				{field:'name7',title:'结存数',width:80,align:'center',editor:'text'},
+				{field:'name8',title:'备注',width:80,align:'center',editor:'text'}
 			]],
 			toolbar:[{
 				text:'添加行',

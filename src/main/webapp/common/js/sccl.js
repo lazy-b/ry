@@ -436,9 +436,9 @@ $(function(){
 	var menu = [{"id":"1","name":"主菜单","parentId":"0","url":"","icon":"","order":"1","isHeader":"1","childMenus":[
 					{"id":"10","name":"量产订单管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
 						{"id":"11","name":"订单安排管理","parentId":"10","url":"orderManagement/orderInformationTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"12","name":"订单进度管理","parentId":"10","url":"orderManagement/productionTrackingTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+						{"id":"12","name":"订单进度管理","parentId":"10","url":"orderManagement/orderScheduleTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
 						{"id":"13","name":"交货信息管理","parentId":"10","url":"orderManagement/deliveryTrackingTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"14","name":"原材料信息管理","parentId":"10","url":"orderManagement/rawRecordTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+						{"id":"14","name":"库存信息管理","parentId":"10","url":"orderManagement/inventoryQueryTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
 						{"id":"15","name":"生产计划管理","parentId":"10","url":"orderManagement/inventoryQueryTable.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 					]},
 					{"id":"20","name":"样品订单管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
