@@ -29,8 +29,7 @@
 		<property name="username"
 			value="root"/>
 		<property name="password"
-			value="neteast_1989"/>
-		
+			value="123456"/>
 	</bean>
  	
  	<bean id="sqlSessionFactory"
