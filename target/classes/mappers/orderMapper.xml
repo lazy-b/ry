@@ -93,7 +93,7 @@
 		where 
 			orderInformationId=#{orderInformationId}
 	</update>
-	
+	<!--根据Id删除订单  -->
 	<delete id="deleteOrder" parameterType="String">
 		delete from orderinformation
 		where orderInformationId=#{id};

@@ -13,11 +13,13 @@ import cn.fenix.ry.entity.OrderInformation;
 public interface OrderDao {
 	//订单信息查询
 	List<Map<String, Object>> findAllOrder();
+	
 	//根据订单Id查询订单信息内容
 	OrderInformation findByOrderId(String orderId);
 	
-	//根据订单Id查询订单信息内容
+	//根据产品名称查询订单信息内容
 	OrderInformation findByProductName(String productName);
+	
 	//添加订单
 	int addOrder(OrderInformation order);
 	//修改订单
