@@ -5,29 +5,29 @@ import java.sql.Date;
 
 public class OrderInformation implements Serializable{
 	private static final long serialVersionUID = 2726342261326989546L;
-	private String orderInformationId;
-	   private String rowRecordId;
-	   private Integer clientId;
-	   private String deliveryRecordId;
-	   private String orderDate;
-	   private String requiredDate;
-	   private String orderNo;
-	   private String materialCoding;
-	   private String productName;
-	   private Integer orderAmount;
-	   private Integer spareParts;
-	   private Integer stockAmount;
-	   private Integer planAmount;
-	   private String materialModel;
-	   private String purchaseRequirement;
-	   private String returnDate;
-	   private Integer shipmentStatus;
-	   private Integer arrangeStatus;
-	   private Integer orderType;
-	   private Double price;
-	   private String remarks;
-	   private Date created;
-	   private Date updated;
+	private String orderInformationId; //订单表Id
+	   private String rowRecordId;     //原材料表Id;
+	   private Integer clientId;       //客户Id;
+	   private String deliveryRecordId;//原材料记录Id;
+	   private String orderDate;       //下单日期;
+	   private String requiredDate;    //要求日期;
+	   private String orderNo;         //订单号;
+	   private String materialCoding;  //物料编码;
+	   private String productName;     //产品名称;
+	   private Integer orderAmount;    //订单数;
+	   private Integer spareParts;     //备品;
+	   private Integer stockAmount;    //库存数;
+	   private Integer planAmount;     //计划数;
+	   private String materialModel;   //规格型号;
+	   private String purchaseRequirement;//要求;
+	   private String returnDate;         //回复交期;
+	   private Integer shipmentStatus;    //出货状态;
+	   private Integer arrangeStatus;     //安排状态;
+	   private Integer orderType;         //订单类型;
+	   private Double price;              //单价;
+	   private String remarks;            //备注;
+	   private Date created;              //创建日期;
+	   private Date updated;              //更新日期;
 	public OrderInformation() {
 		super();
 		// TODO Auto-generated constructor stub
