@@ -27,40 +27,76 @@
 			</div>
 		</div>
 	</div>
-    <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
+    <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" modal="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
     	<div class="ftitle">新增一条订单信息记录</div>
     	<form id="fm" method="post"><!-- 表单开始 -->
     		<div class="fitem">
-    			<label >name1:</label>
-    			<input name="name1" required class="easyui-validatebox">
+    			<label >订单号：</label>
+    			<input name="orderNo" required class="easyui-validatebox">
     		</div>
     		<div class="fitem">
-    			<label >name2:</label>
-    			<input name="name2" required class="easyui-validatebox">
+    			<label >产品名称：</label>
+    			<input name="productName" required class="easyui-validatebox">
     		</div>
     		<div class="fitem">
-    			<label >name3:</label>
-    			<input name="name3" class="easyui-validatebox" validType="email">
+    			<label >数量：</label>
+    			<input name="orderAmount" required class="easyui-validatebox" >
     		</div>
     		<div class="fitem">
-    			<label >name4:</label>
-    			<input name="name4" >
+    			<label >库存：</label>
+    			<input name="stockAmount" class="easyui-validatebox">
     		</div>
     		<div class="fitem">
-    			<label >name5:</label>
-    			<input type="text" name="name5" required class="easyui-validatebox">
+    			<label >备品：</label>
+    			<input type="text" name="spareParts" class="easyui-validatebox">
     		</div>
     		<div class="fitem">
-    			<label >name6:</label>
-    			<input type="text" name="name6" required class="easyui-validatebox">
+    			<label >需生产数：</label>
+    			<input type="text" name="planAmount" required class="easyui-validatebox">
     		</div>
     		<div class="fitem">
-    			<label >name7:</label>
-    			<input type="text" name="name7" required class="easyui-validatebox">
+    			<label >下单日期：</label>
+    			<input type="text" name="orderDate" required class="easyui-validatebox">
     		</div>
     		<div class="fitem">
-    			<label >name8:</label>
-    			<input type="text" name="name8" required class="easyui-validatebox">
+    			<label >要求交货日期：</label>
+    			<input type="text" name="requiredDate" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >要求：</label>
+    			<input type="text" name="purchaseRequirement" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >交期：</label>
+    			<input type="text" name="returnDate" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >生产状态：</label>
+    			<input type="text" name="arrangeStatus" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >交货结果：</label>
+    			<input type="text" name="shipmentStatus" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >备注：</label>
+    			<input type="text" name="remarks" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >订单类型：</label>
+    			<input type="text" name="orderType" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >规格型号：</label>
+    			<input type="text" name="materialModel" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >物料长编号：</label>
+    			<input type="text" name="materialCoding" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >单价：</label>
+    			<input type="text" name="price" class="easyui-validatebox">
     		</div>
     	</form><!-- 表单结束 -->
     	<div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
@@ -70,7 +106,7 @@
 	<script>
 		var url='javascript:;';//这个url中存储着新增或者修改操作的url
 		$('#dg').datagrid({
-			url:'datagrid_data.json',//一个 URL，从服务器检索数据。
+			url:'../../order/list.do',//一个 URL，从服务器检索数据。
 			saveUrl:'#',//服务器保存某条记录的操作程序
 			updateUrl:'#',//服务器更新某条记录的操作程序
 			destroyUrl:'#',//服务器删除某条记录的程序
@@ -85,23 +121,23 @@
 			rownumbers:true,//显示行号
 			columns:[[
 				{field:'ck',checkbox:true},
-				{field:'name3',title:'订单号',width:80,align:'center'},
-				{field:'name5',title:'产品名称',width:80,align:'center'},
-				{field:'name7',title:'数量',width:40,align:'center'},
-				{field:'name8',title:'库存',width:40,align:'center'},
-				{field:'name9',title:'备品',width:40,align:'center'},
-				{field:'name10',title:'需生产数',width:40,fontsize:20,align:'center'},
-				{field:'name1',title:'下单日期',width:80,align:'center'},
-				{field:'name2',title:'要求交货日期',width:80,align:'center'},
-				{field:'name11',title:'要求',width:180,align:'center'},
-				{field:'name12',title:'交期',width:180,align:'center'},
-				{field:'name14',title:'生产状态',width:40,align:'center'},
-				{field:'name13',title:'交货结果',width:40,align:'center'},
-				{field:'name15',title:'备注',width:80,align:'center'},
-				{field:'name16',title:'异常原因',width:40,align:'center'},
-				{field:'name6',title:'规格型号',width:50,width:80,height:30,align:'center'},
-				{field:'name4',title:'物料长编号',width:80,align:'center'},
-				{field:'name17',title:'单价',width:40,align:'center'}
+				{field:'orderNo',title:'订单号',width:80,align:'center'},
+				{field:'productName',title:'产品名称',width:80,align:'center'},
+				{field:'orderAmount',title:'数量',width:40,align:'center'},
+				{field:'stockAmount',title:'库存',width:40,align:'center'},
+				{field:'spareParts',title:'备品',width:40,align:'center'},
+				{field:'planAmount',title:'需生产数',width:40,fontsize:20,align:'center'},
+				{field:'orderDate',title:'下单日期',width:80,align:'center'},
+				{field:'requiredDate',title:'要求交货日期',width:80,align:'center'},
+				{field:'purchaseRequirement',title:'要求',width:180,align:'center'},
+				{field:'returnDate',title:'交期',width:180,align:'center'},
+				{field:'arrangeStatus',title:'生产状态',width:40,align:'center'},
+				{field:'shipmentStatus',title:'交货结果',width:40,align:'center'},
+				{field:'remarks',title:'备注',width:80,align:'center'},
+				{field:'orderType',title:'订单类型',width:40,align:'center'},
+				{field:'materialModel',title:'规格型号',width:50,width:80,height:30,align:'center'},
+				{field:'materialCoding',title:'物料长编号',width:80,align:'center'},
+				{field:'price',title:'单价',width:40,align:'center'}
 			]]
 		});
 		function addRow(){
@@ -188,6 +224,7 @@
 				$('#dg').datagrid('loadData',rows);
 				alert('请输入正确的参数！')
 			}
+			//闭包，保证表格数据不丢失。也可以不用闭包，每次都重新加载。
 			return function(rows){
 				return rows;
 			}
