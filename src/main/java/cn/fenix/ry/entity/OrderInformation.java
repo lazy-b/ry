@@ -2,7 +2,11 @@ package cn.fenix.ry.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-
+/**
+ * 订单信息表
+ * @author wenye
+ * @Time 2017-6-4
+ */
 public class OrderInformation implements Serializable{
 	private static final long serialVersionUID = 2726342261326989546L;
 	private String orderInformationId; //订单表Id

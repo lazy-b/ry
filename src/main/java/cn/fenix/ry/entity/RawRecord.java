@@ -2,33 +2,37 @@ package cn.fenix.ry.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 原材料信息表
+ * @author wenye
+ * @Time 2017-6-4
+ */
 public class RawRecord implements Serializable{
 	private static final long serialVersionUID = 2743209351535250134L;
-		private String rowRecordId;
-		private String pickingId;
-		private String materialReturnId;
-		private String materialStockId;
-		private String orderNo;
-		private String productName;
-		private String orderAmount;
-		private String materialModel;
-		private String unit;
-		private Double expectAmount;
-		private Double stockAmount;
-		private Double requestAmount;
-		private Date   pickingDate;
-		private Double pickingAmount;
-		private Double backAmount;
-		private Date backDate;
-		private Double pickingTotal;
-		private Double unclaimedAmount;
-		private Double unitPrice;
-		private Double weight;
-		private Double amount;
-		private String remarks;
-		private Date created;
-		private Date updated;
+		private String rowRecordId;      //原材料记录表Id
+		private String pickingId;        //领料表Id
+		private String materialReturnId; //退料表Id
+		private String materialStockId;  //材料库存表Id
+		private String orderNo;          //订单号
+		private String productName;      //产品名称
+		private String orderAmount;      //订单数量
+		private String materialModel;    //材料编码
+		private String unit;             //单位
+		private Double expectAmount;     //计划领料数
+		private Double stockAmount;      //库存数
+		private Double requestAmount;    //需求数
+		private Date   pickingDate;      //领料日期
+		private Double pickingAmount;    //领料数量
+		private Double backAmount;       //退料数
+		private Date backDate;           //退料日期
+		private Double pickingTotal;     //领料总数
+		private Double unclaimedAmount;  //未领数
+		private Double unitPrice;        //单价
+		private Double weight;           //总量
+		private Double amount;           //金额
+		private String remarks;          //备注
+		private Date created;            //创建日期
+		private Date updated;            //修改日期
 		public String getRowRecordId() {
 			return rowRecordId;
 		}
