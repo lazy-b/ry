@@ -3,8 +3,7 @@ ryjmday02/
 target/m2e-wtp/web-resources/META-INF/maven/cn.fenix/fenixlightryjm1/pom.properties
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 *.class
+
 *.MF
 *.properties
 *.prefs
-target/m2e-wtp/web-resources/META-INF/maven/cn.fenix/fenixlightryjm1/pom.properties
-*.class
