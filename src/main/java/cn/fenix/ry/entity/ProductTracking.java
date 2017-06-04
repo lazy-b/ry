@@ -2,30 +2,34 @@ package cn.fenix.ry.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 生产跟踪表
+ * @author wenye
+ * @Time 2017-6-4
+ */
 public class ProductTracking implements Serializable {
 		private static final long serialVersionUID = 6026233819199187378L;
-		private String productTackingId;
-		private String dailyOutputId;
-		private String groups;
-		private Date dates;
-		private String shift;
-		private String machineNumber;
-		private String orderNo;
-		private String productName;
-		private String process;
-		private Integer planeAmount;
-		private Integer inventoryAmount;
-		private Integer totalAmount;
-		private Integer scrapAmount;
-		private Integer waitRepairAmount;
-		private Integer repairAmount;
-		private Integer balanceAmount;
-		private Double processRate;
-		private Integer status;
-		private Integer processCompletion;
-		private Date created;
-		private Date updated;
+		private String productTackingId; //生产跟踪Id;
+		private String dailyOutputId;    //日产表Id;
+		private String groups;           //组别
+		private Date dates;              //日期
+		private String shift;            //班次
+		private String machineNumber;    //机床号
+		private String orderNo;          //订单号
+		private String productName;      //产品名称
+		private String process;          //工序
+		private Integer planeAmount;     //计划数量
+		private Integer inventoryAmount; //库存数量
+		private Integer totalAmount;     //良品数
+		private Integer scrapAmount;     //报废数
+		private Integer waitRepairAmount; //待返修数
+		private Integer repairAmount;     //返修数
+		private Integer balanceAmount;    //未生产数
+		private Double processRate;       //工序完成率
+		private Integer status;           //状态
+		private Integer processCompletion; //工序完成确认
+		private Date created;              //创建日期
+		private Date updated;              //修改日期
 		public String getProductTackingId() {
 			return productTackingId;
 		}

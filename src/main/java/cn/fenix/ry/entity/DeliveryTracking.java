@@ -2,30 +2,34 @@ package cn.fenix.ry.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 交货跟踪表
+ * @author wenye
+ * @Time 2017-6-4
+ */
 public class DeliveryTracking implements Serializable {
 	private static final long serialVersionUID = 2048088272853579763L;
 	   
-	   private String deliveryRecordId;
-	   private String prDeliveryId;
-	   private String prPickingId;
-	   private String prReturnId;
-	   private String orderNo;
-	   private Date orderDate;
-	   private Date deliveryDate;	
-	   private Integer orderAmount;
-	   private String productName;
-	   private String materialCoding;
-	   private Integer deliveryAmount;
-	   private Integer returnAmount;
-	   private Integer badAmount;
-	   private Integer balanceAmount;
-	   private Double unitPrice;
-	   private Double unpaidMoney;
-	   private Double orderMoney;
-	   private String remarks;
-	   private Date created;
-	   private Date updated;
+	   private String deliveryRecordId; //交货跟踪表Id
+	   private String prDeliveryId;     //交货表Id
+	   private String prPickingId;      //领料表Id
+	   private String prReturnId;       //退料表Id
+	   private String orderNo;          //订单号
+	   private Date orderDate;          //下单日期
+	   private Date deliveryDate;	    //交货日期
+	   private Integer orderAmount;     //订单数量
+	   private String productName;      //产品名称
+	   private String materialCoding;   //物料编码
+	   private Integer deliveryAmount;  //送货数量
+	   private Integer returnAmount;    //退货数量
+	   private Integer badAmount;       //制程不良数
+	   private Integer balanceAmount;   //未交数
+	   private Double unitPrice;        //单价
+	   private Double unpaidMoney;      //未交金额
+	   private Double orderMoney;       //订单金额
+	   private String remarks;          //备注
+	   private Date created;            //创建日期
+	   private Date updated;            //修改日期
 	public String getDeliveryRecordId() {
 		return deliveryRecordId;
 	}
