@@ -105,6 +105,7 @@
     </div><!-- 新增数据窗口结束 -->
 	<script>
 		var url='javascript:;';//这个url中存储着新增或者修改操作的url
+		var id='orderInformationId';//映射id
 		$('#dg').datagrid({
 			url:'../../order/list.do',//一个 URL，从服务器检索数据。
 			saveUrl:'#',//服务器保存某条记录的操作程序
@@ -137,7 +138,8 @@
 				{field:'orderType',title:'订单类型',width:40,align:'center'},
 				{field:'materialModel',title:'规格型号',width:50,width:80,height:30,align:'center'},
 				{field:'materialCoding',title:'物料长编号',width:80,align:'center'},
-				{field:'price',title:'单价',width:40,align:'center'}
+				{field:'price',title:'单价',width:40,align:'center'},
+				{field:'orderInformationId',title:'订单表id',hidden:'true'}
 			]]
 		});
 		function addRow(){
@@ -150,7 +152,7 @@
 			var ids=[];
 			if(rows){
 				for (var i=0;i<rows.length;i++){
-					ids.push(rows[i].id);
+					ids.push(rows[i][id]);
 				}
 				$.messager.confirm('警告！','你确定需要删除选中的'+rows.length+'条记录嘛？',function(r){
 					if(r){
@@ -175,7 +177,7 @@
 					if(row){
 						$('#dlg').dialog('open').dialog('setTitle','编辑订单信息');
 						$('#fm').form('load',row);
-						url='updateUrl?id='+row.id;//updateUrl指编辑表单的处理程序URL
+						url='updateUrl?'+id+'='+row[id];//updateUrl指编辑表单的处理程序URL
 					}else{
 						alert('请选择一条需要修改的数据！');
 					}
