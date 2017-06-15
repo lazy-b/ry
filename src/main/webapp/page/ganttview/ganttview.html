@@ -1,72 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
-
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta charset="utf-8"/>
-	<link rel="stylesheet" type="text/css" href="../../common/ganttview/lib/jquery-ui-1.8.4.css" />
-	<link rel="stylesheet" type="text/css" href="../../common/ganttview/example/reset.css" />
-	<link rel="stylesheet" type="text/css" href="../../common/ganttview/jquery.ganttView.css" />
-	<style type="text/css">
-		body {
-			font-family: "微软雅黑", verdana, helvetica;
-			font-size: 0.8em;
-			padding: 10px;
-		}
-		#ganttTitle {
-			position:absolute;
-			width:160px;
-			height:40px;
-			line-height:40px;
-			font-weight:bold;
-			padding-left:10px;
-		}
-		</style>
-	<title>jQuery Gantt</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>新版甘特图4</title>
+	<link rel="stylesheet" href="../../css/reset.css">
+	<link rel="stylesheet" href="../../css/ganttview.css">
+	<script src="ganttviewTest.js"></script>
+	<script src="../../js/lazyGanttview.js"></script>
+	<!-- <script src="date-zh-CN.js"></script> -->
 </head>
 <body>
-	<div id="ganttTitle">订单号：P20170301022</div>
-	<div id="ganttChart"></div>
-	<!--<div id="eventMessage">这是提示信息区</div>-->
-
-	<script type="text/javascript" src="../../common/ganttview/lib/jquery-1.4.2.js"></script>
-	<script type="text/javascript" src="../../common/ganttview/lib/date.js"></script>
-	<script type="text/javascript" src="../../common/ganttview/lib/jquery-ui-1.8.4.js"></script>
-	<script type="text/javascript" src="../../common/ganttview/jquery.ganttView.js"></script>
-	<script type="text/javascript" src="../../datas/ganttViewExample.js"></script>
-	<script type="text/javascript">
-		$(function () {
-			$("#ganttChart").ganttView({ 
-				showWeekends: true,
-				data: ganttData,
-				/*用URL读取JSON数据，必须先将数据发布到服务器上，否则报错，下面的写法不能正确读取数据且浏览器报错
-				dataUrl:"../../datas/ganttViewExample.js",
-				*/
-				//设置甘特图区域宽度
-				slideWidth: 1680,
-				behavior: {
-					clickable: false,
-            		draggable: false,
-            		resizable: false
-					/*onClick: function (data) { 
-						var msg = "You clicked on an event: { 开始日期: " + data.start.toString("yyyy年MM月dd日") + ", 结束日期: " + data.end.toString("yyyy年MM月dd日") + " }";
-						$("#eventMessage").text(msg);
-					},
-					onResize: function (data) { 
-						var msg = "You resized an event: { 开始日期: " + data.start.toString("yyyy年MM月dd日") + ", 结束日期: " + data.end.toString("yyyy年MM月dd日") + " }";
-						$("#eventMessage").text(msg);
-					},
-					onDrag: function (data) { 
-						var msg = "You dragged an event: { 开始日期: " + data.start.toString("yyyy年MM月dd日") + ", 结束日期: " + data.end.toString("yyyy年MM月dd日") + " }";
-						$("#eventMessage").text(msg);
-					}*/
-				}
-			});
-			
-			//改变甘特图宽度的另一种方式 
-			 //$("#ganttChart").ganttView("setSlideWidth", 600);
-		});
-	</script>
-
+	<div id="ganttview">
+		抱歉，甘特图可能出现了点问题，或者您的浏览器不支持显示甘特图！
+	</div>
 </body>
 </html>
