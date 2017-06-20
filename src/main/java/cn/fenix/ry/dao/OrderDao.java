@@ -3,29 +3,38 @@ package cn.fenix.ry.dao;
 import java.util.List;
 import java.util.Map;
 
-import cn.fenix.ry.entity.Contact;
 import cn.fenix.ry.entity.OrderInformation;
+
+
 /**
  * 订单信息处理Dao接口
  * @author wenye
  *
  */
-public interface OrderDao {
-	//订单信息查询
-	List<Map<String, Object>> findAllOrder();
+public interface OrderDao{
+	//展示所有订单
+	List<Map<String,Object>> findAllOrder();
 	
-	//根据订单Id查询订单信息内容
-	OrderInformation findByOrderId(String orderId);
+	//多条件查找订单(订单号&物料编码)
+	List<Map<String, Object>> selectOrderByParams(Map<String,Object> params);
+
+	//根据产品名称查找订单
+	List<Map<String,Object>> selectOrderByName(String productName);
 	
-	//根据产品名称查询订单信息内容
-	OrderInformation findByProductName(String productName);
+	//根据物料编码查找订单
+	List<Map<String,Object>> selectOrderByMaterialCoding(String materialCoding);
 	
 	//添加订单
 	int addOrder(OrderInformation order);
+	
 	//修改订单
-	int updateOrder(Map<String,Object> order);
+	int updateByPrimaryKey(OrderInformation  cOrder);
+	
+	//int updateAll(OrderInformation  cOrder);
+	int updateAll(OrderInformation  cOrder);
 	//根据Id删除订单
-	void deleteOrder(String id);
+	int deleteByPrimaryKey(String orderInformationId);
+	
 	//批量删除
-	void deleteOrders(Map<String, Object> params);
+	int deleteBatch(String[] ids);
 }

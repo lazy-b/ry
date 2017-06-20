@@ -2,6 +2,10 @@ package cn.fenix.ry.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 /**
  * 订单信息表
  * @author wenye
@@ -9,86 +13,38 @@ import java.sql.Date;
  */
 public class OrderInformation implements Serializable{
 	private static final long serialVersionUID = 2726342261326989546L;
-	private String orderInformationId; //订单表Id
-	   private String rowRecordId;     //原材料表Id;
-	   private Integer clientId;       //客户Id;
-	   private String deliveryRecordId;//原材料记录Id;
+	   //@Size(max=40, message="{id.length.error}")
+	   private String orderInformationId; //订单表Id
 	   private String orderDate;       //下单日期;
 	   private String requiredDate;    //要求日期;
 	   private String orderNo;         //订单号;
 	   private String materialCoding;  //物料编码;
 	   private String productName;     //产品名称;
+	   @Max(value=999999999, message="订购数量不能超过999999999")
 	   private Integer orderAmount;    //订单数;
 	   private Integer spareParts;     //备品;
 	   private Integer stockAmount;    //库存数;
 	   private Integer planAmount;     //计划数;
 	   private String materialModel;   //规格型号;
-	   private String purchaseRequirement;//要求;
-	   private String returnDate;         //回复交期;
-	   private Integer shipmentStatus;    //出货状态;
-	   private Integer arrangeStatus;     //安排状态;
-	   private Integer orderType;         //订单类型;
+	   private String purchaseRequirement;//特殊要求;
+	   private String replyDate;          //回复交期;
+	   private Integer orderStatus;     //订单状态;
+	   private String exceptionReason;    //异常原因;
+	   @Min(value=0,message="单价不能为负数")
 	   private Double price;              //单价;
-	   private String remarks;            //备注;
-	   private Date created;              //创建日期;
-	   private Date updated;              //更新日期;
+	   @Size(max=255, message="{remark.length.error}")
+	   private String remark;			  //备注;
+	   private Integer orderType;        //订单类型;
+	   
 	public OrderInformation() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public OrderInformation(String orderInformationId, String rowRecordId, Integer clientId, String deliveryRecordId,
-			String orderDate, String requiredDate, String orderNo, String materialCoding, String productName,
-			Integer orderAmount, Integer spareParts, Integer stockAmount, Integer planeAmount, String materialModel,
-			String purchaseRequirement, String returnDate, Integer shipmentStatus, Integer arrangeStatus,
-			Integer orderType, Double price, String remarks, Date created, Date updated) {
-		super();
-		this.orderInformationId = orderInformationId;
-		this.rowRecordId = rowRecordId;
-		this.clientId = clientId;
-		this.deliveryRecordId = deliveryRecordId;
-		this.orderDate = orderDate;
-		this.requiredDate = requiredDate;
-		this.orderNo = orderNo;
-		this.materialCoding = materialCoding;
-		this.productName = productName;
-		this.orderAmount = orderAmount;
-		this.spareParts = spareParts;
-		this.stockAmount = stockAmount;
-		this.planAmount = planeAmount;
-		this.materialModel = materialModel;
-		this.purchaseRequirement = purchaseRequirement;
-		this.returnDate = returnDate;
-		this.shipmentStatus = shipmentStatus;
-		this.arrangeStatus = arrangeStatus;
-		this.orderType = orderType;
-		this.price = price;
-		this.remarks = remarks;
-		this.created = created;
-		this.updated = updated;
 	}
 	public String getOrderInformationId() {
 		return orderInformationId;
 	}
 	public void setOrderInformationId(String orderInformationId) {
 		this.orderInformationId = orderInformationId;
-	}
-	public String getRowRecordId() {
-		return rowRecordId;
-	}
-	public void setRowRecordId(String rowRecordId) {
-		this.rowRecordId = rowRecordId;
-	}
-	public Integer getClientId() {
-		return clientId;
-	}
-	public void setClientId(Integer clientId) {
-		this.clientId = clientId;
-	}
-	public String getDeliveryRecordId() {
-		return deliveryRecordId;
-	}
-	public void setDeliveryRecordId(String deliveryRecordId) {
-		this.deliveryRecordId = deliveryRecordId;
 	}
 	public String getOrderDate() {
 		return orderDate;
@@ -138,11 +94,11 @@ public class OrderInformation implements Serializable{
 	public void setStockAmount(Integer stockAmount) {
 		this.stockAmount = stockAmount;
 	}
-	public Integer getPlaneAmount() {
+	public Integer getPlanAmount() {
 		return planAmount;
 	}
-	public void setPlaneAmount(Integer planeAmount) {
-		this.planAmount = planeAmount;
+	public void setPlanAmount(Integer planAmount) {
+		this.planAmount = planAmount;
 	}
 	public String getMaterialModel() {
 		return materialModel;
@@ -156,29 +112,23 @@ public class OrderInformation implements Serializable{
 	public void setPurchaseRequirement(String purchaseRequirement) {
 		this.purchaseRequirement = purchaseRequirement;
 	}
-	public String getReturnDate() {
-		return returnDate;
+	public String getReplyDate() {
+		return replyDate;
 	}
-	public void setReturnDate(String returnDate) {
-		this.returnDate = returnDate;
+	public void setReplyDate(String replyDate) {
+		this.replyDate = replyDate;
 	}
-	public Integer getShipmentStatus() {
-		return shipmentStatus;
+	public Integer getOrderStatus() {
+		return orderStatus;
 	}
-	public void setShipmentStatus(Integer shipmentStatus) {
-		this.shipmentStatus = shipmentStatus;
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
 	}
-	public Integer getArrangeStatus() {
-		return arrangeStatus;
+	public String getExceptionReason() {
+		return exceptionReason;
 	}
-	public void setArrangeStatus(Integer arrangeStatus) {
-		this.arrangeStatus = arrangeStatus;
-	}
-	public Integer getOrderType() {
-		return orderType;
-	}
-	public void setOrderType(Integer orderType) {
-		this.orderType = orderType;
+	public void setExceptionReason(String exceptionReason) {
+		this.exceptionReason = exceptionReason;
 	}
 	public Double getPrice() {
 		return price;
@@ -186,48 +136,53 @@ public class OrderInformation implements Serializable{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public String getRemarks() {
-		return remarks;
+	public String getRemark() {
+		return remark;
 	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
-	public Date getCreated() {
-		return created;
+	public Integer getOrderType() {
+		return orderType;
 	}
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-	public Date getUpdated() {
-		return updated;
-	}
-	public void setUpdated(Date updated) {
-		this.updated = updated;
+	public void setOrderType(Integer orderType) {
+		this.orderType = orderType;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((orderInformationId == null) ? 0 : orderInformationId.hashCode());
-		return result;
+	public String toString() {
+		return "OrderInformation [orderInformationId=" + orderInformationId + ", orderDate=" + orderDate
+				+ ", requiredDate=" + requiredDate + ", orderNo=" + orderNo + ", materialCoding=" + materialCoding
+				+ ", productName=" + productName + ", orderAmount=" + orderAmount + ", spareParts=" + spareParts
+				+ ", stockAmount=" + stockAmount + ", planAmount=" + planAmount + ", materialModel=" + materialModel
+				+ ", purchaseRequirement=" + purchaseRequirement + ", replyDate=" + replyDate + ", orderStatus="
+				+ orderStatus + ", exceptionReason=" + exceptionReason + ", price=" + price + ", remark=" + remark
+				+ ", orderType=" + orderType + "]";
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OrderInformation other = (OrderInformation) obj;
-		if (orderInformationId == null) {
-			if (other.orderInformationId != null)
-				return false;
-		} else if (!orderInformationId.equals(other.orderInformationId))
-			return false;
-		return true;
+	public OrderInformation(String orderInformationId, String orderDate, String requiredDate, String orderNo,
+			String materialCoding, String productName, Integer orderAmount, Integer spareParts, Integer stockAmount,
+			Integer planAmount, String materialModel, String purchaseRequirement, String replyDate, Integer orderStatus,
+			String exceptionReason, Double price, String remark, Integer orderType) {
+		super();
+		this.orderInformationId = orderInformationId;
+		this.orderDate = orderDate;
+		this.requiredDate = requiredDate;
+		this.orderNo = orderNo;
+		this.materialCoding = materialCoding;
+		this.productName = productName;
+		this.orderAmount = orderAmount;
+		this.spareParts = spareParts;
+		this.stockAmount = stockAmount;
+		this.planAmount = planAmount;
+		this.materialModel = materialModel;
+		this.purchaseRequirement = purchaseRequirement;
+		this.replyDate = replyDate;
+		this.orderStatus = orderStatus;
+		this.exceptionReason = exceptionReason;
+		this.price = price;
+		this.remark = remark;
+		this.orderType = orderType;
 	}
 }

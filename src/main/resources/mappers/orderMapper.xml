@@ -3,113 +3,195 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  <!-- 订单处理Mapper -->
 <mapper namespace="cn.fenix.ry.dao.OrderDao">
-<!-- 查找所有订单 -->
-    <select id="findAllOrder" 
-   parameterType="string"
-		resultType="map">
+  <resultMap id="BaseResultMap" type="cn.fenix.ry.entity.OrderInformation" >
+    <id column="orderInformationId" property="orderInformationId" jdbcType="VARCHAR" />
+    <result column="orderDate" property="orderDate" jdbcType="VARCHAR" />
+    <result column="requiredDate" property="requiredDate" jdbcType="VARCHAR" />
+    <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+    <result column="materialCoding" property="materialCoding" jdbcType="VARCHAR" />
+    <result column="productName" property="productName" jdbcType="VARCHAR" />
+    <result column="orderAmount" property="orderAmount" jdbcType="INTEGER" />
+    <result column="spareParts" property="spareParts" jdbcType="INTEGER" />
+    <result column="stockAmount" property="stockAmount" jdbcType="DOUBLE" />
+    <result column="planAmount" property="planAmount" jdbcType="INTEGER" />
+    <result column="materialModel" property="materialModel" jdbcType="VARCHAR" />
+    <result column="purchaseRequirement" property="purchaseRequirement" jdbcType="VARCHAR" />
+    <result column="replyDate" property="replyDate" jdbcType="VARCHAR" />
+    <result column="orderStatus" property="orderStatus" jdbcType="INTEGER" />
+    <result column="exceptionReason" property="exceptionReason" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="orderType" property="orderType" jdbcType="INTEGER" />
+  </resultMap>
+  
+  	<!--查找所有订单信息 -->
+    <select id="findAllOrder" parameterType="string" resultType="map"> 
     	select 
-    	 	orderInformationId,rowRecordId,clientId,deliveryRecordId,
-   			orderDate,requiredDate,orderNo,materialCoding,productName,	
-   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
-   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
-   			orderType,price,remarks,created,updated	
-    	 from 
-    		 	orderInformation
+    		orderInformationId,orderDate,requiredDate,orderNo,materialCoding,
+  			productName,orderAmount,spareParts,stockAmount,planAmount,materialModel,
+    		purchaseRequirement, replyDate, orderStatus, exceptionReason,	
+  			price,remark,orderType
+  		 from 
+    		 orderInformation order by productName;
     </select>
-    <!-- 根据订单Id查找订单 -->
-    <select id="findByOrderId" parameterType="String" 
-    	resultType="cn.fenix.ry.entity.OrderInformation">
-    	select 
-    		orderInformationId,rowRecordId,clientId,deliveryRecordId,
-   			orderDate,requiredDate,orderNo,materialCoding,productName,	
-   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
-   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
-   			orderType,price,remarks,created,updated	
-    	from 
-    		orderInformation
-    	where 
-    		orderInformationId=#{id}
-    			
-    
-    </select>
-    
-    <!-- 根据产品名称查找订单 -->
-    <select id="findByProductName" parameterType="String" 
-    	resultType="cn.fenix.ry.entity.OrderInformation">
-    	select 
-    		orderInformationId,rowRecordId,clientId,deliveryRecordId,
-   			orderDate,requiredDate,orderNo,materialCoding,productName,	
-   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
-   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
-   			orderType,price,remarks,created,updated	
-    	from 
-    		orderInformation
-    	where 
-    		productName=#{productName};	
-    </select>
-    
-    <!-- 根据产品名称查找订单 -->
-   <!-- 添加订单 -->
-  <insert id="addOrder"
-		parameterType="cn.fenix.ry.entity.OrderInformation">
-		insert into orderInformation
-			 (orderInformationId,rowRecordId,clientId,deliveryRecordId,
-   			orderDate,requiredDate,orderNo,materialCoding,productName,	
-   			orderAmount,spareParts,stockAmount,planAmount,materialModel,
-   			purchaseRequirement,returnDate,shipmentStatus,arrangeStatus,	
-   			orderType,price,remarks,created,updated	
-		values(
-			#{orderInformationId},#{rowRecordId},#{clientId},#{deliveryRecordId},
-   			#{orderDate},#{requiredDate},#{orderNo},#{materialCoding},#{productName},
-   			#{orderAmount},#{spareParts},#{stockAmount},#{planAmount},#{materialModel},
-   			#{purchaseRequirement},#{returnDate},#{shipmentStatus},#{arrangeStatus},
-   			#{orderType},#{price},#{remarks},#{created},#{updated})	
-	</insert>
-	<update id="updateOrder"
-	 	parameterType="map">
-	 	update 
-	 		orderInformation
-		set
-			<if test="rowRecordId!=null">rowRecordId=#{rowRecordId}</if>
-			<if test="clientId!=null">clientId=#{clientId}</if>
-			<if test="deliveryRecordId!=null">deliveryRecordId=#{deliveryRecordId}</if>
-			<if test="orderDate!=null">orderDate=#{orderDate}</if>
-			<if test="requiredDate!=null">requiredDate=#{requiredDate}</if>
-			<if test="orderNo!=null">orderNo=#{orderNo}</if>
-			<if test="materialCoding!=null">materialCoding=#{materialCoding}</if>
-			<if test="productName!=null">productName=#{productName}</if>
-			<if test="orderAmount!=null">orderAmount=#{orderAmount}</if>
-			<if test="spareParts!=null">spareParts=#{spareParts}</if>
-			<if test="stockAmount!=null">stockAmount=#{stockAmount}</if>
-			<if test="planAmount!=null">planAmount=#{planAmount}</if>
-			<if test="materialModel!=null">materialModel=#{materialModel}</if>
-			<if test="purchaseRequirement!=null">purchaseRequirement=#{purchaseRequirement}</if>
-			<if test="returnDate!=null">returnDate=#{returnDate}</if>
-			<if test="shipmentStatus!=null">shipmentStatus=#{shipmentStatus}</if>
-			<if test="arrangeStatus!=null">arrangeStatus=#{arrangeStatus}</if>
-			<if test="orderType!=null">orderType=#{orderType}</if>
-			<if test="price!=null">price=#{price}</if>
-			<if test="remarks!=null">remarks=#{remarks}</if>
-		where 
-			orderInformationId=#{orderInformationId}
-	</update>
-	<!--根据Id删除订单  -->
-	<delete id="deleteOrder" parameterType="String">
-		delete from orderinformation
-		where orderInformationId=#{id};
-	</delete>
-	<!-- 批量删除 -->
-	<!-- idList 是 参数map中的key，其值是list
-	id 代表 list中每个元素-->
-	<delete id="deleteOrders"
-		parameterType="map">
+ 	 <!--根据物料编码查找订单信息 -->
+   	<select id="selectOrderByMaterialCoding" resultType="map" parameterType="string">
+  	  select 
+  		    *
+  	   from
+  	   	    orderInformation 
+  	   where 
+  	        materialCoding=#{materialCoding} order by productName;
+  	</select>
+	<!-- 根据产品名称查找订单 -->				  
+ 	<select id="selectOrderByName" resultType="map" parameterType="string">
+  	  select 
+  		  *
+  	   from
+  	   	    orderInformation 
+  	   where 
+  	        productName=#{productName} order by productName;
+  	        
+  	</select>
+  <!-- 多条件查询 -->
+  	<select id="selectOrderByParams" parameterType="map" resultType="map">
+		select 
+			orderInformationId,orderDate,requiredDate,orderNo,materialCoding,
+  			productName,orderAmount,materialModel,orderStatus,price,orderType
+		from 
+			orderInformation 
+		<where>
+			<trim prefixOverrides="and">
+				<if test="orderNo!=null">
+  					orderNo=#{orderNo}
+  				</if>
+  				<if test="materialCoding!=null">
+  					and materialCoding=#{materialCoding} 
+  				</if>
+  			</trim>
+  		</where>	
+  	</select>
+ 	
+   	<!--插入订单 -->
+   	<insert id="addOrder" parameterType="cn.fenix.ry.entity.OrderInformation" >
+    	insert into orderinformation (orderInformationId, orderDate, requiredDate, 
+     	 	orderNo, materialCoding, productName, 
+      	 	orderAmount, spareParts, stockAmount, 
+         	planAmount, materialModel, purchaseRequirement, 
+         	replyDate, orderStatus, exceptionReason, 
+         	price, remark, orderType
+         	)
+    	values(
+    		#{orderInformationId,jdbcType=VARCHAR},
+     		#{orderDate,jdbcType=VARCHAR}, 
+     		#{requiredDate,jdbcType=VARCHAR}, 
+      		#{orderNo,jdbcType=VARCHAR},
+      		#{materialCoding,jdbcType=VARCHAR},
+        	#{productName,jdbcType=VARCHAR}, 
+      		#{orderAmount,jdbcType=INTEGER},
+       		#{spareParts,jdbcType=INTEGER},
+        	#{stockAmount,jdbcType=DOUBLE}, 
+      		#{planAmount,jdbcType=INTEGER}, 
+      		#{materialModel,jdbcType=VARCHAR},
+       		#{purchaseRequirement,jdbcType=VARCHAR}, 
+      		#{replyDate,jdbcType=VARCHAR},
+			#{orderStatus,jdbcType=INTEGER},
+ 			#{exceptionReason,jdbcType=VARCHAR}, 
+      		#{price,jdbcType=DOUBLE},
+       		#{remark,jdbcType=VARCHAR},
+       	 	#{orderType,jdbcType=INTEGER})	
+  	</insert>
+  
+  <!-- 根据id删除订单信息 -->        
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from orderInformation
+    where orderInformationId=#{orderInformationId,jdbcType=VARCHAR}
+   </delete>   
+  <!-- 批量删除 -->
+	<delete id="deleteBatch">
 		delete from orderInformation
-		where
-			orderInformationId in 
-			<foreach collection="idList"
-				item="id"
-				open="(" separator="," close=")">
-				#{id}
-			</foreach>
-	</delete>	
+		where  orderInformationId in	
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+			#{orderInformationId}
+		</foreach>
+	</delete>
+  <!-- 修改订单 -->                                
+  <update id="updateByPrimaryKey" parameterType="cn.fenix.ry.entity.OrderInformation">
+    update orderInformation
+    <set>
+      <if test="orderDate != null" >
+        orderDate=#{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="requiredDate != null" >
+        requiredDate=#{requiredDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        orderNo=#{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCoding != null" >
+        materialCoding=#{materialCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        productName=#{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null" >
+        orderAmount=#{orderAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="spareParts != null" >
+        spareParts=#{spareParts,jdbcType=VARCHAR},
+      </if>
+      <if test="stockAmount != null" >
+        stockAmount=#{stockAmount,jdbcType=VARCHAR}, 
+      </if>
+      <if test="planAmount != null" >
+        planAmount=#{planAmount,jdbcType=VARCHAR}, 
+      </if>
+      <if test="materialModel != null" >
+        materialModel=#{materialModel,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseRequirement != null" >
+        purchaseRequirement=#{purchaseRequirement,jdbcType=VARCHAR}, 
+      </if>
+      <if test="replyDate != null" >
+        replyDate=#{replyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        orderStatus=#{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionReason != null" >
+        exceptionReason=#{exceptionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price =#{price,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark=#{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        orderType=#{orderType,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where orderInformationId=#{orderInformationId,jdbcType=VARCHAR}
+  </update>
+   <update id="updateAll" parameterType="cn.fenix.ry.entity.OrderInformation">
+    update orderinformation
+    set orderDate = #{orderDate,jdbcType=VARCHAR},
+      requiredDate = #{requiredDate,jdbcType=VARCHAR},
+      orderNo = #{orderNo,jdbcType=VARCHAR},
+      materialCoding = #{materialCoding,jdbcType=VARCHAR},
+      productName = #{productName,jdbcType=VARCHAR},
+      orderAmount = #{orderAmount,jdbcType=VARCHAR},
+      spareParts = #{spareParts,jdbcType=VARCHAR},
+      stockAmount = #{stockAmount,jdbcType=VARCHAR},
+      planAmount = #{planAmount,jdbcType=VARCHAR},
+      materialModel = #{materialModel,jdbcType=VARCHAR},
+      purchaseRequirement = #{purchaseRequirement,jdbcType=VARCHAR},
+      replyDate = #{replyDate,jdbcType=VARCHAR},
+      orderStatus = #{orderStatus,jdbcType=VARCHAR},
+      exceptionReason = #{exceptionReason,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      orderType = #{orderType,jdbcType=VARCHAR}
+    where orderInformationId = #{orderinformationId,jdbcType=VARCHAR};
+  </update>
 </mapper>

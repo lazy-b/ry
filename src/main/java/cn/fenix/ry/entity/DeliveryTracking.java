@@ -15,8 +15,8 @@ public class DeliveryTracking implements Serializable {
 	   private String prPickingId;      //领料表Id
 	   private String prReturnId;       //退料表Id
 	   private String orderNo;          //订单号
-	   private Date orderDate;          //下单日期
-	   private Date deliveryDate;	    //交货日期
+	   private String orderDate;          //下单日期
+	   private String deliveryDate;	    //交货日期
 	   private Integer orderAmount;     //订单数量
 	   private String productName;      //产品名称
 	   private String materialCoding;   //物料编码
@@ -60,16 +60,16 @@ public class DeliveryTracking implements Serializable {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
-	public Date getDeliveryDate() {
+	public String getDeliveryDate() {
 		return deliveryDate;
 	}
-	public void setDeliveryDate(Date deliveryDate) {
+	public void setDeliveryDate(String deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 	public Integer getOrderAmount() {
@@ -152,6 +152,47 @@ public class DeliveryTracking implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public DeliveryTracking(String deliveryRecordId, String prDeliveryId, String prPickingId, String prReturnId,
+			String orderNo, String orderDate, String deliveryDate, Integer orderAmount, String productName,
+			String materialCoding, Integer deliveryAmount, Integer returnAmount, Integer badAmount,
+			Integer balanceAmount, Double unitPrice, Double unpaidMoney, Double orderMoney, String remarks,
+			Date created, Date updated) {
+		super();
+		this.deliveryRecordId = deliveryRecordId;
+		this.prDeliveryId = prDeliveryId;
+		this.prPickingId = prPickingId;
+		this.prReturnId = prReturnId;
+		this.orderNo = orderNo;
+		this.orderDate = orderDate;
+		this.deliveryDate = deliveryDate;
+		this.orderAmount = orderAmount;
+		this.productName = productName;
+		this.materialCoding = materialCoding;
+		this.deliveryAmount = deliveryAmount;
+		this.returnAmount = returnAmount;
+		this.badAmount = badAmount;
+		this.balanceAmount = balanceAmount;
+		this.unitPrice = unitPrice;
+		this.unpaidMoney = unpaidMoney;
+		this.orderMoney = orderMoney;
+		this.remarks = remarks;
+		this.created = created;
+		this.updated = updated;
+	}
+	public DeliveryTracking() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "DeliveryTracking [deliveryRecordId=" + deliveryRecordId + ", prDeliveryId=" + prDeliveryId
+				+ ", prPickingId=" + prPickingId + ", prReturnId=" + prReturnId + ", orderNo=" + orderNo
+				+ ", orderDate=" + orderDate + ", deliveryDate=" + deliveryDate + ", orderAmount=" + orderAmount
+				+ ", productName=" + productName + ", materialCoding=" + materialCoding + ", deliveryAmount="
+				+ deliveryAmount + ", returnAmount=" + returnAmount + ", badAmount=" + badAmount + ", balanceAmount="
+				+ balanceAmount + ", unitPrice=" + unitPrice + ", unpaidMoney=" + unpaidMoney + ", orderMoney="
+				+ orderMoney + ", remarks=" + remarks + ", created=" + created + ", updated=" + updated + "]";
 	}
 	
 	

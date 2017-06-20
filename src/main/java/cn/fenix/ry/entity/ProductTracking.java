@@ -12,7 +12,7 @@ public class ProductTracking implements Serializable {
 		private String productTackingId; //生产跟踪Id;
 		private String dailyOutputId;    //日产表Id;
 		private String groups;           //组别
-		private Date dates;              //日期
+		private String dates;              //日期
 		private String shift;            //班次
 		private String machineNumber;    //机床号
 		private String orderNo;          //订单号
@@ -30,6 +30,49 @@ public class ProductTracking implements Serializable {
 		private Integer processCompletion; //工序完成确认
 		private Date created;              //创建日期
 		private Date updated;              //修改日期
+		public ProductTracking() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public ProductTracking(String productTackingId, String dailyOutputId, String groups, String dates, String shift,
+				String machineNumber, String orderNo, String productName, String process, Integer planeAmount,
+				Integer inventoryAmount, Integer totalAmount, Integer scrapAmount, Integer waitRepairAmount,
+				Integer repairAmount, Integer balanceAmount, Double processRate, Integer status,
+				Integer processCompletion, Date created, Date updated) {
+			super();
+			this.productTackingId = productTackingId;
+			this.dailyOutputId = dailyOutputId;
+			this.groups = groups;
+			this.dates = dates;
+			this.shift = shift;
+			this.machineNumber = machineNumber;
+			this.orderNo = orderNo;
+			this.productName = productName;
+			this.process = process;
+			this.planeAmount = planeAmount;
+			this.inventoryAmount = inventoryAmount;
+			this.totalAmount = totalAmount;
+			this.scrapAmount = scrapAmount;
+			this.waitRepairAmount = waitRepairAmount;
+			this.repairAmount = repairAmount;
+			this.balanceAmount = balanceAmount;
+			this.processRate = processRate;
+			this.status = status;
+			this.processCompletion = processCompletion;
+			this.created = created;
+			this.updated = updated;
+		}
+		@Override
+		public String toString() {
+			return "ProductTracking [productTackingId=" + productTackingId + ", dailyOutputId=" + dailyOutputId
+					+ ", groups=" + groups + ", dates=" + dates + ", shift=" + shift + ", machineNumber="
+					+ machineNumber + ", orderNo=" + orderNo + ", productName=" + productName + ", process=" + process
+					+ ", planeAmount=" + planeAmount + ", inventoryAmount=" + inventoryAmount + ", totalAmount="
+					+ totalAmount + ", scrapAmount=" + scrapAmount + ", waitRepairAmount=" + waitRepairAmount
+					+ ", repairAmount=" + repairAmount + ", balanceAmount=" + balanceAmount + ", processRate="
+					+ processRate + ", status=" + status + ", processCompletion=" + processCompletion + ", created="
+					+ created + ", updated=" + updated + "]";
+		}
 		public String getProductTackingId() {
 			return productTackingId;
 		}
@@ -48,10 +91,10 @@ public class ProductTracking implements Serializable {
 		public void setGroups(String groups) {
 			this.groups = groups;
 		}
-		public Date getDates() {
+		public String getDates() {
 			return dates;
 		}
-		public void setDates(Date dates) {
+		public void setDates(String dates) {
 			this.dates = dates;
 		}
 		public String getShift() {
@@ -159,4 +202,5 @@ public class ProductTracking implements Serializable {
 		public static long getSerialversionuid() {
 			return serialVersionUID;
 		}
+		
 }

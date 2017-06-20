@@ -27,9 +27,91 @@
 			</div>
 		</div>
 	</div>
+	
+	
     <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" modal="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
     	<div class="ftitle">新增一条订单信息记录</div>
     	<form id="fm" method="post"><!-- 表单开始 -->
+    		<div class="fitem">
+    			<label >订单号：</label>
+    			<input name="orderNo" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >产品名称：</label>
+    			<input name="productName" required class="easyui-validatebox">
+    		</div>
+    			<div class="fitem">
+    			<label >物料长编号：</label>
+    			<input type="text" name="materialCoding" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >规格型号：</label>
+    			<input type="text" name="materialModel" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >数量：</label>
+    			<input name="orderAmount" required class="easyui-validatebox" >
+    		</div>
+    		<div class="fitem">
+    			<label >库存：</label>
+    			<input name="stockAmount" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >备品：</label>
+    			<input type="text" name="spareParts" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >需生产数：</label>
+    			<input type="text" name="planAmount" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >下单日期：</label>
+    			<input type="text" name="orderDate" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >要求交货日期：</label>
+    			<input type="text" name="requiredDate" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >要求：</label>
+    			<input type="text" name="purchaseRequirement" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >交期：</label>
+    			<input type="text" name="replyDate" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >订单状态：</label>
+    			<input type="text" name="orderStatus" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >异常原因：</label>
+    			<input type="text" name="exceptionReason" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >订单类型：</label>
+    			<input type="text" name="orderType" required class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >单价：</label>
+    			<input type="text" name="price" class="easyui-validatebox">
+    		</div>
+    		<div class="fitem">
+    			<label >备注：</label>
+    			<input type="text" name="remark" class="easyui-validatebox">
+    		</div>
+    	</form><!-- 表单结束 -->
+    	<div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
+    		<a href="../../order/insert.do" iconCls="icon-ok" onclick="save();return false;" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
+    	</div><!-- 表单菜单按钮结束 -->
+    	
+	<div id="tlg" class="easyui-dialog lazy-orderInfo" closed="true" modal="true" buttons="#tlg-buttons"><!-- 新增数据窗口开始 -->
+    	<div class="ftitle">修改一条订单信息记录</div>
+    		<form id="tfm" method="post"><!-- 表单开始 -->
+    		<div class="fitem" style="display: none">
+    			<label >订单Id：</label>
+    			<input name="orderInformationId" required class="easyui-validatebox">
+    		</div>
     		<div class="fitem">
     			<label >订单号：</label>
     			<input name="orderNo" required class="easyui-validatebox">
@@ -99,11 +181,11 @@
     			<label >备注：</label>
     			<input type="text" name="remark" class="easyui-validatebox">
     		</div>
-    	</form><!-- 表单结束 -->
-    	<div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
-    		<a href="../../order/insert.do" iconCls="icon-ok" onclick="save();return false;" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
+    	</form>
+    	<div class="tlg-buttons" id="tinfoSubmit"><!-- 表单菜单按钮开始 -->
+    		<a href="../../order/update.do" iconCls="icon-ok" onclick="update();return false;" class="easyui-linkbutton">更改</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#tlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
     	</div><!-- 表单菜单按钮结束 -->
-    </div><!-- 新增数据窗口结束 -->
+	
 	<script>
 		//var url='javascript:;';//这个url中存储着新增或者修改操作的url
 		var id='orderInformationId';//映射id
@@ -178,21 +260,25 @@
 		}
 		function editRow(){
 					var row=$('#dg').datagrid('getSelected');
+					console.log(row);
 					if(row){
-						$('#dlg').dialog('open').dialog('setTitle','编辑订单信息');
-						$('#fm').form('load',row);
-						url='../../order/update.do?id='+row[id];//updateUrl指编辑表单的处理程序URL
-						var dlg = get("dlg");
-						dlg.url=url;
+						$('#tlg').dialog('open').dialog('setTitle','编辑订单信息');
+						$('#tfm').form('load',row);
+						url='../../order/update.do?id='+row[id]; //updateUrl指编辑表单的处理程序URL
+						console.log(url);
+						var tlg = get("tlg");
+						tlg.url=url;
 					}else{
 						alert('请选择一条需要修改的数据！');
 					}
 				}
 		function reloadTable(){$('#dg').datagrid('reload');}
 		//$('#dg').datagrid('enableFilter');//不好用
+		
 		function save(){//表单保存的回调函数
 			var dlg = get("dlg");
 			var url = dlg.url;
+			console.log(url);
 			$('#fm').form('submit',{
 				url:url,
 				onSubmit:function(){
@@ -200,6 +286,7 @@
 				},
 				success:function(result){
 					var result=eval('('+result+')');
+					console.log(result);
 					if(result.errorMsg){
 						$.messager.show({
 							title:'发生了一个错误',
@@ -212,6 +299,32 @@
 				}
 			});
 		}
+		
+		function update(){//表单保存的回调函数
+			var tlg = get("tlg");
+			var url = tlg.url;
+			console.log(url);
+			$('#tfm').form('submit',{
+				url:url,
+				onSubmit:function(){
+					return $(this).form('validate');
+				},
+				success:function(result){
+					var result=eval('('+result+')');
+					console.log(result);
+					if(result.errorMsg){
+						$.messager.show({
+							title:'发生了一个错误',
+							msg:result.errorMsg
+						});
+					}else{
+						$('#tlg').dialog('close');//关闭弹窗
+						$('#dg').datagrid('reload');//更新表格
+					}
+				}
+			});
+		}
+		
 		var rows_info=null;
 		function doSearch(value,name){
 			// alert('您查找的是:'+name+'='+value+'的结果、、、');
