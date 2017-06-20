@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>进度详情测试</title>
+	<link rel="stylesheet" href="../../css/reset.css">
+	<link rel="stylesheet" href="../../css/detailTest.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+</head>
+<body>
+	<div class="tips"><!-- 提示信息开始 -->
+		<div class="wrap">
+			<p><i class="fa fa-bell-o" aria-hidden="true"></i> 温馨提示：如一精密事业部全体成员将<strong>竭尽全力</strong>为客户着想，<strong>保质保量</strong>地<strong>准时</strong>将产品交付！</p>
+		</div>
+	</div><!-- 提示信息结束 -->
+    <!-- <div id="search-box" class="wrap">
+        <table>订单号：
+                    <input type="text" placeholder="可以在此处输入订单号、、、">
+               产品名：
+                    <input type="text" placeholder="可以在此处输入产品名、、、">
+                    <button name="search">搜索</button>
+        </table>
+    </div> -->
+	<div class="wrap" id="container"><!-- 主内容开始 -->
+		<div class="state-bar"><!-- 进度条开始 -->
+            <div class="left">
+    			<div class="order-summary">
+    				<div class="state-top">
+                        <span class="left-text">订单号：</span>
+						<select name="product" id="selectOrderNumber">
+							<option value="PO20170615003" selected>PO20170615003</option>
+							<option value="PO20170615004">PO20170615004</option>
+							<option value="PO20170615005">PO20170615005</option>
+							<option value="PO20170615006">PO20170615006</option>
+							<option value="PO20170615007">PO20170615007</option>
+							<option value="PO20170615008">PO20170615008</option>
+						</select>
+						
+						
+						<!-- <span class="right-text">PO20170615003</span> -->
+                    </div>
+                    <div class="state-top">
+                        <span class="left-text">产品名：</span>
+						<select name="product" id="selectProduct">
+							<option value="TK16筒身" selected>TK16筒身</option>
+							<option value="PD35筒身">PD35筒身</option>
+							<option value="TK16灯座">TK16灯座</option>
+							<option value="PD35筒头">PD35筒头</option>
+							<option value="TK16筒尾">TK16筒尾</option>
+							<option value="PD35灯座">PD35灯座</option>
+						</select>
+						
+						<!-- <span class="right-text">TK15筒身</span> -->
+                    </div>
+                    <h3 class="state-text" title="订单状态" style="margin-top:50px">生产中</h3>
+    			</div>
+            </div>
+            <div class="right">
+    			<div class="order-state-step">
+                    <div class="order-state-node done">
+                        <ul>
+                            <!-- <li class="text1">2017/06/01</li> -->
+							<li class="text1">&nbsp;</li>
+                            <li class="text2">
+                                <i class="fa fa-file-text-o"></i>
+                            </li>
+                            <li class="text3">接收订单</li>
+                            <li class="text4">
+                                <p>2017/06/01<br />10:00:00</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-state-connector  done">
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                    </div>
+                    <div class="order-state-node done">
+                        <ul>
+                            <!-- <li class="text1">2017/06/01</li> -->
+							<li class="text1">&nbsp;</li>
+                            <li class="text2">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </li>
+                            <li class="text3">生产开始</li>
+                            <li class="text4">
+                                <p>2017/06/01<br />10:00:00</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-state-connector prepare">
+                       <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                    </div>
+    				<div class="order-state-node inital">
+                        <ul>
+                            <li class="text1">2017/06/01</li>
+                            <li class="text2">
+                                <i class="fa fa-cogs" aria-hidden="true"></i>
+                            </li>
+                            <li class="text3">生产完成</li>
+							<!--	<li class="text4">
+										<p>2017/06/01<br />10:00:00</p>
+									</li> -->
+							<li class="text4">
+								<p>&nbsp;<br />&nbsp;</p>
+							</li>
+                        </ul>
+                    </div>
+                    <div class="order-state-connector inital">
+                       <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                        <i class="fa fa-fighter-jet"></i>
+                    </div>
+                    <div class="order-state-node inital">
+                        <ul>
+                            <li class="text1">2017/06/01</li>
+                            <li class="text2">
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            </li>
+                            <li class="text3">订单完成</li>
+                            <!--	<li class="text4">
+										<p>2017/06/01<br />10:00:00</p>
+									</li> -->
+							<li class="text4">
+								<p>&nbsp;<br />&nbsp;</p>
+							</li>
+                        </ul>
+                    </div>
+    			</div>
+            </div>
+		</div><!-- 进度条结束 -->
+		<div class="state-info" style="display:none"><!-- 进度详情开始 -->
+			<div class="left">
+				<div class="order-info">
+					<div class="order-info-title">
+						<h3>订单详情</h3>
+					</div>
+					<div class="order-info-main">
+						<table>
+        					<tr>
+        						<th><label for="product">产品名称：</label></th>
+        						<td>
+        							<select name="product" id="selectProduct">
+        								<option value="TK16筒身" selected>TK16筒身</option>
+        								<option value="PD35筒身">PD35筒身</option>
+        								<option value="TK16灯座">TK16灯座</option>
+        								<option value="PD35筒头">PD35筒头</option>
+        								<option value="TK16筒尾">TK16筒尾</option>
+        								<option value="PD35灯座">PD35灯座</option>
+        							</select>
+        							<!-- <input type="text" value="TK16筒身"/> -->
+        						</td>
+        					</tr>
+        					<tr>
+        						<th>下单日期：</th>
+        						<td>2017/01/16</td>
+        					</tr>
+        					<tr>
+        						<th>要求交货日期：</th>
+        						<td>2017/02/20</td>
+        					</tr>
+        					<tr>
+        						<th>订单号：</th>
+        						<td>PO17010025</td>
+        					</tr>
+        					<tr>
+        						<th>物料长编号：</th>
+        						<td>11.210.025.001</td>
+        					</tr>
+        					<tr>
+        						<th>规格型号：</th>
+        						<td>A6061-T6/白件/Ф25.4*Ф20.5*73.1/TK16-20150129-006/A2</td>
+        					</tr>
+        					<tr>
+        						<th>数量：</th>
+        						<td>2000</td>
+        					</tr>
+        					<tr>
+        						<th>库存：</th>
+        						<td>20</td>
+        					</tr>
+        					<tr>
+        						<th>备品：</th>
+        						<td>20</td>
+        					</tr>
+        					<tr>
+        						<th>需生产数：</th>
+        						<td>2000</td>
+        					</tr>
+        					<tr>
+        						<th>要求：</th>
+        						<td>TK16,备白件，等通知交货Ф26.4*Ф20.5</td>
+        					</tr>
+        					<tr>
+        						<th>交期：</th>
+        						<td>2月20日交完,等通知交货(3月8日交完)</td>
+        					</tr>
+        					<tr>
+        						<th>交货结果：</th>
+        						<td>OK</td>
+        					</tr>
+        					<tr>
+        						<th>生产状态：</th>
+        						<td>已排</td>
+        					</tr>
+        					<tr>
+        						<th>备注：</th>
+        						<td>已提前交氧化</td>
+        					</tr>
+        					<tr>
+        						<th>异常原因：</th>
+        						<td>无</td>
+        					</tr>
+        					<tr>
+        						<th>单价：</th>
+        						<td>2.2</td>
+        					</tr>
+        				</table>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="order-state-info">
+                    <div class="order-state-info-title">
+                        <h3>生产进度详情</h3>
+                    </div>
+                    <div class="order-state-info-main">
+                        <dl>
+                            <dt>待处理</dt>
+                            <dd><time datatime="2017/05/01">2017.05.01 10:20： </time>接收订单</dd>
+                            <dd><time datatime="2017/05/02">2017.05.02 10:20： </time>第一次回复交期</dd>
+                            <dd><time datatime="2017/05/02">2017.05.02 15:20： </time>第二次回复交期</dd>
+                            <dd><time datatime="2017/05/02">2017.05.02 15:40： </time>确认交期</dd>
+                            <dd><time datatime="2017/05/02">2017.05.02 14:40： </time>安排生产，2天后上机</dd>
+                            <dt>工序一</dt>
+                            <dd><time datatime="2017/05/04">2017.05.04 10:20： </time>L12开始改机</dd>
+                            <dd><time datatime="2017/05/04">2017.05.04 14:20： </time>L12开始生产</dd>
+                            <dd><time datatime="2017/05/05">2017.05.05 10:20： </time>已生产数量200PCS，未生产数量400PCS，完成率33%</dd>
+                            <dd><time datatime="2017/05/06">2017.05.06 10:20： </time>已生产数量400PCS，未生产数量200PCS，完成率66%</dd>
+                            <dd><time datatime="2017/05/07">2017.05.07 10:20： </time>已生产数量600PCS，未生产数量0PCS，完成率100%</dd>
+                            <dt>工序二</dt>
+                            <dd><time datatime="2017/05/06">2017.05.06 19:20： </time>L12开始改机</dd>
+                            <dd><time datatime="2017/05/06">2017.05.06 22:20： </time>L12开始生产</dd>
+                            <dd><time datatime="2017/05/01">2017.05.07 10:20： </time>已生产数量200PCS，未生产数量400PCS，完成率33%</dd>
+                            <dd><time datatime="2017/05/08">2017.05.08 10:20： </time>已生产数量400PCS，未生产数量200PCS，完成率66%</dd>
+                            <dd><time datatime="2017/05/09">2017.05.09 10:20： </time>已生产数量600PCS，未生产数量0PCS，完成率100%</dd>
+                            <dt>待交货</dt>
+                            <dd><time datatime="2017/05/09">2017.05.09 10:20： </time>计划于5月9日14:00交货将600PCS送往氧化厂氧化
+                            </dd>
+                            <dd><time datatime="2017/05/09">2017.05.09 10:20： </time>实际于14:10将600PCS送往氧化厂
+                            </dd>
+                        </dl>
+                    </div>
+				</div>
+			</div>
+		</div><!-- 进度详情结束 -->
+	</div><!-- 主内容结束 -->
+</body>
+</html>
