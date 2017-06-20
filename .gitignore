@@ -12,7 +12,15 @@ target/m2e-wtp/web-resources/META-INF/maven/cn.fenix/fenixlightryjm1/pom.propert
 *.properties
 *.class
 .classpath
+<<<<<<< HEAD
 *.class
 *.class
 *.class
 *.properties
+=======
+*.prefs
+target/classes/cn/fenix/ry/util/JsonResult.class
+*.class
+>>>>>>> db5c00a86ce3f628cc3aa0a12b2c84da64518b4c
+.classpath
+target/m2e-wtp/web-resources/META-INF/maven/cn.fenix/fenixlightryjm1/pom.properties
