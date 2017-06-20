@@ -1,0 +1,183 @@
+/*设置甘特图背景*/
+#ganttview {
+	/*position:absolute;
+    top: 0;
+    left: 0;*/
+    position:relative;
+    margin:20px;
+}
+/*设置表格展现形式*/
+#ganttview table{
+	table-layout: fixed;
+	border-collapse: collapse;
+	width:100%;
+}
+/*设置表格背景隔行换色*/
+/*#ganttview table tr:nth-child(even){
+	background-color:rgba(230,230,230,.2);
+}*/
+/*由于设置了表格table-layout: fixed;
+所以新增一行高度为0的行来设置表格宽度*/
+#ganttview tr.firstRow>td,#ganttview tr.firstRow>th{
+	height:0;
+	padding:0;
+	border:none;
+}
+#ganttview tr.firstRow>td{
+	width:20px;
+}
+#ganttview tr.firstRow>th{
+	padding:0;
+	width:150px;
+}
+/*设置主区域小单元格的样式*/
+#ganttview td,#ganttview th{
+	border: 1px solid #ccc;
+	height:24px;
+	padding:0;
+	text-align: center;
+	font-size: .9em;
+	font-weight: bold;
+}
+#ganttview th,#ganttview table tr.month{
+	font-size: 1em;
+}
+/*设置月份行的背景色*/
+#ganttview table tr.month>td.colMonth,#ganttview table tr.month>th.title{
+	background-color: rgba(0,0,222,.1);
+}
+/*设置日期行的背景色*/
+#ganttview table tr.days{
+	background-color: rgba(0,0,111,.1);
+}
+
+/*设置周末对应的单元格背景色高亮*/
+/*根据开始日期为星期几设置不同的样式，
+	避免使用js进行大量的背景色改动*/
+/*开始日期为周一*/
+#ganttview table.weekend0 td:nth-child(7n) {
+    background-color:rgba(111,111,111,.2);
+}
+#ganttview table.weekend0 td:nth-child(7n+1){
+	background-color:rgba(111,111,111,.1);
+}
+/*开始日期为周二*/
+#ganttview table.weekend1 td:nth-child(7n-1) {
+    background-color:rgba(111,111,111,.2);
+}
+#ganttview table.weekend1 td:nth-child(7n){
+	background-color:rgba(111,111,111,.1);
+}
+/*开始日期为周三*/
+#ganttview table.weekend2 td:nth-child(7n-2) {
+    background-color:rgba(111,111,111,.2);
+}
+#ganttview table.weekend2 td:nth-child(7n-1){
+	background-color:rgba(111,111,111,.1);
+}
+/*开始日期为周四*/
+#ganttview table.weekend3 td:nth-child(7n-3) {
+    background-color:rgba(111,111,111,.2);
+}
+#ganttview table.weekend3 td:nth-child(7n-2){
+	background-color:rgba(111,111,111,.1);
+}
+/*开始日期为周五*/
+#ganttview table.weekend4 td:nth-child(7n-4) {
+    background-color:rgba(111,111,111,.2);
+}
+#ganttview table.weekend4 td:nth-child(7n-3){
+	background-color:rgba(111,111,111,.1);
+}
+/*开始日期为周六*/
+#ganttview table.weekend5 td:nth-child(7n-5) {
+    background-color:rgba(111,111,111,.2);
+}
+#ganttview table.weekend5 td:nth-child(7n-4){
+	background-color:rgba(111,111,111,.1);
+}
+/*开始日期为周日*/
+#ganttview table.weekend6 td:nth-child(7n-6) {
+    background-color:rgba(111,111,111,.2);
+}
+#ganttview table.weekend6 td:nth-child(7n-5){
+	background-color:rgba(111,111,111,.1);
+}
+/*#ganttview table td:nth-child(7n-4) {
+    background-color:rgba(111,111,111,.1);
+}
+#ganttview table td:nth-child(7n-3){
+	background-color:rgba(111,111,111,.2);
+}*/
+/*设置计划甘特图快*/
+#details{
+	position:absolute;
+	top: 50px;
+	left: 150px;
+	/*background-color: rgba(111,111,111,.05);*/
+}
+/*设置每条记录的小块*/
+#details .product{
+	height:25px;
+	margin:0;
+	padding:0;
+	/*width:100%;*/
+	/*overflow: auto;清除浮动，防止坍缩*/
+}
+#details .clearFix{
+	clear:both;
+}
+#details .product>div{
+	display: block;
+	float:left;
+	height:25px;
+	line-height: 25px;
+	margin:0;
+	text-align: center;
+}
+#details .product>div:hover{
+	background-color: rgba(111,111,111,.9);
+	color:#fff;
+}
+/*#details .product:after{
+	clear:both;
+	content:"";
+	display:block;
+}*/
+/*设置三种状态不同的背景色*/
+#details .manage{
+	background-color: rgba(255,0,0,.4);
+
+}
+#details .produce{
+	background-color: rgba(0,255,0,.4);
+}
+#details .delivery{
+	background-color: rgba(0,0,255,.4);
+}
+/*设置图例解释*/
+#tips{
+	/*position: absolute;
+	bottom: 20px;
+	left:20px;
+*/	
+	margin-left: 50px;
+	line-height: 20px;
+	height: 20px;
+}
+.color1,.color2,.color3{
+	display: inline-block;
+	width:20px;
+	height:20px;
+	margin:0 10px;
+	line-height: 20px;
+}
+.color1{
+	background-color: rgba(255,0,0,.4);	
+}
+.color2{
+	background-color: rgba(0,255,0,.4);
+}
+.color3{
+	background-color: rgba(0,0,255,.4);
+}

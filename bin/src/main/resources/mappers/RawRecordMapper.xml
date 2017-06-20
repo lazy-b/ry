@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <!-- 订单处理Mapper -->
+<mapper namespace="cn.fenix.ry.dao.RawRecordDao">
+ 	<resultMap id="BaseResultMap" type="cn.fenix.ry.entity.RawRecord" >
+    <id column="rowRecordId" property="rowRecordId" jdbcType="VARCHAR" />
+    <result column="pickingId" property="pickingId" jdbcType="VARCHAR" />
+    <result column="materialReturnId" property="materialReturnId" jdbcType="VARCHAR" />
+    <result column="materialStockId" property="materialStockId" jdbcType="VARCHAR" />
+    <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+    <result column="productName" property="productName" jdbcType="VARCHAR" />
+    <result column="orderAmount" property="orderAmount" jdbcType="INTEGER" />
+    <result column="materialModel" property="materialModel" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="CHAR" />
+    <result column="expectAmount" property="expectAmount" jdbcType="DOUBLE" />
+    <result column="stockAmount" property="stockAmount" jdbcType="DOUBLE" />
+    <result column="requestAmount" property="requestAmount" jdbcType="DOUBLE" />
+    <result column="pickingDate" property="pickingDate" jdbcType="DATE" />
+    <result column="pickingAmount" property="pickingAmount" jdbcType="DOUBLE" />
+    <result column="backAmount" property="backAmount" jdbcType="DOUBLE" />
+    <result column="backDate" property="backDate" jdbcType="DATE" />
+    <result column="pickingTotal" property="pickingTotal" jdbcType="DOUBLE" />
+    <result column="unclaimedAmount" property="unclaimedAmount" jdbcType="DOUBLE" />
+    <result column="unitPrice" property="unitPrice" jdbcType="DECIMAL" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  	<!--查找所有原材料记录 -->
+    <select id="findAllDelivery" parameterType="string" resultType="map"> 
+    	select * from rawrecord order by productName;
+    </select>
+  	
+  	<insert id="insert" parameterType="cn.fenix.ry.entity.RawRecord" >
+    	insert into rawrecord 
+    	(rowRecordId,pickingId,materialReturnId,materialStockId,orderNo,productName, 
+      	 	orderAmount,materialModel,unit,expectAmount,stockAmount,requestAmount,
+     	 	pickingDate,pickingAmount,backAmount,backDate,pickingTotal,unclaimedAmount, 
+      	 	unitPrice,weight,amount,remarks,created,updated) 
+    	values(#{rowRecordId,jdbcType=VARCHAR}, #{pickingId,jdbcType=VARCHAR}, #{materialReturnid,jdbcType=VARCHAR}, 
+      		#{materialStockid,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      		#{orderAmount,jdbcType=INTEGER}, #{materialModel,jdbcType=VARCHAR}, #{unit,jdbcType=CHAR}, 
+      		#{expectAmount,jdbcType=DOUBLE}, #{stockAmount,jdbcType=DOUBLE}, #{requestAmount,jdbcType=DOUBLE}, 
+      		#{pickingDate,jdbcType=DATE}, #{pickingAmount,jdbcType=DOUBLE}, #{backAmount,jdbcType=DOUBLE}, 
+      		#{backDate,jdbcType=VARCHAR}, #{pickingTotal,jdbcType=DOUBLE}, #{unclaimedAmount,jdbcType=DOUBLE}, 
+      		#{unitPrice,jdbcType=DECIMAL}, #{weight,jdbcType=DOUBLE}, #{amount,jdbcType=DECIMAL}, 
+      		#{remarks,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+  	 </insert>
+  	  <!-- 根据id删除订单信息 -->
+   	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    		delete from rawrecord
+    		where rowRecordId=#{rowRecordId,jdbcType=VARCHAR}
+    </delete>
+  	 <!-- 批量删除 -->
+	<delete id="deleteBatch">
+		delete from rawrecord
+		where rowRecordId in	
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+			#{rowRecordId}
+		</foreach>
+	</delete>
+	
+	<update id="updateByPrimaryKey" parameterType="cn.fenix.ry.entity.RawRecord" >
+    update rawrecord
+    <set >
+      <if test="pickingId != null" >
+        pickingId = #{pickingId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialReturnId != null" >
+        materialReturnId = #{materialReturnId,jdbcType=VARCHAR},
+      </if>
+      <if test=" materialStockId != null" >
+        materialStockId = #{materialStockId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        orderNo = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        productName = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null" >
+        orderAmount = #{orderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="materialModel != null" >
+        materialModel = #{materialModel,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=CHAR},
+      </if>
+      <if test="expectAmount != null" >
+        expectAmount = #{expectAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="stockAmount != null" >
+        stockAmount = #{stockAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="requestAmount != null" >
+        requestAmount = #{requestAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="pickingDate != null" >
+        pickingDate = #{pickingDate,jdbcType=DATE},
+      </if>
+      <if test="pickingAmount != null" >
+        pickingAmount = # pickingAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="backAmount != null" >
+        backAmount = #{backAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="backDate != null" >
+        backDate = #{backDate,jdbcType=DATE},
+      </if>
+      <if test="pickingTotal != null" >
+        pickingTotal = #{pickingTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="unclaimedAmount != null" >
+        unclaimedAmount = #{unclaimedAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPrice != null" >
+        unitPrice = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rowRecordId = #{rowRecordId,jdbcType=VARCHAR}
+  </update>
+</mapper>

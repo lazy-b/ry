@@ -11,7 +11,3 @@ target/m2e-wtp/web-resources/META-INF/maven/cn.fenix/fenixlightryjm1/pom.propert
 *.MF
 *.properties
 *.class
-.classpath
-*.prefs
-target/classes/cn/fenix/ry/util/JsonResult.class
-*.class
