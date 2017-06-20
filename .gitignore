@@ -11,3 +11,8 @@ target/m2e-wtp/web-resources/META-INF/maven/cn.fenix/fenixlightryjm1/pom.propert
 *.MF
 *.properties
 *.class
+.classpath
+*.class
+*.class
+*.class
+*.properties
