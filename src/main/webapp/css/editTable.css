@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+/*可编辑表格的编辑框样式*/
+.EditCell_TextBox {
+	font-size:0.8em;
+	line-height:1em;
+width:90%;
+border:1px solid #0099CC;
+}
+.EditCell_DropDownList {
+width: 90%;
+}

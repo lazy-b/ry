@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>PO20170201002生产详情</title>
+	<link rel="stylesheet" href="">
+	<style>
+		/*清除默认样式*/
+		*{
+			margin:0;
+			padding:0;
+			font-size:medium;
+		}
+
+		/*主内容区样式*/
+		#info_container{
+			display: table;
+			width:800px;
+			margin:0 auto;
+			border-spacing:10px;
+		}
+
+		/*公共h2标题样式*/
+		#info_container h2{
+			/*display:block;*/
+			background-color:#e5e5e5;
+			text-indent:2em;
+			line-height:3em;
+			height:3em;
+		}
+
+		/*表格显示布局行*/
+		#info_container .row{
+			display: table-row;
+		}
+
+		/*表格显示列布局公共样式*/
+		#info_container .left,#info_container .right{
+			display: table-cell;
+			/*设置为1px则实际显示出现问题*/
+			border:2px solid #e5e5e5;
+			/*设置阴影*/
+			box-shadow:1px 1px 10px #e5e5e5;
+			-webkit-box-shadow:1px 1px 10px #e5e5e5;
+			-moz-box-shadow:1px 1px 10px #e5e5e5;
+			-ms-box-shadow:1px 1px 10px #e5e5e5;
+			-o-box-shadow:1px 1px 10px #e5e5e5;
+			/*设置圆角*/
+			border-radius:5px;
+			-webkit-border-radius:5px;
+			-moz-border-radius:5px;
+			-ms-border-radius:5px;
+			-o-border-radius:5px;
+		}
+
+		/*表格显示布局列-右边*/
+		#info_container .right{
+			width:300px;
+		}
+		/*表格显示布局列-右边-表格*/
+		#info_container .right table{
+			/*padding:20px 0;*/
+			border-spacing: 0;
+			margin-top: 10px;
+		}
+		/*右边表格行样式*/
+		#info_container .right tr th,#info_container .right tr td{
+			/*border-bottom:1px dotted #e5e5e5;*/
+		}
+		/*表头*/
+		#info_container .right tr th{
+			width:120px;
+			line-height: 1.5em;
+			text-align:right;
+			font-size: normal;
+		}
+		/*表列*/
+		#info_container .right tr td{
+			width:180px;
+			text-align:left;
+			font-size: small;
+		}
+
+		/*表格显示布局列-左边*/
+		#info_container .left{
+			/*width:437px;*/
+		}
+		/*表格显示布局列-左边-主信息-一级列表*/
+		#info_container .left .info_list ol{
+			margin:0 2em;
+		}
+		/*表格显示布局列-左边-主信息-一级列表*/
+		#info_container .left .info_list ol>li{
+			border-bottom: 1px dotted #e5e5e5;
+			margin: 10px 0;
+		}
+
+		/*表格显示布局列-左边-主信息-二级列表缩进*/
+		#info_container .left .info_list ul{
+			margin-left: 20px;
+		}
+		/*表格显示布局列-左边-主信息-概述*/
+		.info_summarize{
+			margin:20px;
+			padding:0 10px;
+		}
+		.info_summarize th{
+			font-weight: normal;
+			width:140px;
+			text-align: right;
+		}
+		.info_summarize td{
+			text-indent: .5em;
+		}
+	</style>
+</head>
+<body>
+	<div id="info_container">
+		<div class="row">
+			<div class="left">
+				<h2>生产详情</h2>
+				<div class="info_list">
+					<ol>
+						<li>待处理
+							<ul>
+								<li><time datatime="2017/05/01">2017.05.01 10:20： </time>接收订单</li>
+								<li><time datatime="2017/05/02">2017.05.02 10:20： </time>第一次回复交期</li>
+								<li><time datatime="2017/05/02">2017.05.02 15:20： </time>第二次回复交期</li>
+								<li><time datatime="2017/05/02">2017.05.02 15:40： </time>确认交期</li>
+								<li><time datatime="2017/05/02">2017.05.02 14:40： </time>安排生产，2天后上机</li>
+							</ul>
+						</li>
+						<li>工序一
+							<ul>
+								<li><time datatime="2017/05/04">2017.05.04 10:20： </time>L12开始改机</li>
+								<li><time datatime="2017/05/04">2017.05.04 14:20： </time>L12开始生产</li>
+								<li><time datatime="2017/05/05">2017.05.05 10:20： </time>已生产数量200PCS，未生产数量400PCS，完成率33%</li>
+								<li><time datatime="2017/05/06">2017.05.06 10:20： </time>已生产数量400PCS，未生产数量200PCS，完成率66%</li>
+								<li><time datatime="2017/05/07">2017.05.07 10:20： </time>已生产数量600PCS，未生产数量0PCS，完成率100%</li>
+							</ul>
+						</li>
+						<li>工序二
+							<ul>
+								<li><time datatime="2017/05/06">2017.05.06 19:20： </time>L12开始改机</li>
+								<li><time datatime="2017/05/06">2017.05.06 22:20： </time>L12开始生产</li>
+								<li><time datatime="2017/05/01">2017.05.07 10:20： </time>已生产数量200PCS，未生产数量400PCS，完成率33%</li>
+								<li><time datatime="2017/05/08">2017.05.08 10:20： </time>已生产数量400PCS，未生产数量200PCS，完成率66%</li>
+								<li><time datatime="2017/05/09">2017.05.09 10:20： </time>已生产数量600PCS，未生产数量0PCS，完成率100%</li>
+							</ul>
+						</li>
+						<li>待交货
+							<ul>
+								<li><time datatime="2017/05/09">2017.05.09 10:20： </time>计划于5月9日14:00交货将600PCS送往氧化厂氧化
+								</li>
+								<li><time datatime="2017/05/09">2017.05.09 10:20： </time>实际于14:10将600PCS送往氧化厂
+								</li>
+							</ul>
+						</li>
+					</ol>
+				</div>
+				<div class="info_summarize">
+					生产概况
+					<hr/>
+					<table>
+						<tr>
+							<th>当前已完成：</th>
+							<td>100%</td>
+						</tr>
+						<tr>
+							<th>预计完成时间：</th>
+							<td>2017.05.09</td>
+						</tr>
+						<tr>
+							<th>交期：</th>
+							<td>2017.05.09</td>
+						</tr>
+						<tr>
+							<th>距离交期还剩：</th>
+							<td>0天</td>
+						</tr>
+						<tr>
+							<th>实际交货时间：</th>
+							<td>2017.05.09</td>
+						</tr>
+						<tr>
+							<th>是否延误：</th>
+							<td>否</td>
+						</tr>
+						<tr>
+							<th>延误原因：</th>
+							<td>无</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="right">
+				<h2>订单详情</h2>
+				<table>
+					<tr>
+						<th><label for="product">产品名称：</label></th>
+						<td>
+							<select name="product" id="selectProduct">
+								<option value="TK16筒身" selected>TK16筒身</option>
+								<option value="PD35筒身">PD35筒身</option>
+								<option value="TK16灯座">TK16灯座</option>
+								<option value="PD35筒头">PD35筒头</option>
+								<option value="TK16筒尾">TK16筒尾</option>
+								<option value="PD35灯座">PD35灯座</option>
+							</select>
+							<!-- <input type="text" value="TK16筒身"/> -->
+						</td>
+					</tr>
+					<tr>
+						<th>下单日期：</th>
+						<td>2017/01/16</td>
+					</tr>
+					<tr>
+						<th>要求交货日期：</th>
+						<td>2017/02/20</td>
+					</tr>
+					<tr>
+						<th>订单号：</th>
+						<td>PO17010025</td>
+					</tr>
+					<tr>
+						<th>物料长编号：</th>
+						<td>11.210.025.001</td>
+					</tr>
+					<tr>
+						<th>规格型号：</th>
+						<td>A6061-T6/白件/Ф25.4*Ф20.5*73.1/TK16-20150129-006/A2</td>
+					</tr>
+					<tr>
+						<th>数量：</th>
+						<td>2000</td>
+					</tr>
+					<tr>
+						<th>库存：</th>
+						<td>20</td>
+					</tr>
+					<tr>
+						<th>备品：</th>
+						<td>20</td>
+					</tr>
+					<tr>
+						<th>需生产数：</th>
+						<td>2000</td>
+					</tr>
+					<tr>
+						<th>要求：</th>
+						<td>TK16,备白件，等通知交货Ф26.4*Ф20.5</td>
+					</tr>
+					<tr>
+						<th>交期：</th>
+						<td>2月20日交完,等通知交货(3月8日交完)</td>
+					</tr>
+					<tr>
+						<th>交货结果：</th>
+						<td>OK</td>
+					</tr>
+					<tr>
+						<th>生产状态：</th>
+						<td>已排</td>
+					</tr>
+					<tr>
+						<th>备注：</th>
+						<td>已提前交氧化</td>
+					</tr>
+					<tr>
+						<th>异常原因：</th>
+						<td>无</td>
+					</tr>
+					<tr>
+						<th>单价：</th>
+						<td>2.2</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
