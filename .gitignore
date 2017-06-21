@@ -1,4 +1,4 @@
-# DW Dreamweaver added files
+# DW Dreamweaver added files-----------------------------
 _notes
 _compareTemp
 configs/
@@ -8,7 +8,7 @@ dw_php_codehinting.config
 
 
 
-# Eclipse added files
+# Eclipse added files-----------------------------------
 .metadata
 bin/
 tmp/
@@ -62,7 +62,7 @@ local.properties
 
 
 
-# Java added files
+# Java added files-----------------------------------
 # Compiled class file
 *.class
 
