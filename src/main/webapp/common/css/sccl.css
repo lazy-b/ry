@@ -87,7 +87,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .header-bar{float:right;color:#fff;height: 45px;line-height:45px;margin-right: 10px;}
 .header-bar li{float:left;}
 .header-bar li a {margin:0 10px;color:#fff;}
-.header-bar li a i{font-size:14px;}
+.header-bar li a i{padding:0 10px;}/*lazzy修改于2017/06/22*/
 .header-bar-nav .header-dropdown-menu{position:absolute;top:100%;display:none;background-color:#fff;border:solid 1px #ccc;border-top:none;z-index: 1000;}
 .header-bar-nav .header-dropdown-menu li{position: relative; float: none;display:block;margin: 0;}
 .header-bar-nav .header-dropdown-menu li a{display: block;clear: both;border-bottom:solid 1px #f2f2f2;margin:0;padding:5px 20px;text-align:left;line-height:1.5;font-weight: normal;white-space:nowrap;color:#333;}
@@ -96,7 +96,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .header-bar-nav.open .header-dropdown-menu.right{right:10px!important;left:auto!important}
 .header-bar-nav:hover,.header-bar-nav:focus{background-color:rgba(255,255,255,0.3)}
 .header-bar-nav .header-dropdown-menu li a:hover,.header-bar-nav .header-dropdown-menu li a:focus{background-color:#fafafa}
-.header-menu-btn{display:block;float:left;color:#fff;width:40px;text-align:center;line-height:45px;font-size:14px;}
+.header-menu-btn{display:block;float:left;color:#fff;width:40px;text-align:center;line-height:45px;height:45px;}/*lazzy修改于2017/06/22*/
 .header-menu-btn:hover{background-color:rgba(255,255,255,0.3)}
 
 /* 左侧菜单 */
@@ -117,7 +117,7 @@ a cite{font-style: normal; *cursor:pointer;}
 
 /* 菜单收缩展开样式 */
 .layout-side-arrow{position: absolute;display:block;top: 45%;left: 200px;border:1px solid #ddd;background-color:#ccc;height: 50px;width:10px;z-index: 1000;line-height:50px;text-align:center;cursor:pointer;border-top-right-radius:3px;border-bottom-right-radius:3px;}
-.layout-side-arrow i{font-size:10px;color:#fff;margin-left:-1px;}
+.layout-side-arrow i{font-size:22px;color:#fff;margin:14px 0;vertical-align:middle;}/*lazzy修改于2017/06/22*/
 .layout-side-arrow:hover{background-color:#33AECC;}
 .layout-side-arrow-icon.close{transform: rotate(180deg);} 
 

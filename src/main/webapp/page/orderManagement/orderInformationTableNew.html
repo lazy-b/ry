@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>订单信息管理</title>
+<link  rel="stylesheet" href="../../common/easyUI/themes/default/easyui.css" />
+<link  rel="stylesheet" href="../../common/easyUI/demo/demo.css" />
+<link  rel="stylesheet" href="../../common/easyUI/themes/myIcon.css" />
+<link  rel="stylesheet" href="../../css/reset.css" >
+<link  rel="stylesheet" href="../../css/infoForm.css" >
+<script src="../../common/namespace.js"></script>
+<script src="../../common/easyUI/jquery.min.js"></script>
+<script src="../../common/easyUI/jquery.easyui.min.js"></script>
+
+</head>
+
+<body>
+    <table id="datagrid" data-info="datagrid_data.json"></table><!-- 数据表格占位 -->
+    <div id="toolbar"><!-- 数据菜单栏 -->
+        <a href="javascript:;" iconCls="icon-add" plain="true" onclick="addRow()" class="easyui-linkbutton">添加行</a>
+        <a href="javascript:;" iconCls="icon-remove" plain="true" onclick="removeRows();return false;" class="easyui-linkbutton">删除选中行</a>
+        <a href="javascript:;" iconCls="icon-edit" plain="true" onclick="editRow()" class="easyui-linkbutton">修改行</a>
+        <a href="javascript:;" iconCls="icon-reload" plain="true" onclick="reloadTable()" class="easyui-linkbutton">重新加载表格</a>
+        <div id="searchBox">
+            <input  class="easyui-searchbox" data-options="prompt:'请输入',menu:'#mm',searcher:doSearch">
+            <div id="mm">
+                <div data-options="name:'orderNo'">订单号</div>
+                <div data-options="name:'productName'">产品名称</div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
+        <div class="ftitle" id="ftitle"></div>
+        <form id="fm" method="post"><!-- 表单开始 -->
+            <div class="fitem">
+                <label >订单号：</label>
+                <input name="orderNo" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >产品名称：</label>
+                <input name="productName" required class="easyui-validatebox">
+            </div>
+                <div class="fitem">
+                <label >物料长编号：</label>
+                <input type="text" name="materialCoding" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >规格型号：</label>
+                <input type="text" name="materialModel" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >数量：</label>
+                <input name="orderAmount" required class="easyui-validatebox" >
+            </div>
+            <div class="fitem">
+                <label >库存：</label>
+                <input name="stockAmount" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >备品：</label>
+                <input type="text" name="spareParts" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >需生产数：</label>
+                <input type="text" name="planAmount" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >下单日期：</label>
+                <input type="text" name="orderDate" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >要求交货日期：</label>
+                <input type="text" name="requiredDate" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >要求：</label>
+                <input type="text" name="purchaseRequirement" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >交期：</label>
+                <input type="text" name="replyDate" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >订单状态：</label>
+                <input type="text" name="orderStatus" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >异常原因：</label>
+                <input type="text" name="exceptionReason" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >订单类型：</label>
+                <input type="text" name="orderType" required class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >单价：</label>
+                <input type="text" name="price" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >备注：</label>
+                <input type="text" name="remark" class="easyui-validatebox">
+            </div>
+        </form><!-- 表单结束 -->
+        <div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
+            <a href="../../order/insert.do" iconCls="icon-ok" onclick="save();return false;" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
+        </div><!-- 表单菜单按钮结束 -->
+    <script>
+        $('#datagrid').datagrid({
+            url: FENIX.INFO.orderInfo.url,
+ //           url:(function(){
+ //                  return $("#datagrid").attr("data-info")
+ //               })(),
+            toolbar:'#toolbar',
+            fit:true,//表格宽度自适应，不设置默认为false（对于长表格最好设置为true，否则使用体验很差）
+            //fitColumns:true,//列宽度自适应，设置为true后设置的固定宽度不起作用
+            autoRowHeight:false,//设为true则基于该行内容设置行高度，同时降低加载
+            striped:true,//设为true则奇偶行使用不同背景色
+            nowrap:true,//设置为true，把数据显示在一行，可提高加载性能
+            loadMsg:'加载中、、、、',//从远程加载数据时，显示的提示信息
+            pagination:false,//底部分页栏
+            rownumbers:true,//显示行号
+            columns:[[
+                {field:'ck',checkbox:true},
+                {field:'orderDate',title:'下单日期',width:80,align:'center'},
+                {field:'requiredDate',title:'要求交货日期',width:80,align:'center'},
+                {field:'orderNo',title:'订单号',width:80,align:'center'},
+                {field:'materialCoding',title:'物料编号',width:100,align:'center'},
+                {field:'productName',title:'产品名称',width:80,align:'center'},
+                {field:'materialModel',title:'规格型号',width:50,width:80,height:30,align:'center'},    
+                {field:'orderAmount',title:'订单数量',width:50,align:'center'},
+                {field:'stockAmount',title:'库存',width:40,align:'center'},
+                {field:'spareParts',title:'备品',width:40,align:'center'},
+                {field:'planAmount',title:'需生产数',width:60,fontsize:20,align:'center'},
+                {field:'purchaseRequirement',title:'要求',width:180,align:'center'},
+                {field:'replyDate',title:'交期',width:80,align:'center'},
+                {field:'orderStatus',title:'订单状态',width:50,align:'center'},
+                {field:'orderType',title:'订单类型',width:50,align:'center'},
+                {field:'exceptionReason',title:'异常原因',width:80,align:'center'},
+                {field:'price',title:'单价',width:40,align:'center'},
+                {field:'remark',title:'备注',width:80,align:'center'}
+            ]]
+        });
+    </script>   
+    <script src="../../js/orderInformation.js"></script>
+</body>
+</html>
