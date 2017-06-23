@@ -33,7 +33,7 @@ public interface OrderDao{
 	//int updateAll(OrderInformation  cOrder);
 	int updateAll(OrderInformation  cOrder);
 	//根据Id删除订单
-	int deleteByPrimaryKey(String orderInformationId);
+	int deleteByPrimaryKey(String id);
 	
 	//批量删除
 	int deleteBatch(String[] ids);

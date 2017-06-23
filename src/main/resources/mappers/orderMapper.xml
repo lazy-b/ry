@@ -4,7 +4,7 @@
  <!-- 订单处理Mapper -->
 <mapper namespace="cn.fenix.ry.dao.OrderDao">
   <resultMap id="BaseResultMap" type="cn.fenix.ry.entity.OrderInformation" >
-    <id column="orderInformationId" property="orderInformationId" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="orderDate" property="orderDate" jdbcType="VARCHAR" />
     <result column="requiredDate" property="requiredDate" jdbcType="VARCHAR" />
     <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
@@ -27,7 +27,7 @@
   	<!--查找所有订单信息 -->
     <select id="findAllOrder" parameterType="string" resultType="map"> 
     	select 
-    		orderInformationId,orderDate,requiredDate,orderNo,materialCoding,
+    		id,orderDate,requiredDate,orderNo,materialCoding,
   			productName,orderAmount,spareParts,stockAmount,planAmount,materialModel,
     		purchaseRequirement, replyDate, orderStatus, exceptionReason,	
   			price,remark,orderType
@@ -56,7 +56,7 @@
   <!-- 多条件查询 -->
   	<select id="selectOrderByParams" parameterType="map" resultType="map">
 		select 
-			orderInformationId,orderDate,requiredDate,orderNo,materialCoding,
+			id,orderDate,requiredDate,orderNo,materialCoding,
   			productName,orderAmount,materialModel,orderStatus,price,orderType
 		from 
 			orderInformation 
@@ -74,7 +74,7 @@
  	
    	<!--插入订单 -->
    	<insert id="addOrder" parameterType="cn.fenix.ry.entity.OrderInformation" >
-    	insert into orderinformation (orderInformationId, orderDate, requiredDate, 
+    	insert into orderinformation (id, orderDate, requiredDate, 
      	 	orderNo, materialCoding, productName, 
       	 	orderAmount, spareParts, stockAmount, 
          	planAmount, materialModel, purchaseRequirement, 
@@ -82,7 +82,7 @@
          	price, remark, orderType
          	)
     	values(
-    		#{orderInformationId,jdbcType=VARCHAR},
+    		#{id,jdbcType=VARCHAR},
      		#{orderDate,jdbcType=VARCHAR}, 
      		#{requiredDate,jdbcType=VARCHAR}, 
       		#{orderNo,jdbcType=VARCHAR},
@@ -105,14 +105,14 @@
   <!-- 根据id删除订单信息 -->        
    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from orderInformation
-    where orderInformationId=#{orderInformationId,jdbcType=VARCHAR}
+    where id=#{id,jdbcType=VARCHAR}
    </delete>   
   <!-- 批量删除 -->
 	<delete id="deleteBatch">
 		delete from orderInformation
-		where  orderInformationId in	
+		where  id in	
 		<foreach collection="array" item="id" open="(" close=")" separator=",">
-			#{orderInformationId}
+			#{id}
 		</foreach>
 	</delete>
   <!-- 修改订单 -->                                
@@ -171,7 +171,7 @@
         orderType=#{orderType,jdbcType=VARCHAR}
       </if>
     </set>
-    where orderInformationId=#{orderInformationId,jdbcType=VARCHAR}
+    where id=#{id,jdbcType=VARCHAR}
   </update>
    <update id="updateAll" parameterType="cn.fenix.ry.entity.OrderInformation">
     update orderinformation
@@ -192,6 +192,6 @@
       price = #{price,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       orderType = #{orderType,jdbcType=VARCHAR}
-    where orderInformationId = #{orderinformationId,jdbcType=VARCHAR};
+    where id = #{id,jdbcType=VARCHAR};
   </update>
 </mapper>

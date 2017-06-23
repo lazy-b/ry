@@ -106,8 +106,8 @@ public class OrderController {
 	 */
 	@RequestMapping(value="/delete.do")
 	@ResponseBody
-	public CustomResult delete(String orderInformationId) throws Exception {
-		CustomResult result = orderService.deleteOrder(orderInformationId);
+	public CustomResult delete(String id) throws Exception {
+		CustomResult result = orderService.deleteOrder(id);
 		return result;
 	}
 	
@@ -150,17 +150,4 @@ public class OrderController {
 		}
 		return orderService.updateOrderAll(cOrder);
 	}
-	
-	/*public JsonResult<Boolean> save(
-	OrderInformation cOrder){
-	boolean b =orderService.updateOrder(cOrder);
-	return new JsonResult<Boolean>(b);
-	}*/
-	/*@RequestMapping("/updateAll.do")
-	@ResponseBody
-	public JsonResult<Boolean> saveAll(
-			OrderInformation cOrder){
-			boolean b =orderService.updateOrderAll(cOrder);
-			return new JsonResult<Boolean>(b);
-		}*/
 }

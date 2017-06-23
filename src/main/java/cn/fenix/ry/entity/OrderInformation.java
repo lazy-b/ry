@@ -6,6 +6,9 @@ import java.sql.Date;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * 订单信息表
  * @author wenye
@@ -14,7 +17,7 @@ import javax.validation.constraints.Size;
 public class OrderInformation implements Serializable{
 	private static final long serialVersionUID = 2726342261326989546L;
 	   //@Size(max=40, message="{id.length.error}")
-	   private String orderInformationId; //订单表Id
+	   private String id; //订单表Id
 	   private String orderDate;       //下单日期;
 	   private String requiredDate;    //要求日期;
 	   private String orderNo;         //订单号;
@@ -35,16 +38,39 @@ public class OrderInformation implements Serializable{
 	   @Size(max=255, message="{remark.length.error}")
 	   private String remark;			  //备注;
 	   private Integer orderType;        //订单类型;
-	   
 	public OrderInformation() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
-	public String getOrderInformationId() {
-		return orderInformationId;
+	public OrderInformation(String id, String orderDate, String requiredDate, String orderNo, String materialCoding,
+			String productName, Integer orderAmount, Integer spareParts, Integer stockAmount, Integer planAmount,
+			String materialModel, String purchaseRequirement, String replyDate, Integer orderStatus,
+			String exceptionReason, Double price, String remark, Integer orderType) {
+		super();
+		this.id = id;
+		this.orderDate = orderDate;
+		this.requiredDate = requiredDate;
+		this.orderNo = orderNo;
+		this.materialCoding = materialCoding;
+		this.productName = productName;
+		this.orderAmount = orderAmount;
+		this.spareParts = spareParts;
+		this.stockAmount = stockAmount;
+		this.planAmount = planAmount;
+		this.materialModel = materialModel;
+		this.purchaseRequirement = purchaseRequirement;
+		this.replyDate = replyDate;
+		this.orderStatus = orderStatus;
+		this.exceptionReason = exceptionReason;
+		this.price = price;
+		this.remark = remark;
+		this.orderType = orderType;
 	}
-	public void setOrderInformationId(String orderInformationId) {
-		this.orderInformationId = orderInformationId;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getOrderDate() {
 		return orderDate;
@@ -124,12 +150,6 @@ public class OrderInformation implements Serializable{
 	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	public String getExceptionReason() {
-		return exceptionReason;
-	}
-	public void setExceptionReason(String exceptionReason) {
-		this.exceptionReason = exceptionReason;
-	}
 	public Double getPrice() {
 		return price;
 	}
@@ -148,41 +168,6 @@ public class OrderInformation implements Serializable{
 	public void setOrderType(Integer orderType) {
 		this.orderType = orderType;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	@Override
-	public String toString() {
-		return "OrderInformation [orderInformationId=" + orderInformationId + ", orderDate=" + orderDate
-				+ ", requiredDate=" + requiredDate + ", orderNo=" + orderNo + ", materialCoding=" + materialCoding
-				+ ", productName=" + productName + ", orderAmount=" + orderAmount + ", spareParts=" + spareParts
-				+ ", stockAmount=" + stockAmount + ", planAmount=" + planAmount + ", materialModel=" + materialModel
-				+ ", purchaseRequirement=" + purchaseRequirement + ", replyDate=" + replyDate + ", orderStatus="
-				+ orderStatus + ", exceptionReason=" + exceptionReason + ", price=" + price + ", remark=" + remark
-				+ ", orderType=" + orderType + "]";
-	}
-	public OrderInformation(String orderInformationId, String orderDate, String requiredDate, String orderNo,
-			String materialCoding, String productName, Integer orderAmount, Integer spareParts, Integer stockAmount,
-			Integer planAmount, String materialModel, String purchaseRequirement, String replyDate, Integer orderStatus,
-			String exceptionReason, Double price, String remark, Integer orderType) {
-		super();
-		this.orderInformationId = orderInformationId;
-		this.orderDate = orderDate;
-		this.requiredDate = requiredDate;
-		this.orderNo = orderNo;
-		this.materialCoding = materialCoding;
-		this.productName = productName;
-		this.orderAmount = orderAmount;
-		this.spareParts = spareParts;
-		this.stockAmount = stockAmount;
-		this.planAmount = planAmount;
-		this.materialModel = materialModel;
-		this.purchaseRequirement = purchaseRequirement;
-		this.replyDate = replyDate;
-		this.orderStatus = orderStatus;
-		this.exceptionReason = exceptionReason;
-		this.price = price;
-		this.remark = remark;
-		this.orderType = orderType;
-	}
+	   
+	
 }
