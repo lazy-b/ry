@@ -61,8 +61,8 @@ public class OrderServiceImple implements OrderService {
 	 */
 	@Override
 	public CustomResult insert(OrderInformation cOrder) throws Exception {
-		String orderInformationId=UUID.randomUUID().toString();
-		cOrder.setOrderInformationId(orderInformationId);
+		String id=UUID.randomUUID().toString();
+		cOrder.setId(id);
 		int i = orderDao.addOrder(cOrder);
 		if(i>0){
 			return CustomResult.ok();
@@ -99,8 +99,8 @@ public class OrderServiceImple implements OrderService {
 	 * 选择ID删除订单
 	 */
 	@Override
-	public CustomResult deleteOrder(String orderInformationId) throws Exception {
-		int i =orderDao.deleteByPrimaryKey(orderInformationId);
+	public CustomResult deleteOrder(String id) throws Exception {
+		int i =orderDao.deleteByPrimaryKey(id);
 		if(i>0){
 			return CustomResult.ok();
 		}else{

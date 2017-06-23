@@ -14,8 +14,9 @@
 		http://www.springframework.org/schema/util 
 		http://www.springframework.org/schema/util/spring-util-4.0.xsd">
           
+    
     <!-- 指明配置文件存放位置 --> 
-     <context:property-placeholder location="classpath:jdbc.properties"/>
+      <context:property-placeholder location="classpath:jdbc.properties"/>
     <!-- druid  -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
