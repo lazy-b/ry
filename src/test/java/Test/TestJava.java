@@ -2,7 +2,7 @@ package Test;
 
 
 
-import java.util.Date;
+
 import java.util.HashMap;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -18,8 +18,11 @@ import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.fenix.ry.dao.OrderDao;
+import cn.fenix.ry.dao.ScheduleDao;
 import cn.fenix.ry.entity.OrderInformation;
+import cn.fenix.ry.entity.Schedule;
 import cn.fenix.ry.service.OrderService;
+import cn.fenix.ry.service.ScheduleService;
 import cn.fenix.ry.util.CustomResult;
 
 
@@ -83,7 +86,15 @@ public class TestJava {
 	   OrderDao orders=ctx.getBean("orderDao",OrderDao.class);
 	   OrderService orderService=ctx.getBean("orderService",OrderService.class);
 	   OrderInformation order=new OrderInformation("77","2017-06-10","2017-06-23","PO20175111","11.210.310.225","PD35反光杯",3000,50,10, 
-				3050,"白件","二次加工","2017-06-16",1," ", 9.9, " ",0);
-	  
+				3050,"白件","二次加工","2017-06-16",1," ", 9.9, " ",0); 
+   }
+   @Test
+   public void testsSchedule(){
+	   ScheduleDao schedule=ctx.getBean("scheduleDao",ScheduleDao.class);
+	   String orderNo="PO2017055";
+	   String productName="PD35筒身";
+	 
+	   List<Map<String,Object>> list=schedule.findScheduleByParames(orderNo, productName);
+	   System.out.println(list);
    }
 }
