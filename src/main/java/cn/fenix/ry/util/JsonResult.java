@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class JsonResult<T> 
 	implements Serializable{
 	private static final long serialVersionUID = 6380914148822193542L;
-	public static final int SUCCESS=0;
+	public static final int SUCCESS=200;
 	public static final int ERROR=1;
 	
 	private int state;

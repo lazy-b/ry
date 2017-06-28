@@ -76,13 +76,6 @@ public class OrderServiceImple implements OrderService {
 	 */
 	@Override
 	public CustomResult updateOrder(OrderInformation order) throws NotOrderInformationFound {
-		order.getStockAmount().toString();
-		order.getOrderAmount().toString();
-		order.getOrderStatus().toString();
-		order.getOrderType().toString();
-		order.getPlanAmount().toString();
-		order.getPrice().toString();
-		order.getSpareParts().toString();
 		if(order==null){
 			throw new NotOrderInformationFound("order不存在");
 		}
@@ -133,31 +126,4 @@ public class OrderServiceImple implements OrderService {
 			return CustomResult.build(101,"修改订单失败");
 		}
 	}
-
-	/*@Override
-	public Boolean updateOrder(OrderInformation cOrder) throws NotOrderInformationFound {
-		if(cOrder==null){
-			throw new NotOrderInformationFound("order不存在");
-		}
-		int n =orderDao.updateByPrimaryKey(cOrder);
-		if(n!=1){
-			throw new NotOrderInformationFound("更新失败");
-		}else{
-			return n==1;
-		}
-	}
-
-	@Override
-	public Boolean updateOrderAll(OrderInformation cOrder) throws NotOrderInformationFound {
-		if(cOrder==null){
-			throw new NotOrderInformationFound("order不存在");
-		}
-		int n =orderDao.updateAll(cOrder);
-		if(n!=1){
-			throw new NotOrderInformationFound("更新失败");
-		}else{
-			return n==1;
-		}
-	}*/
-
 }

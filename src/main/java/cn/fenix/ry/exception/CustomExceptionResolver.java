@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.fenix.ry.util.CustomResult;
+
 /**
  * created on 2016年9月6日 
  *
