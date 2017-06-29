@@ -18,8 +18,20 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Resource
 	ScheduleDao scheduleDao;
 	@Override
+	/**
+	 * 根据订单号和产品名称查出进度表
+	 */
 	public List<Map<String,Object>> listSchedule(String orderNo,String productName) throws Exception {
+		if(orderNo==null&&productName==null){
+			throw new NotParamterException("请输入订单号和产品名称");
+		}
+		if(orderNo==null){
+			throw new NotParamterException("请输入订单号");
+		}
+		if(productName==null){
+			throw new NotParamterException("请输入产品名称");
+		}
 		return scheduleDao.findScheduleByParames(orderNo,productName);
 	}
-	
+
 }

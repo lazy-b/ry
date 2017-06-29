@@ -67,7 +67,7 @@ public class OrderServiceImple implements OrderService {
 		if(i>0){
 			return CustomResult.ok();
 		}else{
-			return CustomResult.build(101, "新增订单失败");
+			return CustomResult.build(100, "新增订单失败");
 		}
 	}
 
@@ -83,7 +83,7 @@ public class OrderServiceImple implements OrderService {
 		if(i>0){
 			return CustomResult.ok();
 		}else{
-			return CustomResult.build(101,"修改订单失败");
+			return CustomResult.build(100,"修改订单失败");
 		}
 	}
 	
