@@ -3,7 +3,7 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  <!-- 订单处理Mapper -->
 <mapper namespace="cn.fenix.ry.dao.ScheduleDao">
-  <select id="findScheduleByParames" parameterType="cn.fenix.ry.entity.Schedule" resultType="map">
+  <select id="findScheduleByParames" parameterType="map" resultType="map">
   	select 
   				id,
 	   			orderNo,

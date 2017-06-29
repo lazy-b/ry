@@ -14,9 +14,10 @@ import cn.fenix.ry.entity.Schedule;
 import cn.fenix.ry.service.ScheduleService;
 import cn.fenix.ry.util.JsonResult;
 
+
 @Controller
 @RequestMapping("schedule")
-public class ScheduleController {
+public class ScheduleController extends AbstractController{
 	@Resource
 	ScheduleService scheduleService;
 	@RequestMapping("/find.do")
