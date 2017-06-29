@@ -6,9 +6,9 @@ public class JsonResult<T>
 	implements Serializable{
 	private static final long serialVersionUID = 6380914148822193542L;
 	public static final int SUCCESS=200;
-	public static final int ERROR=1;
+	public static final int ERROR=100;
 	
-	private int state;
+	private int status;
 	private T rows;
 	public T getRows() {
 		return rows;
@@ -18,47 +18,45 @@ public class JsonResult<T>
 		this.rows = rows;
 	}
 
-	private String message;
+	private String msg;
 	
 	public JsonResult() {
 	}
 	
 	public JsonResult(T t){
-		state = SUCCESS;
+		status = SUCCESS;
 		rows = t;
-		message="";
+		msg="";
 	}
 	
 	public JsonResult(Throwable e){
-		state = ERROR;
+		status = ERROR;
 		rows=null;
-		message = e.getMessage();
+		msg = e.getMessage();
 	}
 
-	public JsonResult(int state, 
+	public JsonResult(int status, 
 			Throwable e) {
-		this.state = state;
-		this.message = e.getMessage();
+		this.status = status;
+		this.msg =e.getMessage();
 		this.rows = null;
 	}
 
-	public int getState() {
-		return state;
+	public int getstatus() {
+		return status;
 	}
 
-	public void setState(int state) {
-		this.state = state;
+	public void setstatus(int status) {
+		this.status = status;
 	}
 	
 
 
-	public String getMessage() {
-		return message;
+	public String getmsg() {
+		return msg;
 	}
 	
-	public void setMessage(String message) {
-		this.message = message;
+	public void setmsg(String msg) {
+		this.msg = msg;
 	}
-	
-	
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 import cn.fenix.ry.entity.Schedule;
 
 public interface ScheduleService {
-	//查询进度
+	//根据订单号和产品名称查出进度表
 	List<Map<String,Object>> listSchedule(String orderNo,String productName) throws Exception;
 	
 }

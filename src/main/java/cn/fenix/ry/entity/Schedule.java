@@ -6,16 +6,16 @@ import java.util.Date;
 public class Schedule implements Serializable{
 	private static final long serialVersionUID = -5480431528504342938L;
 	   private String id;
-	   private String orderNo;
-	   private String productName;
-	   private Integer batch;
-	   private Date reciverOrder;
-	   private Date planPrductTime;
-	   private Integer productStatus;
-	   private Date planProductFinish;
-	   private Integer productFinishStatus;
-	   private Date planOrderFinish;
-	   private Integer orderFinishStatus;
+	   private String orderNo;                //订单号
+	   private String productName;            //产品名称
+	   private Integer batch;                 //批次
+	   private Date reciverOrder;             //接收订单
+	   private Date planPrductTime;           //计划生产开始时间
+	   private Integer productStatus;         //生产开始状态
+	   private Date planProductFinish;        //计划生产完成时间
+	   private Integer productFinishStatus;   //生产完成状态
+	   private Date planOrderFinish;          //订单计划完成时间
+	   private Integer orderFinishStatus;     //订单完成状态
 	public Schedule() {
 		super();
 	}
