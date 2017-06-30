@@ -25,13 +25,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 		if(orderNo==null&&productName==null){
 			throw new NotParamterException("请输入订单号和产品名称");
 		}
-		if(orderNo==null){
+		if(orderNo==null||orderNo.trim().isEmpty()){
 			throw new NotParamterException("请输入订单号");
 		}
-		if(productName==null){
+		if(productName==null||productName.trim().isEmpty()){
 			throw new NotParamterException("请输入产品名称");
 		}
-		return scheduleDao.findScheduleByParames(orderNo,productName);
+		List<Map<String,Object>> list= scheduleDao.findScheduleByParames(orderNo.trim(),productName.trim());
+		if(list.size()==0){
+			throw new NotParamterException("无此订单及产品");
+			
+		}
+		//return scheduleDao.findScheduleByParames(orderNo,productName);
+		return list;
 	}
-
 }
