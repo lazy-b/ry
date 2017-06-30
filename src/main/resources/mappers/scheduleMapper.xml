@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <!-- 订单处理Mapper -->
+<mapper namespace="cn.fenix.ry.dao.ScheduleDao">
+  <select id="findScheduleByParames" parameterType="map" resultType="map">
+  	select 
+  				id,
+	   			orderNo,
+	  			productName,
+	   			batch,
+	  			reciverOrder,
+	   			planPrductTime,
+	    		productStatus,
+	   			planProductFinish,
+	  			productFinishStatus,
+	    		planOrderFinish,
+	  			orderFinishStatus
+  		from    
+  				scheduleTable
+  		 		<where>
+  		 			<trim prefixOverrides="and">
+  		 				<if test="orderNo!=null">
+  		 					orderNo=#{orderNo}
+  		 				</if>
+  		 				<if test="productName!=null">
+  		 					and productName=#{productName}
+  		 				</if>
+  		 			</trim>
+  		 		</where>
+  </select>
+</mapper>
