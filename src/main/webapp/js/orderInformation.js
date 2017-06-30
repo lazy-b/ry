@@ -1,4 +1,13 @@
-/*命名空间FENIX在namespace.js文件定义*/
+/* 
+    后端返回的信息格式例子：
+    {
+        status:200,     //返回操作状态
+        msg:msg,        //返回提示信息
+        data:null       //返回数据
+    }
+*/
+
+/*命名空间FENIX在fenixCommon.js文件定义*/
 /*创建命名空间FENIX.INFO.orderInfo*/
 FENIX.namespace("INFO.orderInfo");
 
@@ -51,7 +60,7 @@ function removeRows() {
                     } else {
                         $.messager.show({
                             title: "删除失败！",
-                            msg: result.errorMsg
+                            msg: result.msg
                         });
                     }
                 }, "json");
@@ -64,22 +73,46 @@ function removeRows() {
 
 /*打开修改行的表单*/
 function editRow() {
-            var row = $("#datagrid").datagrid("getSelected"),
-                url = FENIX.INFO.orderInfo.updateUrl;
+            var rows = $("#datagrid").datagrid("getSelections"),
+                url = FENIX.INFO.orderInfo.updateUrl,
+                remind_message;//提示信息
 
-            if (row) {
+            //定义打开会话窗口函数
+            function openDialog(rows){
                 $("#ftitle").html("编辑信息");
                 $("#dlg").dialog({
                     top:"10px",
                     modal:true,
                     queryParams: {//传递两个参数给表单
                         url: url,
-                        id: row.id
+                        id: rows[0].id
                     }
                 });
                 $("#dlg").dialog("open").dialog("setTitle","编辑信息");
-                $("#fm").form("load",row);
-            }else{
+                $("#fm").form("load",rows[0]);
+            }
+
+            //如果用户选择了一条以上记录，提示用户，如果用户仍然需要修改，则修改选中的第一条记录
+            if (rows.length > 1) {
+                remind_message = "您选择了&nbsp;"+rows.length+"&nbsp;条数据！本次操作只能修改第一条数据："+
+                                "<br><p style='text-indent:2em'>订单号："+
+                                rows[0].orderNo+"，产品名称："+rows[0].productName+
+                                "的数据。</p><p style='text-indent:4em'>您确定需要继续进行操作嘛？</p>";
+                $.messager.defaults = {
+                    ok: "仍然确认",
+                    cancel: "返回选择",
+                    width:"500px"
+                }         
+                $.messager.confirm("警告！", remind_message, function(r){
+
+                    //用户仍然确认修改，则打开修改会话窗口
+                    if (r) {
+                        openDialog(rows);
+                    }
+                });
+            } else if (rows.length === 1) {
+                openDialog(rows);
+            } else {
                 alert("请选择一条需要修改的数据！");
             }
         }
@@ -97,21 +130,28 @@ function save() {
         success: function(result){//表单提交成功的回调函数
             var result = eval("("+result+")");
 
-            if (result.errorMsg) {
+            if (result.status !== 200) {
                 $.messager.show({
                     title: "发生了一个错误",
-                    msg: result.errorMsg
+                    msg: result.msg
                 });
             }else{
                 $("#dlg").dialog("close");//关闭弹窗
                 $("#datagrid").datagrid("reload");//更新表格
+				
+				//如果FENIX.INFO.orderInfo.rows已经被赋值了，刷新为最新的表格
+				if (FENIX.INFO.orderInfo.rows) {
+					FENIX.INFO.orderInfo.rows = null;
+				};
             }
         }
     });
 } 
 
 /*重新从后台加载表格*/
-function reloadTable() {$("#datagrid").datagrid("reload");}
+function reloadTable() {
+    $("#datagrid").datagrid("reload");
+}
 
 /*前台搜索逻辑，不再从后台重新获取数据*/
 function doSearch(value, name) {
@@ -125,10 +165,15 @@ function doSearch(value, name) {
                 resultRows.push(rows_info[i]);
             }
         }
+    } else {//如果输入为空则刷新表格
+        $("#datagrid").datagrid("loadData",rows_info);
+        return ;
     }
+
     if (resultRows.length>0 && resultRows.length<=rows_info.length) {
         reload = true;
     }
+
     if (reload) {
         $("#datagrid").datagrid("loadData",resultRows);
         FENIX.INFO.orderInfo.rows = rows_info;

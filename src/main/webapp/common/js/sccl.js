@@ -60,7 +60,8 @@ function addIframe(cur){
 		label = $this.find("span").text(),
 		isHas = false;
 		/*如果href的值为空或者去除空格后的长度为零（地址为空），返回false*/
-	if (h == "" || $.trim(h).length == 0) {
+		/*或者是通过“javascript：”伪协议执行空语句时 -- 2017.06.24 by lazzy*/
+	if (h == "" || $.trim(h).length == 0 || h == "javascript:;") {
 		return false;
 	}
 	/*获取窗口的宽度*/
@@ -95,7 +96,7 @@ function addIframe(cur){
 	}
 	/*如果该页面是第一次打开，则新建该页面对应tab标签同时新建iframe展示对应内容*/
 	if (!isHas) {
-		var tab = "<a href='javascript:;' class='content-tab active' data-id='"+h+"'>"+ label +" <i class='icon-font'>&#xe617;</i></a>";
+		var tab = "<a href='javascript:;' class='content-tab active' data-id='"+h+"'>"+ label +" <i class='fa fa-window-close' aria-hidden='true'></i></a>";
 		$(".content-tab").removeClass("active");
 		$(".tab-nav-content").append(tab);
 		var iframe = "<iframe class='body-iframe' name='iframe"+ m +"' width='100%' height='100%' src='"+ h +"' frameborder='0' data-id='"+ h +"' seamless></iframe>";
@@ -299,35 +300,36 @@ function closePage() {
 	return false
 }
 
+/*由于更改字体文件导致的问题，将菜单栏由js生成改为html直接确定 -- 2017/06.24 by lazzy*/
 
 /*循环菜单，将菜单添加到菜单栏，并添加链接*/
-function initMenu(menu,parent){
-	for(var i=0; i<menu.length; i++){   
-		var item = menu[i];
-		var str = "";
-		try{
-			if(item.isHeader == "1"){
-				str = "<li class='menu-header'>"+item.name+"</li>";
-				$(parent).append(str);
-				if(item.childMenus != ""){
-					initMenu(item.childMenus,parent);
-				}
-			}else{
-				item.icon == "" ? item.icon = "&#xe610" : item.icon = item.icon;
-				if(item.childMenus == ""){
-					str = "<li><a href='"+item.url+"'><i class='icon-font'>"+item.icon+"</i><span>"+item.name+"</span></a></li>";
-					$(parent).append(str);
-				}else{
-					str = "<li><a href='"+item.url+"'><i class='icon-font '>"+item.icon+"</i><span>"+item.name+"</span><i class='icon-font icon-right'>&#xe60b;</i></a>";
-					str +="<ul class='menu-item-child' id='menu-child-"+item.id+"'></ul></li>";
-					$(parent).append(str);
-					var childParent = $("#menu-child-"+item.id);
-					initMenu(item.childMenus,childParent);
-				}
-			}
-		}catch(e){}
-	}
-}
+// function initMenu(menu,parent){
+// 	for(var i=0; i<menu.length; i++){   
+// 		var item = menu[i];
+// 		var str = "";
+// 		try{
+// 			if(item.isHeader == "1"){
+// 				str = "<li class='menu-header'>"+item.name+"</li>";
+// 				$(parent).append(str);
+// 				if(item.childMenus != ""){
+// 					initMenu(item.childMenus,parent);
+// 				}
+// 			}else{
+// 				item.icon == "" ? item.icon = "&#xe610" : item.icon = item.icon;
+// 				if(item.childMenus == ""){
+// 					str = "<li><a href='"+item.url+"'><i class='icon-font'>"+item.icon+"</i><span>"+item.name+"</span></a></li>";
+// 					$(parent).append(str);
+// 				}else{
+// 					str = "<li><a href='"+item.url+"'><i class='icon-font '>"+item.icon+"</i><span>"+item.name+"</span><i class='icon-font icon-right'>&#xe60b;</i></a>";
+// 					str +="<ul class='menu-item-child' id='menu-child-"+item.id+"'></ul></li>";
+// 					$(parent).append(str);
+// 					var childParent = $("#menu-child-"+item.id);
+// 					initMenu(item.childMenus,childParent);
+// 				}
+// 			}
+// 		}catch(e){}
+// 	}
+// }
 
 
 
@@ -383,102 +385,107 @@ $(window).resize(function() {
 	}
 });
 
+
+/*本项目不需要更改皮肤，故此项直接删除 -- 2017/06.24 by lazzy*/
+
 /*皮肤选择*/
-$(".dropdown-skin li a").click(function(){
-	var v = $(this).attr("data-val");
-	var hrefStr=$("#layout-skin").attr("href");
-	var hrefRes=hrefStr.substring(0,hrefStr.lastIndexOf('skin/'))+'skin/'+v+'/skin.css';
-	$(window.frames.document).contents().find("#layout-skin").attr("href",hrefRes);
+// $(".dropdown-skin li a").click(function(){
+// 	var v = $(this).attr("data-val");
+// 	var hrefStr=$("#layout-skin").attr("href");
+// 	var hrefRes=hrefStr.substring(0,hrefStr.lastIndexOf('skin/'))+'skin/'+v+'/skin.css';
+// 	$(window.frames.document).contents().find("#layout-skin").attr("href",hrefRes);
 	
-	setCookie("scclui-skin", v);
-});
+// 	setCookie("scclui-skin", v);
+// });
 
-/*获取cookie中的皮肤*/
-function getSkinByCookie(){
-	var v = getCookie("scclui-skin");
-	var hrefStr=$("#layout-skin").attr("href");
-	if(v == null || v == ""){
-		v="qingxin";
-	}
-	if(hrefStr != undefined){
-		var hrefRes=hrefStr.substring(0,hrefStr.lastIndexOf('skin/'))+'skin/'+v+'/skin.css';
-		$("#skin").attr("href",hrefRes);
-	}
-}
+// /*获取cookie中的皮肤*/
+// function getSkinByCookie(){
+// 	var v = getCookie("scclui-skin");
+// 	var hrefStr=$("#layout-skin").attr("href");
+// 	if(v == null || v == ""){
+// 		v="qingxin";
+// 	}
+// 	if(hrefStr != undefined){
+// 		var hrefRes=hrefStr.substring(0,hrefStr.lastIndexOf('skin/'))+'skin/'+v+'/skin.css';
+// 		$("#skin").attr("href",hrefRes);
+// 	}
+// }
 
-/*给icon设置随机颜色*/
-function getMathColor(){
-	var arr = new Array();
-	arr[0] = "#ffac13";
-	arr[1] = "#83c44e";
-	arr[2] = "#2196f3";
-	arr[3] = "#e53935";
-	arr[4] = "#00c0a5";
-	arr[5] = "#16A085";
-	arr[6] = "#ee3768";
+// /*给icon设置随机颜色*/
+// function getMathColor(){
+// 	var arr = new Array();
+// 	arr[0] = "#ffac13";
+// 	arr[1] = "#83c44e";
+// 	arr[2] = "#2196f3";
+// 	arr[3] = "#e53935";
+// 	arr[4] = "#00c0a5";
+// 	arr[5] = "#16A085";
+// 	arr[6] = "#ee3768";
 
-	var le = $(".menu-item > a").length;
-	for(var i=0;i<le;i++){
-		var num = Math.round(Math.random()*5+1);
-		var color = arr[num-1];
-		$(".menu-item > a").eq(i).find("i:first").css("color",color);
-	}
-}
+// 	var le = $(".menu-item > a").length;
+// 	for(var i=0;i<le;i++){
+// 		var num = Math.round(Math.random()*5+1);
+// 		var color = arr[num-1];
+// 		$(".menu-item > a").eq(i).find("i:first").css("color",color);
+// 	}
+// }
+
+/*由于更改字体文件导致的问题，将菜单栏由js生成改为html直接确定 -- 2017/06.24 by lazzy*/
 
 /*
   初始化加载
 */
-$(function(){
-	/*获取皮肤*/
-	//getSkinByCookie();
-	getSkinByCookie;
-	/*菜单json*/
-	var menu = [{"id":"1","name":"主菜单","parentId":"0","url":"","icon":"","order":"1","isHeader":"1","childMenus":[
-					{"id":"10","name":"量产订单管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
-						{"id":"11","name":"订单安排管理","parentId":"10","url":"orderManagement/orderInformationTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"12","name":"订单进度管理","parentId":"10","url":"orderManagement/orderScheduleTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"13","name":"交货信息管理","parentId":"10","url":"orderManagement/deliveryTrackingTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"14","name":"库存信息管理","parentId":"10","url":"orderManagement/inventoryQueryTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"15","name":"生产计划管理","parentId":"10","url":"orderManagement/inventoryQueryTable.html","icon":"","order":"1","isHeader":"0","childMenus":""}
-					]},
-					{"id":"20","name":"样品订单管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
-						{"id":"21","name":"订单安排管理","parentId":"20","url":"orderManagement/orderInformationTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"22","name":"订单进度管理","parentId":"20","url":"orderManagement/orderScheduleTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"23","name":"交货信息管理","parentId":"20","url":"orderManagement/deliveryTrackingTable.html","icon":"","order":"1","isHeader":"0","childMenus":""}
-					]},
-					{"id":"30","name":"量产信息采集","parentId":"1","url":"","icon":"&#xe604;","order":"1","isHeader":"0","childMenus":[
-						{"id":"31","name":"生产记录采集","parentId":"30","url":"collectionInfo/info.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"32","name":"订单信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"33","name":"库存信息采集","parentId":"30","url":"test3.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"34","name":"交货信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"35","name":"工艺信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"36","name":"部件信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""}
-					]},
-					{"id":"40","name":"系统管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
-						{"id":"41","name":"用户信息管理","parentId":"4","url":"home3.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"42","name":"系统界面管理","parentId":"4","url":"home4.html","icon":"","order":"1","isHeader":"0","childMenus":""}
-					]}
-				]},
-				{"id":"2","name":"框架案例","parentId":"0","url":"","icon":"","order":"2","isHeader":"1","childMenus":[
-					{"id":"91","name":"新功能","parentId":"2","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
-					{"id":"101","name":"多级","parentId":"2","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
-						{"id":"111","name":"一级","parentId":"10","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
-						{"id":"121","name":"一级","parentId":"10","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
-							{"id":"131","name":"二级","parentId":"12","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
-							{"id":"141","name":"二级","parentId":"12","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
-								{"id":"151","name":"三级","parentId":"14","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
-								{"id":"161","name":"三级","parentId":"14","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
-									{"id":"171","name":"四级","parentId":"16","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
-									{"id":"181","name":"四级","parentId":"16","url":"","icon":"","order":"1","isHeader":"0","childMenus":""}
-								]}
-							]}
-						]}
-					]}
-				]}
-				];
-	initMenu(menu,$(".side-menu"));
-	$(".side-menu > li").addClass("menu-item");
+// $(function(){
+// 	/*获取皮肤*/
+// 	//getSkinByCookie();
+// 	getSkinByCookie;
+// 	/*菜单json*/
+// 	var menu = [{"id":"1","name":"主菜单","parentId":"0","url":"","icon":"","order":"1","isHeader":"1","childMenus":[
+// 					{"id":"10","name":"量产订单管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
+// 						{"id":"11","name":"订单安排管理","parentId":"10","url":"orderManagement/orderInformationTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"12","name":"订单进度管理","parentId":"10","url":"orderManagement/orderScheduleTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"13","name":"交货信息管理","parentId":"10","url":"orderManagement/deliveryTrackingTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"14","name":"库存信息管理","parentId":"10","url":"orderManagement/inventoryQueryTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"15","name":"生产计划管理","parentId":"10","url":"orderManagement/inventoryQueryTable.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+// 					]},
+// 					{"id":"20","name":"样品订单管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
+// 						{"id":"21","name":"订单安排管理","parentId":"20","url":"orderManagement/orderInformationTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"22","name":"订单进度管理","parentId":"20","url":"orderManagement/orderScheduleTable.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"23","name":"交货信息管理","parentId":"20","url":"orderManagement/deliveryTrackingTable.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+// 					]},
+// 					{"id":"30","name":"量产信息采集","parentId":"1","url":"","icon":"&#xe604;","order":"1","isHeader":"0","childMenus":[
+// 						{"id":"31","name":"生产记录采集","parentId":"30","url":"collectionInfo/info.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"32","name":"订单信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"33","name":"库存信息采集","parentId":"30","url":"test3.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"34","name":"交货信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"35","name":"工艺信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"36","name":"部件信息采集","parentId":"30","url":"test2.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+// 					]},
+// 					{"id":"40","name":"系统管理","parentId":"1","url":"","icon":"&#xe602;","order":"1","isHeader":"0","childMenus":[
+// 						{"id":"41","name":"用户信息管理","parentId":"4","url":"home3.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"42","name":"系统界面管理","parentId":"4","url":"home4.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+// 					]}
+// 				]},
+// 				{"id":"2","name":"框架案例","parentId":"0","url":"","icon":"","order":"2","isHeader":"1","childMenus":[
+// 					{"id":"91","name":"新功能","parentId":"2","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 					{"id":"101","name":"多级","parentId":"2","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
+// 						{"id":"111","name":"一级","parentId":"10","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 						{"id":"121","name":"一级","parentId":"10","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
+// 							{"id":"131","name":"二级","parentId":"12","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 							{"id":"141","name":"二级","parentId":"12","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
+// 								{"id":"151","name":"三级","parentId":"14","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 								{"id":"161","name":"三级","parentId":"14","url":"","icon":"","order":"1","isHeader":"0","childMenus":[
+// 									{"id":"171","name":"四级","parentId":"16","url":"","icon":"","order":"1","isHeader":"0","childMenus":""},
+// 									{"id":"181","name":"四级","parentId":"16","url":"","icon":"","order":"1","isHeader":"0","childMenus":""}
+// 								]}
+// 							]}
+// 						]}
+// 					]}
+// 				]}
+// 				];
+// 	initMenu(menu,$(".side-menu"));
+// 	$(".side-menu > li").addClass("menu-item");
 	
-	/*获取菜单icon随机色*/
-	//getMathColor();
-}); 
+// 	/*获取菜单icon随机色*/
+// 	//getMathColor();
+// }); 

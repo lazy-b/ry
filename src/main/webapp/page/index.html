@@ -1,6 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
 <head>
-<meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>如一精密事业部后台管理系统</title>
     <link rel="stylesheet" href="../common/css/sccl.css" />
     <link rel="stylesheet" href="../common/iconfont/1.0.1/iconfont.css" />
@@ -12,7 +14,7 @@
 	<div class="layout-admin">
 		<header class="layout-header">
 			<span class="header-logo">如一精密事业部</span> 
-			<a class="header-menu-btn" href="javascript:;"><i class="fa fa-bars fa-3x" aria-hidden="true"></i></a>
+			<a class="header-menu-btn" href="javascript:;"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<ul class="header-bar">
 				<li class="header-bar-role"><a href="javascript:;">超级管理员</a></li>
 				<li class="header-bar-nav">
@@ -25,12 +27,106 @@
 				</li>
 			</ul>
 		</header>
+
+        <!-- 菜单栏开始 -->
 		<aside class="layout-side">
 			<ul class="side-menu">
-			  
+			  <li class="menu-header menu-item">
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                产品管理
+              </li>
+              <li class="menu-item">
+                  <a href="javascript:;"><!-- 伪协议执行空语句 -->
+                      <i class="fa fa-file-text" aria-hidden="true"></i>
+                      <span>量产订单管理</span>
+                      <i class="fa fa-caret-right icon-rotate" aria-hidden="true"></i>
+                  </a>
+                  <ul class="menu-item-child">
+                      <li>
+                        <a href="orderManagement/orderInformationTable.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>订单安排管理</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="orderManagement/orderScheduleTable.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>订单进度管理</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="orderManagement/deliveryTrackingTable.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>交货信息管理</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="orderManagement/inventoryQueryTable.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>库存信息管理</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="orderManagement/inventoryQueryTable.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>生产计划管理</span>
+                        </a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="menu-item">
+                  <a href="javascript:;"><!-- 伪协议执行空语句 -->
+                      <i class="fa fa-file-text" aria-hidden="true"></i>
+                      <span>生产信息采集</span>
+                      <i class="fa fa-caret-right icon-rotate" aria-hidden="true"></i>
+                  </a>
+                  <ul class="menu-item-child">
+                      <li>
+                        <a href="collectionInfo/info.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>生产记录采集</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="test2.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>订单信息采集</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="test3.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>库存信息采集</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="test2.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>交货信息采集</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="test2.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>工艺信息采集</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="test2.html">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>部件信息采集</span>
+                        </a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="menu-header menu-item">
+                <i class="fa fa-server" aria-hidden="true"></i>
+                系统管理
+              </li>
 			</ul>
 		</aside>
-		
+		<!-- 菜单栏结束 -->
+
 		<div class="layout-side-arrow"><div class="layout-side-arrow-icon"><i class="fa fa-caret-right" aria-hidden="true"></i></div></div>
 		
 		<section class="layout-main">

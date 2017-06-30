@@ -83,7 +83,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .layout-footer{position: fixed; left: 200px; right: 0; bottom: 0; height: 30px;line-height:30px;background-color: #eee;border-top:1px solid #ccc;text-align:center;z-index:998;}
 
 /* 头部 */
-.header-logo{margin-left: 10px;color:#fff;line-height:45px;font-size:16px;}
+.header-logo{/*margin-left: 10px; --2017.06.26 by lazzy*/color:#fff;line-height:45px;font-size:16px;}
 .header-bar{float:right;color:#fff;height: 45px;line-height:45px;margin-right: 10px;}
 .header-bar li{float:left;}
 .header-bar li a {margin:0 10px;color:#fff;}
@@ -96,14 +96,15 @@ a cite{font-style: normal; *cursor:pointer;}
 .header-bar-nav.open .header-dropdown-menu.right{right:10px!important;left:auto!important}
 .header-bar-nav:hover,.header-bar-nav:focus{background-color:rgba(255,255,255,0.3)}
 .header-bar-nav .header-dropdown-menu li a:hover,.header-bar-nav .header-dropdown-menu li a:focus{background-color:#fafafa}
-.header-menu-btn{display:block;float:left;color:#fff;width:40px;text-align:center;line-height:45px;height:45px;}/*lazzy修改于2017/06/22*/
+.header-menu-btn{display:block;float:left;color:#fff;width:40px;text-align:center;line-height:45px;height:45px;font-size:28px;}/*lazzy修改于2017/06/22*/
 .header-menu-btn:hover{background-color:rgba(255,255,255,0.3)}
 
 /* 左侧菜单 */
 .side-menu{list-style: none; margin: 0; padding: 0; background-color: #393D49;position: relative;font-size: 14px;}
 .side-menu .menu-item{position: relative; margin: 0; padding: 0;} 
+.side-menu .menu-item>i{padding-right:.5em;}/*在主菜单增加一个小图标并增加样式2016.06.26 by lazzy*/
 .side-menu .menu-item a{padding: 12px 5px 12px 15px; display: block; border-left: 5px solid transparent; color: #c2c2c2;border-bottom: 1px solid #393D49;} 
-.side-menu .menu-item a span{margin-left: 8px;} 
+.side-menu .menu-item a span{margin:0 8px;}/*给左右两边的小图标都隔开一点距离，2017.06.26 by lazzy*/ 
 .side-menu .menu-item:hover > a, .side-menu .menu-item.active > a{color: #fff; background: #4E5465; border-left-color: #33AECC;transition: all .3s; -webkit-transition: all .3s;} 
 .side-menu .menu-header{color: #fff; background: #2B2E37;height:39px;line-height:39px;padding-left:10px;border-bottom: 1px solid #2b2e37;} 
 .side-menu .menu-item a .icon-right{width: auto; height: auto; padding: 0; margin-right: 10px; margin-top: 3px;float:right;} 
@@ -113,7 +114,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .side-menu .menu-item-child li a{padding: 8px 5px 8px 15px; display: block;color: #c2c2c2;} 
 .side-menu .menu-item-child li a span {margin-left: 10px;} 
 .side-menu .menu-item-child li.active > a, .side-menu .menu-item-child li > a:hover{color: #fff;}
-.side-menu li.active > a .icon-right{transform: rotate(90deg);-ms-transform:rotate(90deg);/* IE 9 */-moz-transform:rotate(90deg); 	/* Firefox */-webkit-transform:rotate(90deg); /* Safari 和 Chrome */-o-transform:rotate(90deg); 	/* Opera */} 
+.side-menu li.active > a .icon-rotate{transform: rotate(90deg);-ms-transform:rotate(90deg);/* IE 9 */-moz-transform:rotate(90deg); 	/* Firefox */-webkit-transform:rotate(90deg); /* Safari 和 Chrome */-o-transform:rotate(90deg); 	/* Opera */} /*更改字体库后将类名改为icon-rotate --2017.06.26 by lazzy*/
 
 /* 菜单收缩展开样式 */
 .layout-side-arrow{position: absolute;display:block;top: 45%;left: 200px;border:1px solid #ddd;background-color:#ccc;height: 50px;width:10px;z-index: 1000;line-height:50px;text-align:center;cursor:pointer;border-top-right-radius:3px;border-bottom-right-radius:3px;}
@@ -137,7 +138,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .tab-nav-content a{display:block;color: #999;cursor:pointer;border-right: solid 1px #ddd;padding: 0 15px;float:left;}
 .tab-nav-content a:hover{color: #333;}
 .tab-nav-content a.active{color: #33AECC;background: #fff;}
-.tab-nav-content a i{color:#ccc;font-size:12px;vertical-align:top;}
+.tab-nav-content a i{color:#ccc;font-size:14px;/*vertical-align:top; --更新字体库后不兼容，将此处改为后面两个样式：2017.06.26 by lazzy*/line-height: 40px;text-indent: .5em;}
 .tab-nav-content a i:hover{color:#FF5722;}
 .tab-nav-content a.active i:hover{color: #FF5722;}
 .tab-nav-content .content-tab{transition: all .3s ease-out 0s;-webkit-transition: all .3s ease-out 0s;}
