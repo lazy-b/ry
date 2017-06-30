@@ -73,49 +73,49 @@ function removeRows() {
 
 /*打开修改行的表单*/
 function editRow() {
-            var rows = $("#datagrid").datagrid("getSelections"),
-                url = FENIX.INFO.orderInfo.updateUrl,
-                remind_message;//提示信息
+	var rows = $("#datagrid").datagrid("getSelections"),
+		url = FENIX.INFO.orderInfo.updateUrl,
+		remind_message;//提示信息
 
-            //定义打开会话窗口函数
-            function openDialog(rows){
-                $("#ftitle").html("编辑信息");
-                $("#dlg").dialog({
-                    top:"10px",
-                    modal:true,
-                    queryParams: {//传递两个参数给表单
-                        url: url,
-                        id: rows[0].id
-                    }
-                });
-                $("#dlg").dialog("open").dialog("setTitle","编辑信息");
-                $("#fm").form("load",rows[0]);
-            }
+	//定义打开会话窗口函数
+	function openDialog(rows){
+		$("#ftitle").html("编辑信息");
+		$("#dlg").dialog({
+			top:"10px",
+			modal:true,
+			queryParams: {//传递两个参数给表单
+				url: url,
+				id: rows[0].id
+			}
+		});
+		$("#dlg").dialog("open").dialog("setTitle","编辑信息");
+		$("#fm").form("load",rows[0]);
+	}
 
-            //如果用户选择了一条以上记录，提示用户，如果用户仍然需要修改，则修改选中的第一条记录
-            if (rows.length > 1) {
-                remind_message = "您选择了&nbsp;"+rows.length+"&nbsp;条数据！本次操作只能修改第一条数据："+
-                                "<br><p style='text-indent:2em'>订单号："+
-                                rows[0].orderNo+"，产品名称："+rows[0].productName+
-                                "的数据。</p><p style='text-indent:4em'>您确定需要继续进行操作嘛？</p>";
-                $.messager.defaults = {
-                    ok: "仍然确认",
-                    cancel: "返回选择",
-                    width:"500px"
-                }         
-                $.messager.confirm("警告！", remind_message, function(r){
+	//如果用户选择了一条以上记录，提示用户，如果用户仍然需要修改，则修改选中的第一条记录
+	if (rows.length > 1) {
+		remind_message = "您选择了&nbsp;"+rows.length+"&nbsp;条数据！本次操作只能修改第一条数据："+
+						"<br><p style='text-indent:2em'>订单号："+
+						rows[0].orderNo+"，产品名称："+rows[0].productName+
+						"的数据。</p><p style='text-indent:4em'>您确定需要继续进行操作嘛？</p>";
+		$.messager.defaults = {
+			ok: "仍然确认",
+			cancel: "返回选择",
+			width:"500px"
+		}         
+		$.messager.confirm("警告！", remind_message, function(r){
 
-                    //用户仍然确认修改，则打开修改会话窗口
-                    if (r) {
-                        openDialog(rows);
-                    }
-                });
-            } else if (rows.length === 1) {
-                openDialog(rows);
-            } else {
-                alert("请选择一条需要修改的数据！");
-            }
-        }
+			//用户仍然确认修改，则打开修改会话窗口
+			if (r) {
+				openDialog(rows);
+			}
+		});
+	} else if (rows.length === 1) {
+		openDialog(rows);
+	} else {
+		alert("请选择一条需要修改的数据！");
+	}
+}
 
 /*保存表单记录（新增的记录或者被修改后的记录）*/
 function save() {

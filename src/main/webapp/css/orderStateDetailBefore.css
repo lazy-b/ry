@@ -47,6 +47,7 @@ body{
     background-color:#fff;
     font-size:20px;
     font-weight: 700;
+    outline: none;
 }
 .btn:hover{
     padding:0;
