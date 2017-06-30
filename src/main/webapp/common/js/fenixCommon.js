@@ -23,7 +23,7 @@ var FENIX = {
 FENIX.getHTTPObject = function(){
 	var request = false ;
 	
-	if (window.XMLHttpRequest) {3 
+	if (window.XMLHttpRequest) { 
 		request = new XMLHttpRequest();//IE7+,Firefox,Chrome,Opera,Safari...
 	} else if (window.ActiveXObject) {
 		request = new ActiveXObject('Microsoft.XMLHTTP');//IE6,IE5

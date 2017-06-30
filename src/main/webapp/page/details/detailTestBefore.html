@@ -15,7 +15,7 @@
 			<p><i class="fa fa-bell-o" aria-hidden="true"></i> 温馨提示：如一精密事业部全体成员将<strong>竭尽全力</strong>为客户着想，<strong>保质保量</strong>地<strong>准时</strong>将产品交付！</p>
 		</div>
 	</div><!-- 提示信息结束 -->
-    <div id="search-box" class="wrap search-success">
+    <div id="search-box" class="wrap">
         <div class="form-container">
             <form name="f" id="form" class="fm" onsubmit="javascript:return FENIX.STATE.getStateDetails();" action="detailTest.html">
                 <span>
@@ -309,10 +309,15 @@
         /*查询成功则无刷新加载内容*/
         FENIX.STATE.getStateDetails = function() {
             var request = FENIX.getHTTPObject(),
-                success = true;//操作结果标识
+                success = true,//操作结果标识
+                orderNo = FENIX.getById("orderNo"),
+                productName = FENIX.getById("productName"),
+                orderNoValue,productNameValue;
+
+                orderNoValue = orderNo.value;
+                productNameValue = productName.value;
 
             if (request) {
-                request.open("GET", "URL", true);
                 request.onreadystatechange = function() {
 
                     if (request.readyState == 4){//响应完成
@@ -323,15 +328,15 @@
                             aleat("查询错误："+request.msg);
                             FENIX.STATE.toggleDetails("hide");
                         }
-
-                        success = false; //响应完成则阻止页面跳转
                     }
                 };
+                request.open("GET", "../../schedule/find.do?orderNo="+orderNoValue+"&productName="+productNameValue, true);
                 request.send(null);
+                success = false; //请求成功则阻止页面跳转
             } else {
                 alert("抱歉，页面刷新失败，将在新窗口展示搜索结果！");
+                FENIX.STATE.toggleDetails("hide");
             }
-
             return success;
         }
     </script>
