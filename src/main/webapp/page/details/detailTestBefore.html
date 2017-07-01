@@ -40,20 +40,12 @@
     			<div class="order-summary">
     				<div class="state-top">
                         <span class="left-text">订单号：</span>
-						<select name="product" id="selectOrder">
-							<option value="PO20170615003" selected>PO20170615003</option>
-							<option value="PO2017055">PO2017055</option>
-							<option value="PO20170615005">PO20170615005</option>
-							<option value="PO20170615006">PO20170615006</option>
-							<option value="PO20170615007">PO20170615007</option>
-							<option value="PO20170615008">PO20170615008</option>
-						</select>
-						
-						
-						<!-- <span class="right-text">PO20170615003</span> -->
+                        <span class="right-text" id="selectOrder"></span>
                     </div>
                     <div class="state-top">
                         <span class="left-text">产品名：</span>
+                        <span class="right-text" id="selectOrder"></span>
+                        <!-- 
 						<select name="product" id="selectProduct">
 							<option value="TK16筒身" selected>TK16筒身</option>
 							<option value="PD35筒身">PD35筒身</option>
@@ -61,16 +53,14 @@
 							<option value="PD35筒头">PD35筒头</option>
 							<option value="TK16筒尾">TK16筒尾</option>
 							<option value="PD35灯座">PD35灯座</option>
-						</select>
-						
-						<!-- <span class="right-text">TK15筒身</span> -->
+						</select> -->
                     </div>
                     <h3 class="state-text" title="订单状态" style="margin-top:50px">生产中</h3>
     			</div>
             </div>
             <div class="right">
     			<div class="order-state-step">
-                    <div class="order-state-node done">
+                    <div class="order-state-node inital">
                         <ul>
                             <!-- <li class="text1">2017/06/01</li> -->
 							<li class="text1">&nbsp;</li>
@@ -83,7 +73,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="order-state-connector  done">
+                    <div class="order-state-connector  inital">
                         <i class="fa fa-fighter-jet"></i>
                         <i class="fa fa-fighter-jet"></i>
                         <i class="fa fa-fighter-jet"></i>
@@ -95,7 +85,7 @@
                         <i class="fa fa-fighter-jet"></i>
                         <i class="fa fa-fighter-jet"></i>
                     </div>
-                    <div class="order-state-node done">
+                    <div class="order-state-node inital">
                         <ul>
                             <!-- <li class="text1">2017/06/01</li> -->
 							<li class="text1">&nbsp;</li>
@@ -108,7 +98,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="order-state-connector prepare">
+                    <div class="order-state-connector inital">
                        <i class="fa fa-fighter-jet"></i>
                         <i class="fa fa-fighter-jet"></i>
                         <i class="fa fa-fighter-jet"></i>

@@ -153,6 +153,11 @@ input:-webkit-autofill:active */{
     color: #999;
 }
 
+.right-text{
+    color: #111;
+    display: inline-block;
+    text-indent: 1em;
+}
 
 /*进度条*/
 .order-state-step{

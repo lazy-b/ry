@@ -83,6 +83,7 @@ FENIX.STATE.reloadDetails = function(responseText) {
 		stateText = stateBar.getElementsByTagName("h3")[0],
 		stateNodes = FENIX.getElementsByClassName("order-state-node",stateBar),
 		stateConnector = FENIX.getElementsByClassName("order-state-connector",stateBar),
+		rightTexts = FENIX.getElementsByClassName("right-text",stateBar),
 		barTextsPrepare = ["订单处理中","订单生产中","订单待交货","订单已完成"],
 		details = null,
 		stepDatesPrepare = [],
@@ -123,8 +124,8 @@ FENIX.STATE.reloadDetails = function(responseText) {
 		}
 
 		//更新订单主要信息，包括订单号，产品名以及生产状态
-		selectOrder.value = details.orderNo;
-		selectProduct.value = details.productName;
+		rightTexts[0].innerHTML = details.orderNo;
+		rightTexts[1].innerHTML = details.productName;
 		//stateText.innerHTML = details.stateText;
 		stateText.innerHTML = BarText;//更新状态
 
@@ -200,7 +201,7 @@ FENIX.STATE.toggleMsg = function(state,message) {
 	}
 }
 
-/*查询成功则无跳转加载内容*/
+/*异步搜索结果，如果查询成功则无跳转加载内容*/
 FENIX.STATE.getStateDetails = function() {
 	var request = FENIX.getHTTPObject(),
 		success = true,//操作结果标识
