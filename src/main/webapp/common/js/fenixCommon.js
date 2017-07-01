@@ -57,7 +57,8 @@ FENIX.addLoadEvent = function(func) {
 
 /*5、给DOM元素追加类*/
 FENIX.addClass = function(element, value) {
-	var reg = "/\b"+value+"\b/";
+	var reg =new RegExp("\\b"+value+"\\b"),
+		newClassName = "";
 	
 	if (!element.className){
 		element.className = value;
@@ -71,9 +72,10 @@ FENIX.addClass = function(element, value) {
 
 /*6、给DOM元素删除类*/
 FENIX.removeClass = function(element, value) {
-	var reg = new RegExp("/\b"+value+"\b/g");
-	
-	if (reg.test(element.className)) {
+	var reg = new RegExp("\\b"+value+"\\b","g"),
+		newClassName = "";
+		
+	if (reg.test(element.className)){
 		
 		//简化版本，实际还应当对空格进行适当的删除，此处应用场景可以不做处理
 		newClassName = element.className.replace(reg, "");
@@ -82,13 +84,15 @@ FENIX.removeClass = function(element, value) {
 }
 
 /*7、通过类名查找DOM对象（单个类名）*/
-FENIX.getElementsByClassName = function(node,classname) {
+FENIX.getElementsByClassName = function(classname, node) {
+	var node = node || document;
+	
 	if (node.getElementsByClassName) {
 		//如果浏览器支持getElementsByClassName方法，则使用浏览器提供的方法
 		return node.getElementsByClassName(classname);
-	}else{
+	} else {
 		var results=[],
-			reg = new RegExp("/\b"+classname+"\b/"),
+			reg = new RegExp("\\b"+classname+"\\b"),
 			elems = null;
 			
 		if (!document.getElementsByTagName) return false;

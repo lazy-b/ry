@@ -1,73 +1,108 @@
 body{
-	color:#666;
+	color: #666;
     font: 12px/150% tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;
 }
 
 /*头部的提示小贴士*/
 .tips{
-	height:20px;
+	height: 20px;
 	line-height: 20px;
 }
 .wrap{
-	width:1210px;
-	margin:0 auto;
+	width: 1210px;
+	margin: 0 auto;
 }
 
 /*搜索框样式——搜索前*/
+#search-box{
+    position: relative;
+}
+
 .form-container{
-    height:600px;
-    padding:10px;
+    height: 600px;
+    padding: 10px;
 }
 
 .fm{
-    width:900px;
-    height:60px;
-    margin:270px auto;
+    width: 900px;
+    height: 60px;
+    margin: 270px auto;
     text-indent: 20px;
     font-size: 20px;
     font-weight: 700;
 }
 
 .s_ipt{
-    width:260px;
-    height:50px;
-    margin:2px 10px;
-    padding:2px 10px;
-    font-size:20px;
-    border:0;
+    width: 260px;
+    height: 50px;
+    margin: 2px 10px;
+    padding: 2px 10px;
+    font-size: 20px;
+    border: 0;
     border-bottom: 1px solid #ccc;
     outline: none;
+    background-color: #fff;
 }
 
 .btn{
-    width:90px;
-    height:58px;
-    margin:1px -17px;
-    border:0;
-    background-color:#fff;
-    font-size:20px;
+    width: 90px;
+    height: 58px;
+    margin: 1px -17px;
+    border: 0;
+    background-color: #fff;
+    font-size: 20px;
     font-weight: 700;
     outline: none;
 }
+
+#msg{
+    position: absolute;
+    height: 40px;
+    line-height: 40px;
+    width: 800px;
+    top: 360px;
+    left: 200px;
+    text-indent: 4em;
+    font-size: 16px;
+    color: #c33;
+}
+
+/*去除谷歌浏览器自动填充时的背景色（适用于纯色背景色）
+input:-webkit-autofill {
+ -webkit-box-shadow: 0 0 0px 1000px white inset;
+ -webkit-text-fill-color: #333;
+}
+*/
+/* 99999s 基本上就是一个无限长的时间 
+    通过延长增加自动填充背景色的方式, 
+    使用户感受不到样式的变化
+*/
+input:-webkit-autofill/*,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active */{
+    -webkit-transition-delay: 99999s;
+    -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
+}
 .btn:hover{
-    padding:0;
-    cursor:pointer;
-    color:#c00;
+    padding: 0;
+    cursor: pointer;
+    color: #c00;
 }
 
 /*搜索框样式——搜索后*/
 .search-success .form-container{
-    height:200px;
-    border-bottom:1px dashed #ccc;
+    height: 200px;
+    border-bottom: 1px dashed #ccc;
     transition-delay: 100ms;
     transition-property: height,color,border;
     transition-duration: 500ms;
 }
 
 .search-success .fm{
-    width:900px;
-    height:60px;
-    margin:60px auto;
+    width: 900px;
+    height: 60px;
+    margin: 60px auto;
     text-indent: 20px;
     font-size: 20px;
     font-weight: 700;
@@ -78,30 +113,30 @@ body{
 	margin: 10px 0;
 }
 .state-bar:after{
-	clear:both;
-	content:".";
-	display:block;
-	height:0;
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
 	line-height: 0;
 	visibility: hidden;
 }
 
 .left,.right{
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
 }
 
 .left{
-	width:300px;
-	float:left;
+	width: 300px;
+	float: left;
 }
 .right{
-	float:right;
-	width:900px;
+	float: right;
+	width: 900px;
 }
 
 .order-summary,.order-state-step{
-	padding:10px;
-	height:200px;
+	padding: 10px;
+	height: 200px;
 }
 
 /*进度条左侧生产状态字体*/
@@ -121,38 +156,38 @@ body{
 
 /*进度条*/
 .order-state-step{
-    width:850px;
-    margin:0 auto;
-    color:black;
+    width: 850px;
+    margin: 0 auto;
+    color: black;
 }
 .order-state-node ,.order-state-connector{
-    height:200px;
-    float:left;
+    height: 200px;
+    float: left;
 }
 
 .order-state-node {
-    width:100px;
+    width: 100px;
 }
 
 .order-state-connector{
-    width:180px;
-    margin:0 -15px;
+    width: 180px;
+    margin: 0 -15px;
     overflow: visible;
-    white-space:nowrap;
-    text-align:center;
+    white-space: nowrap;
+    text-align: center;
 }
 
 .order-state-node {
     text-align: center;
 }
 .order-state-node>ul{
-    list-style:none;
-    padding:0;
-    margin:0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 .order-state-node>ul p{
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
 .text1{
@@ -180,24 +215,24 @@ body{
 }
 
 .inital i{
-    color:#DCDCDC;
+    color: #DCDCDC;
 }
 .prepare{
-    color:#666;
+    color: #666;
 }
 
 .done{
-    color:#7BBC52;
+    color: #7BBC52;
 }
 
 
 /*进度详情开始*/
 .order-info,.order-state-info{
-	height:600px;
+	height: 600px;
 }
 .order-info-title,.order-state-info-title{
-    height:32px;
-    line-height:32px;
+    height: 32px;
+    line-height: 32px;
     border-bottom: 1px solid #DDD;
     background-color: #F3F3F3;
     color: #333;
@@ -205,15 +240,15 @@ body{
     font-weight: 700;
 }
 .order-info-title h3,.order-state-info-title h3{
-    margin:0;
+    margin: 0;
     text-indent: 1em;
 }
 .order-info-main{
     background-color: #fbfbfb;
-    height:567px;
+    height: 567px;
 }
 .order-info-main th{
-    width:40%;
+    width: 40%;
     text-align: right;
     vertical-align: top;
 
@@ -223,7 +258,7 @@ body{
 }
 
 .order-state-info-main{
-    padding:0 20px;
+    padding: 0 20px;
 }
 
 dl{
@@ -242,5 +277,5 @@ dd{
 }
 
 .hidden{
-    display:none;
+    display: none;
 }
