@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="../../css/orderStateDetailBefore.css">
     <link rel="stylesheet" href="../../common/font/css/font-awesome.css">
     <script src="../../common/js/fenixCommon.js"></script>
+    <script src="../../js/searchDetail.js"></script>
 </head>
 <body>
 	<div class="tips"><!-- 提示信息开始 -->
@@ -29,6 +30,9 @@
                 <input type="submit" value="搜索" id="su" class="btn self-btn bg s_btn">
             </form>
         </div>
+        <div id="msg" class="hidden">
+            这是一个提示信息、、、
+        </div>
     </div>
 	<div class="wrap" id="container"><!-- 主内容开始 -->
 		<div class="state-bar hidden" id="state-bar"><!-- 进度条开始 -->
@@ -36,9 +40,9 @@
     			<div class="order-summary">
     				<div class="state-top">
                         <span class="left-text">订单号：</span>
-						<select name="product" id="selectOrderNumber">
+						<select name="product" id="selectOrder">
 							<option value="PO20170615003" selected>PO20170615003</option>
-							<option value="PO20170615004">PO20170615004</option>
+							<option value="PO2017055">PO2017055</option>
 							<option value="PO20170615005">PO20170615005</option>
 							<option value="PO20170615006">PO20170615006</option>
 							<option value="PO20170615007">PO20170615007</option>
@@ -287,58 +291,5 @@
 			</div>
 		</div><!-- 进度详情结束 -->
 	</div><!-- 主内容结束 -->
-    <script>
-        /*命名空间FENIX在fenixCommon.js文件定义*/
-        /*创建命名空间FENIX.STATE*/
-        FENIX.namespace("STATE");
-
-        /*确定详情是否隐藏*/
-        FENIX.STATE.toggleDetails = function(state){
-            var searchBox = FENIX.getById("search-box"),
-                stateBar = FENIX.getById("state-bar");
-
-            if (state == "show") {
-                FENIX.addClass(searchBox, "search-success");
-                FENIX.removeClass(stateBar, "hidden");                
-            } else if (state == "hide") {
-                FENIX.removeClass(searchBox, "search-success");
-                FENIX.addClass(stateBar, "hidden");
-            }
-        }
-
-        /*查询成功则无刷新加载内容*/
-        FENIX.STATE.getStateDetails = function() {
-            var request = FENIX.getHTTPObject(),
-                success = true,//操作结果标识
-                orderNo = FENIX.getById("orderNo"),
-                productName = FENIX.getById("productName"),
-                orderNoValue,productNameValue;
-
-                orderNoValue = orderNo.value;
-                productNameValue = productName.value;
-
-            if (request) {
-                request.onreadystatechange = function() {
-
-                    if (request.readyState == 4){//响应完成
-
-                        if (request.status == 200){//查询成功
-                            FENIX.STATE.toggleDetails("show");
-                        } else {//查询失败
-                            aleat("查询错误："+request.msg);
-                            FENIX.STATE.toggleDetails("hide");
-                        }
-                    }
-                };
-                request.open("GET", "../../schedule/find.do?orderNo="+orderNoValue+"&productName="+productNameValue, true);
-                request.send(null);
-                success = false; //请求成功则阻止页面跳转
-            } else {
-                alert("抱歉，页面刷新失败，将在新窗口展示搜索结果！");
-                FENIX.STATE.toggleDetails("hide");
-            }
-            return success;
-        }
-    </script>
 </body>
 </html>
