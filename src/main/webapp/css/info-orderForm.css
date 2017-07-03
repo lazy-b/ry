@@ -1,10 +1,4 @@
-.lazy-orderInfo{
-	width:650px;
-	top:200px;
-}
-.lazy-orderInfo #fm{
-	margin: 20px;
-}
+/*设置新增、修改表单的样式*/
 .lazy-orderInfo .ftitle{
 	font-size: 2em;
 	text-align: center;
@@ -39,13 +33,33 @@
 	text-align: center;
 	margin:0 20px;
 }
+
+
+/*设置数据网格菜单栏最小宽度，防止窗口太小时搜索框错位*/
+#toolbar{
+    min-width: 850px;
+}
+
 #searchBox {
 	float:right;
 	width:400px;
 }
-#searchBox input{
+/*#searchBox input{
 	width:300px;
 }
-#mm{
+#selectList{
 	width:100px;
+}*/
+
+
+/*针对easyUI渲染后的页面做的样式*/
+.panel-tool a {
+    margin-right: 20px;
+}
+
+.dialog-layout {
+    bottom: 20px;
+    width: 650px;
+    max-height: 680px;
+    overflow-y: auto;
 }

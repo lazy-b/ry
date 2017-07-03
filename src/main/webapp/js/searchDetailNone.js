@@ -1,17 +1,18 @@
- // 后端返回的信息格式例子：
-// {
-//     status:200,     //返回操作状态
-//     msg:msg,        //返回提示信息
-//     data:null       //返回数据
-// }
+/* 
+    后端返回的信息格式例子：
+    {
+        status:200,     //返回操作状态
+        msg:msg,        //返回提示信息
+        data:null       //返回数据
+    }
+*/
 
+/*命名空间FENIX在fenixCommon.js文件定义*/
+/*创建命名空间FENIX.STATE*/
+FENIX.namespace("STATE");
 
-// 命名空间FENIX在fenixCommon.js文件定义
-// 创建命名空间FENIX.STATE.ORDER
-FENIX.namespace("STATE.ORDER");
-
-// 根据传入参数确定详情是否隐藏
-FENIX.STATE.ORDER.toggleDetails = function(state){
+/*根据传入参数确定详情是否隐藏*/
+FENIX.STATE.toggleDetails = function(state){
 	var searchBox = FENIX.getById("search-box"),
 		stateBar = FENIX.getById("state-bar");
 
@@ -24,8 +25,8 @@ FENIX.STATE.ORDER.toggleDetails = function(state){
 	}
 }
 
-// 传入时间毫秒数，返回一个对象，对象包含日期和时间
-FENIX.STATE.ORDER.getTimeObj = function(times) {
+/*传入时间毫秒数，返回一个对象，对象包含日期和时间*/
+FENIX.STATE.getTimeObj = function(times) {
 	var timeObj = null,
 		dateBeforeChange = null,
 		objTime,objDate;
@@ -44,8 +45,8 @@ FENIX.STATE.ORDER.getTimeObj = function(times) {
 
 }
 
-// 根据提供的数据，初始化节点信息
-FENIX.STATE.ORDER.initNodes = function(stateNodes,stepDatesPrepare) {
+/*根据提供的数据，初始化节点信息*/
+FENIX.STATE.initNodes = function(stateNodes,stepDatesPrepare) {
 	var text1,text4,p,br,textNodeDate,textNodeTime,
 		i;
 
@@ -74,8 +75,8 @@ FENIX.STATE.ORDER.initNodes = function(stateNodes,stepDatesPrepare) {
 	}
 }
 
-// 更新进度信息
-FENIX.STATE.ORDER.reloadDetails = function(responseText) {
+/*更新进度信息*/
+FENIX.STATE.reloadDetails = function(responseText) {
 	var stateBar = FENIX.getById("state-bar"),
 		selectOrder = FENIX.getById("selectOrder"),
 		selectProduct = FENIX.getById("selectProduct"),
@@ -90,7 +91,7 @@ FENIX.STATE.ORDER.reloadDetails = function(responseText) {
 		BarText,text1,text4,
 		i,j;
 
-		// 将后台数据进行转化，防止后台修改数据格式
+		/*将后台数据进行转化，防止后台修改数据格式*/
 		details = {
 			orderNo: responseText.rows[0].orderNo,
 			productName: responseText.rows[0].productName,
@@ -112,11 +113,11 @@ FENIX.STATE.ORDER.reloadDetails = function(responseText) {
 
 		BarText = barTextsPrepare[0];//初始化为“订单处理中”
 		
-		// 确定生产状态
+		/*确定生产状态*/
 		for (i = 0; i < statusPrepare.length;) {
 			BarText = barTextsPrepare[i];
 
-			// 如果下一计划节点未开始则退出
+			/*如果下一计划节点未开始则退出*/
 			if (statusPrepare[++i] === 0) {
 				break;
 			}
@@ -129,13 +130,13 @@ FENIX.STATE.ORDER.reloadDetails = function(responseText) {
 		stateText.innerHTML = BarText;//更新状态
 
 		//将后台传递的时间转化为需要的字符串格式并按节点顺序存入数组
-		stepDatesPrepare[0] = FENIX.STATE.ORDER.getTimeObj(details.reciverOrder);
-		stepDatesPrepare[1] = FENIX.STATE.ORDER.getTimeObj(details.planPrductTime);
-		stepDatesPrepare[2] = FENIX.STATE.ORDER.getTimeObj(details.planProductFinish);
-		stepDatesPrepare[3] = FENIX.STATE.ORDER.getTimeObj(details.planOrderFinish);
+		stepDatesPrepare[0] = FENIX.STATE.getTimeObj(details.reciverOrder);
+		stepDatesPrepare[1] = FENIX.STATE.getTimeObj(details.planPrductTime);
+		stepDatesPrepare[2] = FENIX.STATE.getTimeObj(details.planProductFinish);
+		stepDatesPrepare[3] = FENIX.STATE.getTimeObj(details.planOrderFinish);
 
-		// 根据后台数据初始化一下节点信息
-		FENIX.STATE.ORDER.initNodes(stateNodes,stepDatesPrepare);
+		/*根据后台数据初始化一下节点信息*/
+		FENIX.STATE.initNodes(stateNodes,stepDatesPrepare);
 		
 		//获取计划节点的文本子节点
 		text1 = FENIX.getElementsByClassName("text1");
@@ -187,8 +188,8 @@ FENIX.STATE.ORDER.reloadDetails = function(responseText) {
 		}
 }
 
-// 根据传入参数确定详情是否输出提示信息
-FENIX.STATE.ORDER.toggleMsg = function(state,message) {
+/*根据传入参数确定详情是否输出提示信息*/
+FENIX.STATE.toggleMsg = function(state,message) {
 	var msg = FENIX.getById("msg");
 
 	if (state == "show") {
@@ -200,8 +201,8 @@ FENIX.STATE.ORDER.toggleMsg = function(state,message) {
 	}
 }
 
-// 异步搜索结果，如果查询成功则无跳转加载内容
-FENIX.STATE.ORDER.getStateDetails = function() {
+/*异步搜索结果，如果查询成功则无跳转加载内容*/
+FENIX.STATE.getStateDetails = function() {
 	var request = FENIX.getHTTPObject(),
 		success = true,//操作结果标识
 		orderNo = FENIX.getById("orderNo"),
@@ -221,16 +222,16 @@ FENIX.STATE.ORDER.getStateDetails = function() {
 					responseText = JSON.parse(request.responseText);
 					
 					if (responseText.status == 200) {//查询成功
-						FENIX.STATE.ORDER.reloadDetails(responseText);
-						FENIX.STATE.ORDER.toggleMsg("hide");
-						FENIX.STATE.ORDER.toggleDetails("show");
+						FENIX.STATE.reloadDetails(responseText);
+						FENIX.STATE.toggleMsg("hide");
+						FENIX.STATE.toggleDetails("show");
 					} else {//查询失败
-						FENIX.STATE.ORDER.toggleDetails("hide");
-						FENIX.STATE.ORDER.toggleMsg("show","查询错误："+responseText.msg);
+						FENIX.STATE.toggleDetails("hide");
+						FENIX.STATE.toggleMsg("show","查询错误："+responseText.msg);
 					}
 				} else {//响应异常
-					FENIX.STATE.ORDER.toggleDetails("hide");
-					FENIX.STATE.ORDER.toggleMsg("show","服务器异常响应"+request.msg);
+					FENIX.STATE.toggleDetails("hide");
+					FENIX.STATE.toggleMsg("show","服务器异常响应"+request.msg);
 				}
 			}
 		};
@@ -239,7 +240,7 @@ FENIX.STATE.ORDER.getStateDetails = function() {
 		success = false; //请求成功则阻止页面跳转
 	} else {
 		alert("抱歉，页面刷新失败，将在新窗口展示搜索结果！");
-		FENIX.STATE.ORDER.toggleDetails("hide");
+		FENIX.STATE.toggleDetails("hide");
 	}
 	return success;
 }

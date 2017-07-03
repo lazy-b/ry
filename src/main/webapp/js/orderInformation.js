@@ -1,55 +1,56 @@
-/* 
-    后端返回的信息格式例子：
-    {
-        status:200,     //返回操作状态
-        msg:msg,        //返回提示信息
-        data:null       //返回数据
-    }
-*/
+// 后端返回的信息格式例子：
+// {
+//     status:200,     //返回操作状态
+//     msg:msg,        //返回提示信息
+//     data:null       //返回数据
+// }
 
-/*命名空间FENIX在fenixCommon.js文件定义*/
-/*创建命名空间FENIX.INFO.orderInfo*/
-FENIX.namespace("INFO.orderInfo");
+// 命名空间FENIX在fenixCommon.js文件定义
+// 创建命名空间FENIX.INFO.ORDER
+FENIX.namespace("INFO.ORDER");
 
-/*初始化全局变量*/
-FENIX.INFO.orderInfo = {
+// 初始化全局变量
+FENIX.INFO.ORDER = {
     saveUrl: "../../order/insert.do",
     updateUrl: "../../order/update.do",
     destroyUrl: "../../order/delete.do",
     rows: null
 }
 
-/*打开新增行的表单*/
-function addRow() {
+// 打开新增行的表单
+FENIX.INFO.ORDER.addRow = function() {
 
-    var url = FENIX.INFO.orderInfo.saveUrl;
+    var url = FENIX.INFO.ORDER.saveUrl;
 
+    //部分样式必须使用js定义，剩下部分在dialog-layout类中定义
     $("#dlg").dialog({
-        top: "10px",
+        top: 20,//单位为px
         modal: true,
+        resizable:true,
+        cls:"dialog-layout",//新增类，控制弹窗的部分样式
         queryParams: {//传递两个参数给表单
                 url: url,
                 id: null
-            }
-    });
+        }
+    }).dialog("hcenter");
     $("#ftitle").html("新增信息");
-    $("#dlg").dialog("open").dialog("setTitle","新增信息").hcenter();
+    $("#dlg").dialog("open").dialog("setTitle","新增信息");
     $("#fm").form("clear");
 }
 
-/*根据选择行的id删除一条记录*/
-function removeRows() {
+// 根据选择行的id删除一条记录
+FENIX.INFO.ORDER.removeRows = function() {
 
     var rows = $("#datagrid").datagrid("getSelections"),
-        url = FENIX.INFO.orderInfo.destroyUrl,
+        url = FENIX.INFO.ORDER.destroyUrl,
         a;
 
     //var ids=[];
     if (rows) {
         a = rows[0].id;
-        /*for (var i=0;i<rows.length;i++){
-            ids.push(rows[i][id]);
-        }*/
+        // for (var i=0;i<rows.length;i++){
+        //     ids.push(rows[i][id]);
+        // }
         $.messager.confirm("警告！", "你确定需要删除选中的"+rows.length+"条记录嘛？", function(r){
 
             if (r) {
@@ -71,23 +72,25 @@ function removeRows() {
     }
 }
 
-/*打开修改行的表单*/
-function editRow() {
+// 打开修改行的表单
+FENIX.INFO.ORDER.editRow = function() {
 	var rows = $("#datagrid").datagrid("getSelections"),
-		url = FENIX.INFO.orderInfo.updateUrl,
+		url = FENIX.INFO.ORDER.updateUrl,
 		remind_message;//提示信息
 
 	//定义打开会话窗口函数
 	function openDialog(rows){
 		$("#ftitle").html("编辑信息");
 		$("#dlg").dialog({
-			top:"10px",
-			modal:true,
+			top: 20,//单位为px
+            modal: true,
+            resizable:true,
+            cls:"dialog-layout",//新增类，控制弹窗的部分样式
 			queryParams: {//传递两个参数给表单
 				url: url,
 				id: rows[0].id
 			}
-		});
+		}).dialog("hcenter");
 		$("#dlg").dialog("open").dialog("setTitle","编辑信息");
 		$("#fm").form("load",rows[0]);
 	}
@@ -117,8 +120,8 @@ function editRow() {
 	}
 }
 
-/*保存表单记录（新增的记录或者被修改后的记录）*/
-function save() {
+// 保存表单记录（新增的记录或者被修改后的记录）
+FENIX.INFO.ORDER.save = function() {
 
     //定义提交表单的回调函数
     $("#fm").form("submit",{
@@ -139,23 +142,23 @@ function save() {
                 $("#dlg").dialog("close");//关闭弹窗
                 $("#datagrid").datagrid("reload");//更新表格
 				
-				//如果FENIX.INFO.orderInfo.rows已经被赋值了，刷新为最新的表格
-				if (FENIX.INFO.orderInfo.rows) {
-					FENIX.INFO.orderInfo.rows = null;
+				//如果FENIX.INFO.ORDER.rows已经被赋值了，刷新为最新的表格
+				if (FENIX.INFO.ORDER.rows) {
+					FENIX.INFO.ORDER.rows = null;
 				};
             }
         }
     });
 } 
 
-/*重新从后台加载表格*/
-function reloadTable() {
+// 重新从后台加载表格
+FENIX.INFO.ORDER.reloadTable = function() {
     $("#datagrid").datagrid("reload");
 }
 
-/*前台搜索逻辑，不再从后台重新获取数据*/
-function doSearch(value, name) {
-    var rows_info = FENIX.INFO.orderInfo.rows || $("#datagrid").datagrid("getRows"),
+// 前台搜索逻辑，不再从后台重新获取数据
+FENIX.INFO.ORDER.doSearch = function(value, name) {
+    var rows_info = FENIX.INFO.ORDER.rows || $("#datagrid").datagrid("getRows"),
         resultRows = [],
         reload = false;
 
@@ -176,34 +179,34 @@ function doSearch(value, name) {
 
     if (reload) {
         $("#datagrid").datagrid("loadData",resultRows);
-        FENIX.INFO.orderInfo.rows = rows_info;
+        FENIX.INFO.ORDER.rows = rows_info;
     } else {
         $("#datagrid").datagrid("loadData",rows_info);
         alert("请输入正确的参数！")
     } 
 }
 
-/*跳转到订单进度页面*/
-function showDetails() {
+// 跳转到订单进度页面
+FENIX.INFO.ORDER.showDetails = function() {
 
-    /*获取被选择的行，后面用来获取主键，然后查找对应的详细信息*/
+    // 获取被选择的行，后面用来获取主键，然后查找对应的详细信息
     var _row = $('#datagrid').datagrid('getSelected'),
         url,//拼接url以及参数
         str;//拼接出来的字符串，用来在标签行添加标签
 
-    /*如果存在被选择的行跳转到对应页面，否则弹窗提醒*/
+    // 如果存在被选择的行跳转到对应页面，否则弹窗提醒
     if (_row) {
-        /*var rowIndex=$('#datagrid').datagrid('getRowIndex',_row)+1;
-        alert('行号:'+rowIndex);*/
+        // var rowIndex=$('#datagrid').datagrid('getRowIndex',_row)+1;
+        // alert('行号:'+rowIndex);
         url = "details/detailTest.html?id="+_row.id+"&productName="+_row.productName;
-        /*
-            下面三句可以将新打开的页面添加进入菜单中（临时）
-            var str = $("<a href='details/demo.html'><i class='icon-font'>&#xe610;</i><span>订单进度详情</span></a>");
-            var $parent=$(window.top.$(".menu-item-child")[0]);
-            $parent.append(str);//可以直接在父页面中添加菜单列
-        */
+        
+        // 下面三句可以将新打开的页面添加进入菜单中（临时）
+        // var str = $("<a href='details/demo.html'><i class='icon-font'>&#xe610;</i><span>订单进度详情</span></a>");
+        // var $parent=$(window.top.$(".menu-item-child")[0]);
+        // $parent.append(str);//可以直接在父页面中添加菜单列
+        
 
-        /*将对应页面在框架中打开*/
+        // 将对应页面在框架中打开
         var str = $("<a href="+url+"><span>订单进度详情</span></a>");
 
         window.top.addIframe(str);

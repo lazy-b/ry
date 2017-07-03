@@ -8,36 +8,28 @@
     <link  rel="stylesheet" href="../../common/easyUI/demo/demo.css" />
     <link  rel="stylesheet" href="../../common/easyUI/themes/myIcon.css" />
     <link  rel="stylesheet" href="../../css/reset.css" >
-    <link  rel="stylesheet" href="../../css/infoForm.css" >
+    <link  rel="stylesheet" href="../../css/info-orderForm.css" >
     <script src="../../common/js/fenixCommon.js"></script>
     <script src="../../common/easyUI/jquery.min.js"></script>
     <script src="../../common/easyUI/jquery.easyui.min.js"></script>
-    <style>
-        /*设置数据网格菜单栏最小宽度，防止窗口太小时搜索框错位*/
-        #toolbar{
-            min-width: 900px;
-        }
-    </style>
 </head>
 
 <body>
     <table id="datagrid" data-info="../../order/list.do"></table><!-- 数据表格占位 -->
     <div id="toolbar"><!-- 数据菜单栏 -->
-        <a href="javascript:;" iconCls="icon-add" plain="true" onclick="addRow()" class="easyui-linkbutton">添加行</a>
-        <a href="javascript:;" iconCls="icon-remove" plain="true" onclick="removeRows();" class="easyui-linkbutton">删除选中行</a>
-        <a href="javascript:;" iconCls="icon-edit" plain="true" onclick="editRow()" class="easyui-linkbutton">修改行</a>
-        <a href="javascript:;" iconCls="icon-reload" plain="true" onclick="reloadTable()" class="easyui-linkbutton">重新加载表格</a>
-        <a href="javascript:;" iconCls="icon-more" plain="true" onclick="showDetails()" class="easyui-linkbutton">查看订单进度</a>
+        <a href="javascript:;" iconCls="icon-add" plain="true" onclick="FENIX.INFO.ORDER.addRow()" class="easyui-linkbutton">添加行</a>
+        <a href="javascript:;" iconCls="icon-remove" plain="true" onclick="FENIX.INFO.ORDER.removeRows();" class="easyui-linkbutton">删除选中行</a>
+        <a href="javascript:;" iconCls="icon-edit" plain="true" onclick="FENIX.INFO.ORDER.editRow()" class="easyui-linkbutton">修改行</a>
+        <a href="javascript:;" iconCls="icon-reload" plain="true" onclick="FENIX.INFO.ORDER.reloadTable()" class="easyui-linkbutton">重新加载表格</a>
+        <a href="javascript:;" iconCls="icon-more" plain="true" onclick="FENIX.INFO.ORDER.showDetails()" class="easyui-linkbutton">查看订单进度</a>
         <div id="searchBox">
-            <input  class="easyui-searchbox" data-options="prompt:'请输入',menu:'#mm',searcher:doSearch">
-            <div id="mm">
+            <input  class="easyui-searchbox" data-options="prompt:'请输入',menu:'#selectList',searcher:FENIX.INFO.ORDER.doSearch">
+            <div id="selectList">
                 <div data-options="name:'orderNo'">订单号</div>
                 <div data-options="name:'productName'">产品名称</div>
             </div>
         </div>
     </div>
-    
-    
     <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
         <div class="ftitle" id="ftitle"></div>
         <form id="fm" method="post"><!-- 表单开始 -->
@@ -111,8 +103,9 @@
             </div>
         </form><!-- 表单结束 -->
         <div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
-            <a href="../../order/insert.do" iconCls="icon-ok" onclick="save();return false;" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
+            <a href="../../order/insert.do" iconCls="icon-ok" onclick="FENIX.INFO.ORDER.save();return false;" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
         </div><!-- 表单菜单按钮结束 -->
+    </div>
     <script>
 
         $("#datagrid").datagrid({

@@ -99,7 +99,9 @@ function addIframe(cur){
 		var tab = "<a href='javascript:;' class='content-tab active' data-id='"+h+"'>"+ label +" <i class='fa fa-window-close' aria-hidden='true'></i></a>";
 		$(".content-tab").removeClass("active");
 		$(".tab-nav-content").append(tab);
-		var iframe = "<iframe class='body-iframe' name='iframe"+ m +"' width='100%' height='100%' src='"+ h +"' frameborder='0' data-id='"+ h +"' seamless></iframe>";
+		
+		//设置height='99%，防止莫名其妙出现的垂直滚动条
+		var iframe = "<iframe class='body-iframe' name='iframe"+ m +"' width='100%' height='99%' 'min-width'='900px' src='"+ h +"' frameborder='0' data-id='"+ h +"' seamless></iframe>";
 		$(".layout-main-body").find("iframe.body-iframe").hide().parents(".layout-main-body").append(iframe);
 		/**/
 		addTab($(".content-tab.active"));
