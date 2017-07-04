@@ -107,9 +107,8 @@
         </div><!-- 表单菜单按钮结束 -->
     </div>
     <script>
-
         $("#datagrid").datagrid({
-            url:$("#datagrid").attr("data-info"),
+            url:$("#datagrid").attr("data-info"),//将url存放在data属性中
             toolbar: "#toolbar",
             fit: true,//表格宽度自适应，不设置默认为false（对于长表格最好设置为true，否则使用体验很差）
             //fitColumns: true,//列宽度自适应，设置为true后设置的固定宽度不起作用
@@ -144,3 +143,4 @@
     </script>   
     <script src="../../js/orderInformation.js"></script>
 </body>
+</html>

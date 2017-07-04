@@ -198,7 +198,7 @@ FENIX.INFO.ORDER.showDetails = function() {
     if (_row) {
         // var rowIndex=$('#datagrid').datagrid('getRowIndex',_row)+1;
         // alert('行号:'+rowIndex);
-        url = "details/detailTest.html?id="+_row.id+"&productName="+_row.productName;
+        url = "details/detailTest.html?orderNo="+_row.orderNo+"&productName="+_row.productName;
         
         // 下面三句可以将新打开的页面添加进入菜单中（临时）
         // var str = $("<a href='details/demo.html'><i class='icon-font'>&#xe610;</i><span>订单进度详情</span></a>");
