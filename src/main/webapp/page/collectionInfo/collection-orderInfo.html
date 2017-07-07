@@ -23,7 +23,7 @@
         <form  id="ff" method="post" data-options="novalidate:true" enctype="multipart/form-data">
             <div style="margin-bottom:20px">
                 <div>File1:</div>
-                <input class="easyui-filebox" name="file" data-options="prompt:'Choose a file...'" style="width:100%">
+                <input class="easyui-filebox" name="uploadfile" data-options="prompt:'Choose a file...'" style="width:100%">
             </div>
             <div class="sub">
                 <a href="javascript:;" class="easyui-linkbutton" onclick="submitForm()">Submit</a>
@@ -46,7 +46,8 @@
     <script>
         
         $("#ff").form({
-            url:"http://www.baidu.com",
+        	     
+            url:"../../test/upload.do",
             onSubmit: function() {
                 var isValid = $(this).form('validate');
                 if (!isValid){
@@ -57,11 +58,11 @@
             },
             success: function(data) {
                 // $.messager.progress('close');   // 如果提交成功则隐藏进度条
-
+				var data = JSON.parse(data);
                 if (data.status === 200) {                 
-                    $.messager.alert("成功",data.msg+1,"info");
+                    $.messager.alert("成功",data.msg,"info");
                } else {
-                    $.messager.alert("警告",data.msg+1,"info");
+                    $.messager.alert("警告",data.msg,"info");
                }
             }
         });

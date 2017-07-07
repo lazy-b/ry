@@ -12,8 +12,8 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/util 
-		http://www.springframework.org/schema/util/spring-util-4.0.xsd">
-          
+		http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
     
     <!-- 指明配置文件存放位置 --> 
       <context:property-placeholder location="classpath:jdbc.properties"/>
@@ -75,5 +75,4 @@
 		<!-- 使用sqlSessionFactoryBeanName -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
-    
 </beans>
