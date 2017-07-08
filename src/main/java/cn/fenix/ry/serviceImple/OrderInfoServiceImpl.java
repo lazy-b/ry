@@ -37,7 +37,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				if(list.get(1)==null||list.get(1)==" "){
 					order.setRequiredDate(" ");
 				}else{
-					order.setRequiredDate(String.valueOf(list.get(2)));
+					order.setRequiredDate(String.valueOf(list.get(1)));
 				}
 				if(list.get(2)==null||list.get(2)==" "){
 					order.setOrderNo(" ");
@@ -54,23 +54,23 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				}else{
 					order.setProductName(String.valueOf(list.get(4)));
 				}
-				if(list.get(5)==null||list.get(5)==" "){
-					order.setOrderAmount(-1);
+				if(list.get(5)==null||list.get(5)==" "||list.get(5)==""){
+					order.setOrderAmount(0);
 				}else{
-					order.setOrderAmount(Integer.parseInt((String) list.get(5)));
+					order.setOrderAmount(Integer.parseInt((String)list.get(5)));
 				}
-				if(list.get(6)==null||list.get(6)==" "){
-					order.setSpareParts(-1);
+				if(list.get(6)==null||list.get(6)==" "||list.get(6)==""){
+					order.setSpareParts(0);
 				}else{
 					order.setSpareParts(Integer.parseInt((String) list.get(6)));
 				}
-				if(list.get(7)==null||list.get(7)==" "){
-					order.setStockAmount(-1);
+				if(list.get(7)==null||list.get(7)==" "||list.get(7)==""){
+					order.setStockAmount(0);
 				}else{
 					order.setStockAmount(Integer.parseInt((String) list.get(7)));
 				}
-				if(list.get(8)==null||list.get(8)==" "){
-					order.setPlanAmount(-1);
+				if(list.get(8)==null||list.get(8)==" "||list.get(8)==""){
+					order.setPlanAmount(0);
 				}else{
 					order.setPlanAmount(Integer.parseInt((String) list.get(8)));
 				}
@@ -90,8 +90,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				}else{
 					order.setReplyDate(String.valueOf(list.get(11)));
 				}
-				if(list.get(12)==null||list.get(12)==" "){
-					order.setOrderStatus(-1);
+				if(list.get(12)==null||list.get(12)==" "||list.get(12)==""){
+					order.setOrderStatus(0);
 				}else{
 					order.setOrderStatus(Integer.parseInt((String) list.get(12)));
 				}
@@ -110,15 +110,14 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				}else{
 					order.setRemark(String.valueOf(list.get(15)));
 				}
-				if(list.get(16)==null||list.get(16)==" "){
-					order.setOrderType(-1);
+				if(list.get(16)==null||list.get(16)==" "||list.get(16)==""){
+					order.setOrderType(0);
 				}else{
 					order.setOrderType(Integer.valueOf((String) list.get(16)));
 				}
 			orderList.add(order);
 			}
-		} 
-		
+		} 	
 		return orderInfoDao.insertInfoBatch(orderList);
 	}
 }

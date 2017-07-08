@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.Cell;
@@ -30,7 +31,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.fenix.ry.entity.ExcelBean;
-
 
 public class ExcelUtil {
 		/*
@@ -102,7 +102,7 @@ public class ExcelUtil {
 	    public static  Object getCellValue(Cell cell){    
 	        Object value = null;    
 	        DecimalFormat df = new DecimalFormat("0");  //格式化number String字符    
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");  //日期格式化    
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  //日期格式化    
 	        DecimalFormat df2 = new DecimalFormat("0.00");  //格式化数字    
 	        if(cell!=null){
 	        switch(cell.getCellType()){
@@ -110,15 +110,34 @@ public class ExcelUtil {
 	            value = cell.getRichStringCellValue().getString();    
 	            break; 
 	       
-	        case Cell.CELL_TYPE_NUMERIC:    
-	            if("General".equals(cell.getCellStyle().getDataFormatString())){    
-	                value = df.format(cell.getNumericCellValue());    
-	            }else if("m/d/yy".equals(cell.getCellStyle().getDataFormatString())){    
+	        case Cell.CELL_TYPE_NUMERIC:  
+	        	
+	        	long longValue=Math.round(cell.getNumericCellValue());
+	            double doubleValue=cell.getNumericCellValue();
+	        	
+	            if("m/d/yy".equals(cell.getCellStyle().getDataFormatString())){    
 	                value = sdf.format(cell.getDateCellValue());    
-	            }else{    
-	                value = df2.format(cell.getNumericCellValue());    
-	            }    
+	            }else if(Double.parseDouble(longValue+".0")==doubleValue){
+              		value=String.valueOf(longValue);
+	            }else{
+              		value=String.valueOf(doubleValue);
+	            }
 	            break; 
+	            
+	        case HSSFCell.CELL_TYPE_FORMULA:  
+	        	long longValue1=Math.round(cell.getNumericCellValue());
+	            double doubleValue1=cell.getNumericCellValue();
+	            try {  
+	                   value = String.valueOf(cell.getStringCellValue());  
+	            } catch (IllegalStateException e) {
+	            	
+	            if(Double.parseDouble(longValue1+".0")==doubleValue1){
+	              		value=String.valueOf(longValue1);
+		          }else{
+	              		value=String.valueOf(doubleValue1);
+		            }  
+	            }  
+	            break;   
 	        case Cell.CELL_TYPE_BOOLEAN:    
 	            value = cell.getBooleanCellValue();    
 	            break;
