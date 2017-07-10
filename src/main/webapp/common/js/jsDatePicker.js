@@ -1,6 +1,6 @@
 function showDataPicker(outputEle) {
     "use strict"
-    if (!document.createElement ||!!document.createTextNode) return false;
+    if (!document.createElement ||!document.createTextNode) return false;
     
     //创建日期控件
     createThePicker();
