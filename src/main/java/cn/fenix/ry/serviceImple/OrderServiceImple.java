@@ -105,8 +105,8 @@ public class OrderServiceImple implements OrderService {
 	 * 批量删除订单
 	 */
 	@Override
-	public CustomResult deleteBatch(String[] orderIds) throws Exception {
-		int i = orderDao.deleteBatch(orderIds);
+	public CustomResult deleteBatch(String[] ids) throws Exception {
+		int i = orderDao.deleteBatch(ids);
 		if(i>0){
 			return CustomResult.ok();
 		}else{

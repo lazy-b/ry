@@ -28,7 +28,7 @@ public interface OrderService{
 	CustomResult deleteOrder(String id) throws Exception;
 	
 	//批量删除订单
-	CustomResult deleteBatch(String[] orderIds) throws Exception;
+	CustomResult deleteBatch(String[] ids) throws Exception;
 	
 	//部分修改订单
 	CustomResult updateOrder(OrderInformation cOrder) throws NotOrderInformationFound;

@@ -119,8 +119,8 @@ public class OrderController {
 	 */
 	@RequestMapping(value="/deleteBatch.do")
 	@ResponseBody
-	public  CustomResult delete(String[] orderIds) throws Exception {
-		CustomResult result = orderService.deleteBatch(orderIds);
+	public  CustomResult delete(String[] ids) throws Exception {
+		CustomResult result = orderService.deleteBatch(ids);
 		return result;
 	}
 	
