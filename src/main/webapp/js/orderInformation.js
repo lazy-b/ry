@@ -13,7 +13,7 @@ FENIX.namespace("INFO.ORDER");
 FENIX.INFO.ORDER = {
     saveUrl: "../../order/insert.do",
     updateUrl: "../../order/update.do",
-    destroyUrl: "../../order/delete.do",
+    destroyUrl: "../../order/deleteBath.do",
     rows: null
 }
 
@@ -38,25 +38,27 @@ FENIX.INFO.ORDER.addRow = function() {
     $("#fm").form("clear");
 }
 
-// 根据选择行的id删除一条记录
+// 根据选择行的id集合删除一条记录或者多条记录
 FENIX.INFO.ORDER.removeRows = function() {
-
     var rows = $("#datagrid").datagrid("getSelections"),
         url = FENIX.INFO.ORDER.destroyUrl,
-        a;
-
-    //var ids=[];
+        ids=[],
+        i;
+    
     if (rows) {
-        a = rows[0].id;
-        // for (var i=0;i<rows.length;i++){
-        //     ids.push(rows[i][id]);
-        // }
+         for (i=0; i < rows.length; i +=1) {
+             ids.push(rows[i][id]);
+         }
         $.messager.confirm("警告！", "你确定需要删除选中的"+rows.length+"条记录嘛？", function(r){
 
             if (r) {
-                $.post(url, {id: a}, function(result){
+                $.post(url, {ids: ids}, function(result){
 
                     if (result.status === 200) {
+                    	$.messager.show({
+                            title: "删除成功！",
+                            msg: result.msg
+                        });
                         $("#datagrid").datagrid("reload");//删除成功则刷新表格
                     } else {
                         $.messager.show({
