@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>订单信息管理</title>
+    <title>订单进度管理</title>
     <link  rel="stylesheet" href="../../common/easyUI/themes/default/easyui.css" />
     <link  rel="stylesheet" href="../../common/easyUI/demo/demo.css" />
     <link  rel="stylesheet" href="../../common/easyUI/themes/myIcon.css" />
@@ -12,11 +12,10 @@
     <script src="../../common/js/fenixCommon.js"></script>
     <script src="../../common/easyUI/jquery.min.js"></script>
     <script src="../../common/easyUI/jquery.easyui.min.js"></script>
-    <script src="../../common/js/fenixValidateByJQuery.js"></script>
 </head>
 
 <body>
-    <table id="datagrid" data-info="../../order/list.do"></table><!-- 数据表格占位 -->
+    <table id="datagrid" data-info="../../schedule/list.do"></table><!-- 数据表格占位 -->
     <div id="toolbar"><!-- 数据菜单栏 -->
         <a href="javascript:;" iconCls="icon-add" plain="true" onclick="FENIX.INFO.ORDER.addRow()" class="easyui-linkbutton">添加行</a>
         <a href="javascript:;" iconCls="icon-remove" plain="true" onclick="FENIX.INFO.ORDER.removeRows();" class="easyui-linkbutton">删除选中行</a>
@@ -36,7 +35,7 @@
         <form id="fm" method="post"><!-- 表单开始 -->
             <div class="fitem">
                 <label >订单号：</label>
-                <input name="orderNo" required validType="lazzyOrderNo" missingMessage="此处必须填写" class="easyui-validatebox">
+                <input name="orderNo" required missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >产品名称：</label>
@@ -44,7 +43,7 @@
             </div>
                 <div class="fitem">
                 <label >物料长编号：</label>
-                <input type="text" name="materialCoding" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="materialCoding" required missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >规格型号：</label>
@@ -52,19 +51,19 @@
             </div>
             <div class="fitem">
                 <label >数量：</label>
-                <input name="orderAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox" >
+                <input name="orderAmount" required missingMessage="此处必须填写" class="easyui-validatebox" >
             </div>
             <div class="fitem">
                 <label >库存：</label>
-                <input name="stockAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
+                <input name="stockAmount" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >备品：</label>
-                <input type="text" name="spareParts" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
+                <input type="text" name="spareParts" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >需生产数：</label>
-                <input type="text" name="planAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="planAmount" required missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >下单日期：</label>
@@ -80,7 +79,7 @@
             </div>
             <div class="fitem">
                 <label >交期：</label>
-                <input type="text" name="replyDate" class="easyui-validatebox">
+                <input type="text" name="replyDate" required missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >订单状态：</label>
@@ -89,18 +88,6 @@
             <div class="fitem">
                 <label >异常原因：</label>
                 <input type="text" name="exceptionReason" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >订单类型：</label>
-                <input type="text" name="orderType" required missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >单价：</label>
-                <input type="text" name="price" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >备注：</label>
-                <input type="text" name="remark" class="easyui-validatebox">
             </div>
         </form><!-- 表单结束 -->
         <div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
@@ -119,29 +106,28 @@
             loadMsg: "加载中、、、、",//从远程加载数据时，显示的提示信息
             pagination: false,//底部分页栏
             rownumbers: true,//显示行号
-
             columns: [[
                 {field: "ck",checkbox: true},
-                {field: "orderNo",title: "订单号",width: 100,align: "center"},
+                {field: "orderNo",title: "订单号",width: 80,align: "center"},
                 {field: "productName",title: "产品名称",width: 80,align: "center"},
-                {field: "orderAmount",title: "订单数量",width: 50,align: "center"},
-                {field: "stockAmount",title: "库存",width: 40,align: "center"},
-                {field: "spareParts",title: "备品",width: 40,align: "center"},
-                {field: "planAmount",title: "需生产数",width: 60,fontsize: 20,align: "center"},
-                {field: "orderDate",title: "下单日期",width: 80,align: "center"},
-                {field: "requiredDate",title: "要求交货日期",width: 80,align: "center"},
-                {field: "replyDate",title: "交期",width: 180,align: "center"},
-                {field: "purchaseRequirement",title: "特别要求",width: 180,align: "center"},
-                {field: "materialCoding",title: "物料长代码",width: 100,align: "center"},                
-                {field: "materialModel",title: "规格型号",width: 50,width: 80,height: 30,align: "center"}, 
-                {field: "orderStatus",title: "生产状态",width: 50,align: "center"},
-                {field: "remark",title: "备注",width: 80,align: "center"},
-                {field: "exceptionReason",title: "异常原因",width: 80,align: "center"},
-                {field: "-----",title: "交货结果",width: 80,align: "center"},
-                {field: "orderType",title: "订单类型",width: 50,align: "center"},
-                {field: "price",title: "单价",width: 40,align: "center"},
-                {field: "id",title: "表id",width: 80,align: "center",hidden:true}
-            ]]
+                {field: "batch",title: "批次",width: 80,align: "center"},
+                {field: "reciverOrder",title: "接收订单",width: 100,align: "center"},
+                {field: "planPrductTime",title: "开始生产",width: 50,width: 80,height: 30,align: "center"}, 
+                {field: "productStatus",title: "是否开始生产",width: 50,align: "center"},
+                {field: "planProductFinish",title: "生产完成",width: 40,align: "center"},
+                {field: "productFinishStatus",title: "是否生产完成",width: 40,align: "center"},
+                {field: "planOrderFinish",title: "订单完成",width: 60,fontsize: 20,align: "center"},
+                {field: "orderFinishStatus",title: "订单是否完成",width: 180,align: "center"}
+            ]],
+            loadFilter:function(data) {
+                var i;
+                for (i = 0; i < data.rows.length; i +=1) {
+                    // if (data.rows[i].exceptionReason) {
+                        data.rows[i].exceptionReason = 23333;
+                    // }
+                }
+                return data;
+            }
         });
     </script>   
     <script src="../../js/orderInformation.js"></script>

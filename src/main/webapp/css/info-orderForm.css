@@ -44,12 +44,14 @@
 	float:right;
 	width:400px;
 }
-/*#searchBox input{
+
+#searchBox input{
 	width:300px;
 }
+
 #selectList{
 	width:100px;
-}*/
+}
 
 
 /*针对easyUI渲染后的页面做的样式*/
