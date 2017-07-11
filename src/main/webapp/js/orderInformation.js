@@ -13,7 +13,7 @@ FENIX.namespace("INFO.ORDER");
 FENIX.INFO.ORDER = {
     saveUrl: "../../order/insert.do",
     updateUrl: "../../order/update.do",
-    destroyUrl: "../../order/deleteBath.do",
+    destroyUrl: "../../order/deleteBatch.do",
     rows: null
 }
 
@@ -48,7 +48,7 @@ FENIX.INFO.ORDER.removeRows = function() {
     
     if (rows) {
     	for (i=0; i < rows.length; i +=1) {
-             ids.push(rows[i][id]);
+             ids.push(rows[i].id);
          }
         $.messager.confirm("警告！", "你确定需要删除选中的"+rows.length+"条记录嘛？", function(r){
 
