@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <!-- 订单处理Mapper -->
+<mapper namespace="cn.fenix.ry.dao.OrderInfoDao">
+<resultMap id="BaseResultMap" type="cn.fenix.ry.entity.OrderInfos">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="orderDate" property="orderDate" jdbcType="VARCHAR" />
+    <result column="requiredDate" property="requiredDate" jdbcType="VARCHAR" />
+    <result column="orderNo" property="orderNo" jdbcType="VARCHAR" />
+    <result column="materialCoding" property="materialCoding" jdbcType="VARCHAR" />
+    <result column="productName" property="productName" jdbcType="VARCHAR" />
+    <result column="orderAmount" property="orderAmount" jdbcType="INTEGER" />
+    <result column="spareParts" property="spareParts" jdbcType="INTEGER" />
+    <result column="stockAmount" property="stockAmount" jdbcType="DOUBLE" />
+    <result column="planAmount" property="planAmount" jdbcType="INTEGER" />
+    <result column="materialModel" property="materialModel" jdbcType="VARCHAR" />
+    <result column="purchaseRequirement" property="purchaseRequirement" jdbcType="VARCHAR" />
+    <result column="replyDate" property="replyDate" jdbcType="VARCHAR" />
+    <result column="orderStatus" property="orderStatus" jdbcType="INTEGER" />
+    <result column="exceptionReason" property="exceptionReason" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="orderType" property="orderType" jdbcType="INTEGER" />
+  </resultMap>
+  <!-- 批量插入 -->         
+  <insert id="insertInfoBatch" parameterType="ArrayList" >
+  	insert into orderInformation
+  			(id,
+	   		orderDate,
+	  		requiredDate,
+	   		orderNo,
+	   		materialCoding,
+	   		productName,
+	   		orderAmount,
+	   		spareParts,
+	   		stockAmount,
+	   		planAmount,
+	  		materialModel,
+	 		purchaseRequirement,
+	  		replyDate,
+	   		orderStatus,
+	 		exceptionReason,
+	   		price,
+	  		remark,
+	  		orderType)
+  	values
+  	<foreach collection="list" item="order" index="index" separator=",">
+      		(#{order.id},
+	   		#{order.orderDate},
+	  		#{order.requiredDate},
+	   		#{order.orderNo},
+	   		#{order.materialCoding},
+	   		#{order.productName},
+	   		#{order.orderAmount},
+	   		#{order.spareParts},
+	   		#{order.stockAmount},
+	   		#{order.planAmount},
+	  		#{order.materialModel},
+	 		#{order.purchaseRequirement},
+	  		#{order.replyDate},
+	   		#{order.orderStatus},
+	 		#{order.exceptionReason},
+	   		#{order.price},
+	  		#{order.remark},
+	   		#{order.orderType})	
+    </foreach>
+  </insert>
+</mapper>

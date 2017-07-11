@@ -75,7 +75,8 @@
     <script>
         
         $("#ff").form({
-            url:"http://www.baidu.com",
+        	     
+            url:"../../test/upload.do",
             onSubmit: function() {
                 var isValid = $(this).form('validate');
                 if (!isValid){
@@ -88,9 +89,9 @@
                 // $.messager.progress('close');   // 如果提交成功则隐藏进度条
                 var data = $.parseJSON(data);
                 if (data.status === 200) {                 
-                    $.messager.alert("成功",data.msg+1,"info");
+                    $.messager.alert("成功",data.msg,"info");
                } else {
-                    $.messager.alert("警告",data.msg+1,"info");
+                    $.messager.alert("警告",data.msg,"info");
                }
             }
         });
