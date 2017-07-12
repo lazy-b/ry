@@ -43,12 +43,15 @@ FENIX.INFO.ORDER.removeRows = function() {
 
     var rows = $("#datagrid").datagrid("getSelections"),
         url = FENIX.INFO.ORDER.destroyUrl,
-        ids=[],
+        ids="",
         i;
     
     if (rows) {
-    	for (i=0; i < rows.length; i +=1) {
-             ids.push(rows[i].id);
+    	for (i=0; i < rows.length; i += 1) {
+            ids += rows[i].id;
+            if ( i < rows.length - 1) {
+                ids += ",";
+            }
          }
         $.messager.confirm("警告！", "你确定需要删除选中的"+rows.length+"条记录嘛？", function(r){
 
