@@ -1,24 +1,25 @@
 function showDataPicker(outputEle) {
     "use strict"
-    if (!document.createElement ||!document.createTextNode || !document.createDocumentFrament) return false;
-    
-    // 创建日期控件
-    createThePicker();
-    
-    // 初始化日期控件
-    initThePicker();
-    
-    // 将日期控件添加到该输入框的下方
-    appendThePicker();
-    
-    bindOnclickEvent();
-    
-    showThePicker();
+    if (!document.createElement || !document.createTextNode || !document.createDocumentFragment) return false;
 
+    function locationThePicker(outputEle) {
+        var rect = outputEle.getBoundingClientRect(),
+            datePicker = document.getElementById("lazzy-date-picker"),
+            top,left,str;
+
+        top = rect.bottom;
+        left = rect.left;
+        str = "top:" + top + "left:" + left;
+        datePicker.setAttribute("style",str);
+
+
+    }
 
     // 创建包含日期选择器主要结构的文档碎片
     function createThePicker() {
-        var f = document.createDocumentFrament(),
+        var f = document.createDocumentFragment(),
+            body = gTag("body")[0],// 获得body元素
+            script = gTag("script",body)[0],
             monthArry = [1,2,3,4,5,6,7,8,9,10,11,12],//方便修改月份显示模式
             weekArry = ["一","二","三","四","五","六","日"],//方便修改星期显示模式
             separator = ":",//设置时分秒的分隔符
@@ -28,7 +29,10 @@ function showDataPicker(outputEle) {
         // 创建datePicker容器
         datePicker = c("div");
         datePicker.setAttribute("id","lazzy-date-picker");
-        
+        datePicker.className = "lazzy-hidden";
+        // 将最终得到的时间选择器主结构挂在文档碎片上
+        f.appendChild(datePicker);
+
         // 创建顶部引导三角形
         parentDiv = c("div");
         parentDiv.className = "lazzy-marking-triangle";
@@ -44,9 +48,9 @@ function showDataPicker(outputEle) {
         childDiv = c("div");
         childDiv.className = "lazzy-right-triangle";
         parentDiv.appendChild(childDiv);
-        childDiv = c("div");
-        childDiv.className = "lazzy-date-text";
-        parentDiv.appendChild(childDiv);
+        span = c("span");
+        span.className = "lazzy-date-text";
+        parentDiv.appendChild(span);
 
         // 创建月份模块
         parentDiv = c("div");
@@ -101,7 +105,7 @@ function showDataPicker(outputEle) {
 
         // 创建时间选择模块
         time = c("div");
-        parentDiv.className = "lazzy-time";
+        time.className = "lazzy-time";
         datePicker.appendChild(time);
         // 小时部分
         parentDiv = c("div");
@@ -155,16 +159,16 @@ function showDataPicker(outputEle) {
         childDiv.className = "lazzy-bottom-triangle";
         parentDiv.appendChild(childDiv);
 
-        // 将最终得到的时间选择器主结构挂在文档碎片上
-        f.appendChild(datePicker);
-        return f;
+        // 使用文档碎片将日期选择器一次性加载到body元素下
+        body.insertBefore(f,script);
     }
 
     // 根据当前时间初始化日期选择器
     function initThePicker() {
         var theTime = new Date(),
             currentDay = theTime.getDate(),
-            lazzyYear,lazzyDay,liArr,spanArr,
+            currentMonth = theTime.getMonth(),
+            lazzyYear,lazzyMonth,lazzyDay,lazzyTime,liArr,spanArr,inputArr,
             str,i,
 
         // 初始化顶部年月
@@ -173,36 +177,28 @@ function showDataPicker(outputEle) {
         str = formatMonth(theTime);
         spanArr[0].innerHTML = str;
 
-        // 月份和星期是固定的不需要初始化
-        // 初始化天数部分，即给当天增加样式
-        lazzyDay = gClass("lazzy-day")[0];
-        liArr = gTag("li",lazzyDay);
-        spanArr = gTag("span",lazzyDay);
+        // 初始化月份视图的当前月
+        lazzyMonth = gClass("lazzy-month")[0];
+        liArr = gTag("li",lazzyMonth);
+        liArr[currentMonth].className = "lazzy-current";
 
-
-
-
-
-
-
-
-
-
-
-
-    // 通过li的类名和span的内容判断当天是哪个DOM元素并给对于li添加样式
-        for (i = 0; i < liArr.length; i += 1) {
-            str = 
-            if ()
-        }
-
+        // 星期是固定的不需要初始化
+        // 初始化天数部分，首先输出实际的日期分布，然后给当天增加样式
         initTheDays(theTime);
+
+        // 初始化时间部分
+        lazzyTime = gClass("lazzy-time")[0];
+        inputArr = gTag("input",lazzyTime);
+        inputArr[0].value = (theTime.getHours() < 10) ? ("0" + theTime.getHours()) : theTime.getHours();
+        inputArr[1].value = (theTime.getMinutes() < 10) ? ("0" + theTime.getMinutes()) : theTime.getMinutes();
+        inputArr[2].value = (theTime.getSeconds() < 10) ? ("0" + theTime.getSeconds()) : theTime.getSeconds();
     }
 
 
-    // 根据给定日期更改当前视图的日期显示情况
-    function initTheDays(date) {
+    // 根据给定日期更改当前视图的日期显示情况,如果是当月还给当天增加样式
+    function initTheDays(date, chosenDate) {
         var dates = [],
+            today = new Date(),
             firstWeekday = getTheWeekedayOfFirstDay(date),
             lastDay = getTheLastDayOfLastMonth(date),
             currentDays = getDaysInMonth(date),
@@ -214,8 +210,8 @@ function showDataPicker(outputEle) {
         liArr = gTag("li",lazzyDay);
         spanArr = gTag("span",lazzyDay);
         // 如果该月第一天为周一，则第一行均为上个月的日期，
-        if (firstWeekday = 0) {
-            lastDays = 7;
+        if (firstWeekday === 0) {
+            lastDays = 6;
         } else {
             lastDays = firstWeekday;
         }
@@ -224,20 +220,29 @@ function showDataPicker(outputEle) {
         j = lastDay - lastDays + 1;
         //给上个月的日期增加样式并输出日期
         for (i = 0; i < len; i += 1) {
-            liArr[i].className = "lazzy-other-month";
+            liArr[i].className = "lazzy-last-month";
             spanArr[i].innerHTML = j++;
         }
 
         len += currentDays;
         j = 1;
         for (;i < len; i += 1) {
+            if (date.getMonth() === today.getMonth() && i - lastDays + 1 === today.getDate()) {
+                liArr[i].className = "lazzy-current";
+            }
+
+            // 可以直接把当天的样式覆盖掉，因为两者样式重叠也只能显示被选中的样式
+            if (chosenDate && i - lastDays + 1 === chosenDate.getDate()) {
+                liArr[i].className = "lazzy-chosen";
+            }
+
             spanArr[i].innerHTML = j++;
         }
 
-        len -= 42;//总共7*6=42天
+        len = 42;//总共7*6=42天
         j = 1;
         for (; i < len; i += 1) {
-            liArr[i].className = "lazzy-other-month";
+            liArr[i].className = "lazzy-next-month";
             spanArr[i].innerHTML = j++;
         }
 
@@ -253,7 +258,6 @@ function showDataPicker(outputEle) {
         return str;
     }
 
-
     // 根据给定字符串更改年月的显示情况
     function changeTheTop(str) {
         var lazzyYear,span;
@@ -264,8 +268,8 @@ function showDataPicker(outputEle) {
     }
 
     // 需要用到大量的创建节点操作，简化一下操作
-    function c(nodeName) {
-        return document.createElement(nodeName);
+    function c(tag) {
+        return document.createElement(tag);
     }
 
     // 通过id查找元素的简写方法
@@ -321,10 +325,33 @@ function showDataPicker(outputEle) {
     // 获取当月第一天为周几
     function getTheWeekedayOfFirstDay(date) {
         var date = new Date(date),//通过毫秒数创建一个日期，避免修改原对象
-            weekeday;
+            weekeday = [6,0,1,2,3,4,5];//将js默认的每周从周日开始改为从周一开始。
         date.setDate(1);
-        return date.getDay();
+        return weekeday[date.getDay()];
     }
+
+
+
+
+
+
+
+
+
+    // 创建日期控件
+    createThePicker();
+
+    // 初始化日期控件
+    initThePicker();
+
+    // 将日期控件添加到该输入框的下方
+    locationThePicker(outputEle);
+    
+    
+    // bindOnclickEvent();
+    
+    // showThePicker();
+
 
     
 }
