@@ -8,49 +8,20 @@
     <style>
         /*日期控件容器*/
         #lazzy-date-picker {
-            position: absolute;
             width: 8.4em;
             height: 11.5em;
-            border: .5em solid transparent;
-            border-radius: .4em;
-            margin-top: .6em;/*下移.6em,露出小三角*/
-            /*box-shadow: 0 0 .5em #008686 ;*/
-/*             padding: 10px;
-            outline: rgba(0,134,134,.5) solid 10px; */
+            /*background-color: rgba(233,233,233,.3);*/
+            /*设置整个控件的基础单位，不能低于12px（谷歌浏览器低于12px仍按12px计算）
+             建议使用大于20px的数值,以获得更好的展示效果
+            */
         }
         *{
-            /*设置整个控件的基础单位，不能低于14px
-             建议使用大于16px的数值,以获得更好的展示效果
-            */
-            font-size: 30px;
-        }
-        #lazzy-date-picker ul{
-            margin: 0;
-            padding: 0;
+            font-size: 50px;
         }
         /*重设字体的大小*/
         #lazzy-date-picker .lazzy-date-text{
             display: block;
-            font-size: .5em;
-        }
-        /*设置面板的背景色*/
-        #lazzy-date-picker {
-            background-color: rgba(134,134,134,.1);
-        }
-        .lazzy-marking-triangle {
-            border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(134,134,134,.1) rgba(0,0,0,0) ;
-        }
-        /*上面的小三角*/
-        .lazzy-marking-triangle {
-            position: absolute;
-            top: -1.4em; 
-            left: 1em;
-            padding: 0;
-            width: 0;
-            height: 0;
-            margin: .3em .5em;
-            border-width: 0 .5em .6em .5em;
-            border-style: solid;
+            font-size: 14px;
         }
         /*统一设置li没有前面小圆点而且为行内块*/
         #lazzy-date-picker ul {
@@ -78,13 +49,9 @@
             margin: 0 auto;
             padding: 0;
         }
-        /*使用内投影模拟背景色，突出显示当前日期*/
-        #lazzy-date-picker .lazzy-current {
-            box-shadow: 0 0 3em rgba(0,0,123,.3) inset;
-        }
         /*当前选中的日期*/
         #lazzy-date-picker .lazzy-chosen {
-            box-shadow: 0 0 3em rgba(134,0,134,.3) inset;
+            box-shadow: 0 0 3em rgba(123,0,123,.3) inset;
         }
 
         /*年份和月份的样式*/
@@ -95,36 +62,25 @@
             /*background-color: rgba(199,199,199,.5);*/
         }
 
-        .lazzy-year .lazzy-date-text:hover {
-            cursor: pointer;
-            color: rgba(0,134,134,.5);
-        }
-
 
         /*使用边框做出的三角形*/
         .lazzy-left-triangle,.lazzy-right-triangle {
             padding: 0;
             width: 0;
             height: 0;
-            margin: .3em .5em;
-            border-width: .4em .5em;
             border-style: solid;
         }
         .lazzy-left-triangle {
-            border-color: rgba(0,0,0,0) rgba(0,0,0,.5) rgba(0,0,0,0) rgba(0,0,0,0) ;
+            margin: .2em .5em;
+            border-width: .5em .5em .5em 0;
+            border-color: rgba(0,0,0,0) rgba(233,0,0,1) rgba(0,0,0,0) rgba(0,0,0,0) ;
             float: left;
         }
-        .lazzy-left-triangle:hover{
-             border-color: rgba(0,0,0,0) rgba(0,134,134,.5) rgba(0,0,0,0) rgba(0,0,0,0) ;
-            cursor: pointer;
-        }
         .lazzy-right-triangle {
-            border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,.5) ;
+            margin: .2em .5em;
+            border-width: .5em 0 .5em .5em;
+            border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) rgba(233,0,0,1) ;
             float: right;
-        }
-        .lazzy-right-triangle:hover{
-             border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,134,134,.5) ;
-             cursor: pointer;
         }
 
 
@@ -152,6 +108,10 @@
             cursor: pointer;
         }
 
+        /*使用内投影模拟背景色，突出显示当前日期*/
+        #lazzy-date-picker .lazzy-current {
+            box-shadow: 0 0 3em rgba(0,0,123,.3) inset;
+        }
 
         /*设置“星期”和“天”的样式*/
         .lazzy-weekeday {
@@ -185,7 +145,6 @@
 
         .lazzy-day li:hover {
             box-shadow: 0 0 1px black inset;
-            color: rgba(0,134,134,.5);
             cursor: pointer;
         }
         
@@ -195,9 +154,8 @@
             height: 1.4em;
             /*background-color: #ccc;*/
             /*透明上边框，单边投影模拟边框*/
-            margin-top: .3em;
-/*             border-top: 10px solid transparent;
-            box-shadow: 0 -1px 0 #ccc ; */
+            border-top: 10px solid transparent;
+            box-shadow: 0 -1px 0 #ccc ;
         }
         
         .lazzy-time-hours, .lazzy-time-minutes, .lazzy-time-seconds {
@@ -208,6 +166,10 @@
             padding: 0;
         /*     overflow: hidden; */
         }
+
+        .lazzy-time-hours{
+            background-color: blue;
+        }
         .lazzy-time input {
             padding: .2em .6em .2em .2em;
             margin:  0 ;
@@ -217,13 +179,6 @@
             border-bottom: 1px solid #ccc;
             float: left;
             text-align: center;
-            outline: none;
-            background-color: transparent;
-        }
-        
-        .lazzy-hidden-triangle{
-            width: .6em;
-            height: 1.4em;
         }
 
         .lazzy-top-triangle,.lazzy-bottom-triangle {
@@ -232,25 +187,17 @@
             height: 0;
             border-style: solid;
 /*     float: left; */
-            margin: .25em 0;
+            margin: .2em 0;
             position: relative;
             left: 2em;
         }
         .lazzy-top-triangle {
             border-width: 0 .2em .4em .2em;
-            border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,.2) rgba(0,0,0,0) ;
-        }
-        .lazzy-top-triangle:hover {
-            border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,134,134,.5) rgba(0,0,0,0) ;
-            cursor: pointer;
+            border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(233,0,0,1) rgba(0,0,0,0) ;
         }
         .lazzy-bottom-triangle {
             border-width: .4em .2em 0 .2em;
-            border-color: rgba(0,0,0,.2) rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) ;
-        }
-        .lazzy-bottom-triangle:hover {
-            border-color: rgba(0,134,134,.5) rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) ;
-            cursor: pointer;
+            border-color: rgba(233,0,0,1) rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0) ;
         }
 
         .lazzy-separator {
@@ -267,18 +214,17 @@
 </head>
 <body>
     <div id="lazzy-date-picker">
-        <div class="lazzy-marking-triangle"></div>
         <div class="lazzy-year">
             <div class="lazzy-left-triangle"></div>
+            <span>2017年6月</span>
             <div class="lazzy-right-triangle"></div>
-            <span class="lazzy-date-text">2017年6月</span>
         </div>
         <!-- div.lazzy-main-container -->
         <div class="lazzy-month lazzy-hidden">
             <ul>
                 <li><span class="lazzy-date-text">1月</span></li>
                 <li><span class="lazzy-date-text">2月</span></li>
-                <li><span class="lazzy-date-text">3月</span><o/li>
+                <li><span class="lazzy-date-text">3月</span></li>
                 <li class="lazzy-current"><span class="lazzy-date-text">4月</span></li>
                 <li><span class="lazzy-date-text">5月</span></li>
                 <li><span class="lazzy-date-text">6月</span></li>
@@ -292,61 +238,57 @@
         </div>
 
         <div class="lazzy-weekeday">
-            <ul>
-                <li><span class="lazzy-date-text">一</span></li>
-                <li><span class="lazzy-date-text">二</span></li>
-                <li><span class="lazzy-date-text">三</span></li>
-                <li><span class="lazzy-date-text">四</span></li>
-                <li><span class="lazzy-date-text">五</span></li>
-                <li><span class="lazzy-date-text">六</span></li>
-                <li><span class="lazzy-date-text">日</span></li>
-            </ul>
+            <li><span>一</span></li>
+            <li><span>二</span></li>
+            <li><span>三</span></li>
+            <li><span>四</span></li>
+            <li><span>五</span></li>
+            <li><span>六</span></li>
+            <li><span>日</span></li>
         </div>
         <div class="lazzy-day">
-            <ul>
-                <li class="lazzy-other-month"><span class="lazzy-date-text">26</span></li>
-                <li class="lazzy-other-month"><span class="lazzy-date-text">27</span></li>
-                <li class="lazzy-other-month"><span class="lazzy-date-text">28</span></li>
-                <li class="lazzy-other-month"><span class="lazzy-date-text">29</span></li>
-                <li class="lazzy-other-month"><span class="lazzy-date-text">30</span></li>
-                <li><span class="lazzy-date-text">1</span></li>
-                <li><span class="lazzy-date-text">2</span></li>
-                <li><span class="lazzy-date-text">3</span></li>
-                <li><span class="lazzy-date-text">4</span></li>
-                <li class="lazzy-chosen"><span class="lazzy-date-text">5</span></li>
-                <li><span class="lazzy-date-text">6</span></li>
-                <li><span class="lazzy-date-text">7</span></li>
-                <li><span class="lazzy-date-text">8</span></li>
-                <li><span class="lazzy-date-text">9</span></li>
-                <li><span class="lazzy-date-text">10</span></li>
-                <li><span class="lazzy-date-text">11</span></li>
-                <li><span class="lazzy-date-text">12</span></li>
-                <li><span class="lazzy-date-text">13</span></li>
-                <li><span class="lazzy-date-text">14</span></li>
-                <li><span class="lazzy-date-text">15</span></li>
-                <li><span class="lazzy-date-text">16</span></li>
-                <li><span class="lazzy-date-text">17</span></li>
-                <li><span class="lazzy-date-text">18</span></li>
-                <li class="lazzy-current"><span class="lazzy-date-text">19</span></li>
-                <li><span class="lazzy-date-text">20</span></li>
-                <li><span class="lazzy-date-text">21</span></li>
-                <li><span class="lazzy-date-text">22</span></li>
-                <li><span class="lazzy-date-text">23</span></li>
-                <li><span class="lazzy-date-text">24</span></li>
-                <li><span class="lazzy-date-text">25</span></li>
-                <li><span class="lazzy-date-text">26</span></li>
-                <li><span class="lazzy-date-text">27</span></li>
-                <li><span class="lazzy-date-text">28</span></li>
-                <li><span class="lazzy-date-text">29</span></li>
-                <li><span class="lazzy-date-text">30</span></li>
-                <li><span class="lazzy-date-text">31</span></li>
-                <li><span class="lazzy-date-text">1</span></li>
-                <li><span class="lazzy-date-text">2</span></li>
-                <li><span class="lazzy-date-text">3</span></li>
-                <li><span class="lazzy-date-text">4</span></li>
-                <li><span class="lazzy-date-text">5</span></li>
-                <li><span class="lazzy-date-text">6</span></li>
-            </ul>
+            <li class="lazzy-other-month"><span class="lazzy-date-text">26</span></li>
+            <li class="lazzy-other-month"><span class="lazzy-date-text">27</span></li>
+            <li class="lazzy-other-month"><span class="lazzy-date-text">28</span></li>
+            <li class="lazzy-other-month"><span class="lazzy-date-text">29</span></li>
+            <li class="lazzy-other-month"><span class="lazzy-date-text">30</span></li>
+            <li><span class="lazzy-date-text">1</span></li>
+            <li><span class="lazzy-date-text">2</span></li>
+            <li><span class="lazzy-date-text">3</span></li>
+            <li><span class="lazzy-date-text">4</span></li>
+            <li class="lazzy-chosen"><span class="lazzy-date-text">5</span></li>
+            <li><span class="lazzy-date-text">6</span></li>
+            <li><span class="lazzy-date-text">7</span></li>
+            <li><span class="lazzy-date-text">8</span></li>
+            <li><span class="lazzy-date-text">9</span></li>
+            <li><span class="lazzy-date-text">10</span></li>
+            <li><span class="lazzy-date-text">11</span></li>
+            <li><span class="lazzy-date-text">12</span></li>
+            <li><span class="lazzy-date-text">13</span></li>
+            <li><span class="lazzy-date-text">14</span></li>
+            <li><span class="lazzy-date-text">15</span></li>
+            <li><span class="lazzy-date-text">16</span></li>
+            <li><span class="lazzy-date-text">17</span></li>
+            <li><span class="lazzy-date-text">18</span></li>
+            <li class="lazzy-current"><span class="lazzy-date-text">19</span></li>
+            <li><span class="lazzy-date-text">20</span></li>
+            <li><span class="lazzy-date-text">21</span></li>
+            <li><span class="lazzy-date-text">22</span></li>
+            <li><span class="lazzy-date-text">23</span></li>
+            <li><span class="lazzy-date-text">24</span></li>
+            <li><span class="lazzy-date-text">25</span></li>
+            <li><span class="lazzy-date-text">26</span></li>
+            <li><span class="lazzy-date-text">27</span></li>
+            <li><span class="lazzy-date-text">28</span></li>
+            <li><span class="lazzy-date-text">29</span></li>
+            <li><span class="lazzy-date-text">30</span></li>
+            <li><span class="lazzy-date-text">31</span></li>
+            <li><span class="lazzy-date-text">1</span></li>
+            <li><span class="lazzy-date-text">2</span></li>
+            <li><span class="lazzy-date-text">3</span></li>
+            <li><span class="lazzy-date-text">4</span></li>
+            <li><span class="lazzy-date-text">5</span></li>
+            <li><span class="lazzy-date-text">6</span></li>
         </div>
         <div class="lazzy-time">
             <div class="lazzy-time-hours">

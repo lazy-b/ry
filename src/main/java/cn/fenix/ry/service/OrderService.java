@@ -24,15 +24,11 @@ public interface OrderService{
 	//增加订单
 	CustomResult insert(OrderInformation cOrder) throws Exception;
 	
-	//删除订单
-	CustomResult deleteOrder(String id) throws Exception;
-	
 	//批量删除订单
-	CustomResult deleteBatch(String[] ids) throws Exception;
+	CustomResult deleteBatchs(String[] ids) throws Exception;
 	
 	//部分修改订单
 	CustomResult updateOrder(OrderInformation cOrder) throws NotOrderInformationFound;
 	CustomResult updateOrderAll(OrderInformation cOrder) throws NotOrderInformationFound;
-	//Boolean updateOrder(OrderInformation cOrder) throws NotOrderInformationFound;
-	//Boolean updateOrderAll(OrderInformation cOrder) throws NotOrderInformationFound;
+	
 }

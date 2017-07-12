@@ -74,13 +74,7 @@ public class TestJava {
 	  CustomResult i= orderService.insert(corder);
 	  System.out.println(i);
    }
-   @Test
-   public void testDeleteOrder(){
-	   OrderDao orders=ctx.getBean("orderDao",OrderDao.class);
-	   String id="99";
-	   int i=orders.deleteByPrimaryKey(id);
-	   System.out.println(i);
-   }
+
    @Test
    public void testUpdateService(){
 	   OrderDao orders=ctx.getBean("orderDao",OrderDao.class);

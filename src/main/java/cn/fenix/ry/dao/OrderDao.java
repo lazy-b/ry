@@ -30,11 +30,8 @@ public interface OrderDao{
 	//修改订单
 	int updateByPrimaryKey(OrderInformation  cOrder);
 	
-	//int updateAll(OrderInformation  cOrder);
 	int updateAll(OrderInformation  cOrder);
-	//根据Id删除订单
-	int deleteByPrimaryKey(String id);
-	
+
 	//批量删除
-	int deleteBatch(String[] ids);
+	int deleteBatchs(String[] ids);
 }

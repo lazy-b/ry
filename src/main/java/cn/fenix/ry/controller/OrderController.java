@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.fenix.ry.entity.OrderInformation;
 import cn.fenix.ry.service.OrderService;
+import cn.fenix.ry.serviceImple.NotOrderInformationFound;
 import cn.fenix.ry.util.CustomResult;
 import cn.fenix.ry.util.JsonResult;
 
@@ -99,28 +100,18 @@ public class OrderController {
 	}
 	
 	/**
-	 * 单Id删除订单
-	 * @param id
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/delete.do")
-	@ResponseBody
-	public CustomResult delete(String id) throws Exception {
-		CustomResult result = orderService.deleteOrder(id);
-		return result;
-	}
-	
-	/**
 	 * 批量删除订单
 	 * @param orderIds
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/deleteBatch.do")
+	@RequestMapping("/deleteBatch.do")
 	@ResponseBody
 	public  CustomResult delete(String[] ids) throws Exception {
-		CustomResult result = orderService.deleteBatch(ids);
+		if(ids==null){
+			throw new NotOrderInformationFound("ids不存在");
+		}
+		CustomResult result = orderService.deleteBatchs(ids);
 		return result;
 	}
 	

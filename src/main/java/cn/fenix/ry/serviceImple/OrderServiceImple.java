@@ -86,33 +86,6 @@ public class OrderServiceImple implements OrderService {
 			return CustomResult.build(100,"修改订单失败");
 		}
 	}
-	
-	
-	/**
-	 * 选择ID删除订单
-	 */
-	@Override
-	public CustomResult deleteOrder(String id) throws Exception {
-		int i =orderDao.deleteByPrimaryKey(id);
-		if(i>0){
-			return CustomResult.ok();
-		}else{
-			return null;
-		}
-	}
-	
-	/**
-	 * 批量删除订单
-	 */
-	@Override
-	public CustomResult deleteBatch(String[] ids) throws Exception {
-		int i = orderDao.deleteBatch(ids);
-		if(i>0){
-			return CustomResult.ok();
-		}else{
-			return null;
-		}
-	}
 
 	@Override
 	public CustomResult updateOrderAll(OrderInformation cOrder) throws NotOrderInformationFound {
@@ -126,4 +99,23 @@ public class OrderServiceImple implements OrderService {
 			return CustomResult.build(101,"修改订单失败");
 		}
 	}
+	
+	/**
+	 * 批量删除订单
+	 */
+	@Override
+	public CustomResult deleteBatchs(String[] ids) throws Exception {
+		if(ids==null){
+			throw new NotOrderInformationFound("ids不存在");
+		}
+		System.out.println(ids);
+		int i = orderDao.deleteBatchs(ids);
+		if(i>0){
+			return CustomResult.ok();
+		}else{
+			return null;
+		}
+	}
+
+
 }

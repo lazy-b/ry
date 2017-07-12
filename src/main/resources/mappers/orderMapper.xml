@@ -102,18 +102,12 @@
        		#{remark,jdbcType=VARCHAR},
        	 	#{orderType,jdbcType=INTEGER})	
   	</insert>
-  
-  <!-- 根据id删除订单信息 -->        
-   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from orderInformation
-    where id=#{id,jdbcType=VARCHAR}
-   </delete>   
   <!-- 批量删除 -->
-	<delete id="deleteBatch">
+	<delete id="deleteBatchs">
 		delete from orderInformation
-		where  id in	
-		<foreach collection="array" item="id" open="(" close=")" separator=",">
-			#{id}
+    	where id in
+		<foreach collection="array" item="ids" open="(" close=")" separator=",">
+			#{ids}
 		</foreach>
 	</delete>
   <!-- 修改订单 -->                                
