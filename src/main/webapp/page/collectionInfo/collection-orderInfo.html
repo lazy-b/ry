@@ -8,7 +8,6 @@
 <link href="../../common/easyUI/themes/icon.css" rel="stylesheet" type="text/css" />
 <script src="../../common/easyUI/jquery.min.js" type="text/javascript"></script>
 <script src="../../common/easyUI/jquery.easyui.min.js" type="text/javascript"></script>
-<script src="../../common/easyUI/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
 <style>
     .lazzy-upload-panel {
         position: relative;
@@ -59,23 +58,10 @@
                 </div>
             </form>
         </div>
-        <div class="lazzy-show-message">注意：上传成功</div>
+        <div class="lazzy-show-message"></div>
     </div>
-
-	<!-- <div style="padding:3px 2px;border-bottom:1px solid #ccc">Ajax Form</div>
-    <form id="ff" action="form1_proc.php" method="post">
-        <table>
-            <tr>
-                <td>请选择文件:</td>
-                <td><input class="easyui-filebox" style="width:300px"></td>
-            </tr>
-            
-        </table>
-    </form> -->
     <script>
-        
-        $("#ff").form({
-        	     
+        $("#ff").form({ 
             url:"../../test/upload.do",
             onSubmit: function() {
                 var isValid = $(this).form('validate');
@@ -86,13 +72,26 @@
 
             },
             success: function(data) {
-                // $.messager.progress('close');   // 如果提交成功则隐藏进度条
-                var data = $.parseJSON(data);
-                if (data.status === 200) {                 
-                    $.messager.alert("成功",data.msg,"info");
-               } else {
-                    $.messager.alert("警告",data.msg,"info");
-               }
+                var message = $(".lazzy-show-message")[0],
+                    str = "很可惜：没有和后端连接成功！",
+                    data;
+                    
+                try{
+                    data = $.parseJSON(data);
+                    // 如果和后端连接成功
+                    if (data.status === 200) {
+                        str = "成功！\n"  + data.msg;               
+                    } else {
+                        str = "警告！\n"  + data.msg; 
+                    }
+                } catch (e) {
+                    message.innerHTML = e;
+                } finally {
+                    message.innerHTML = str;
+                }
+
+                
+
             }
         });
         function submitForm(){
