@@ -10,5 +10,5 @@ import cn.fenix.ry.util.CustomResult;
 
 
 public interface OrderInfoService{
-	public int  OrderInfo(InputStream in, MultipartFile file) throws Exception;
+	 int  OrderInfo(InputStream in, MultipartFile file) throws Exception;
 }

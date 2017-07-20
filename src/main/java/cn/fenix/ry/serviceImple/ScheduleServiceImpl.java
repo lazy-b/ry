@@ -88,4 +88,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 			return null;
 		}
 	}
+	/**
+	 * 查找所有的订单进度
+	 */
+	@Override
+	public List<Map<String, Object>> findAllSchedule() {
+		
+		return scheduleDao.findAllSchedule();
+	}
 }

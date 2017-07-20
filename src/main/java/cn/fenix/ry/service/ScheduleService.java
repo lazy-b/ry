@@ -9,7 +9,9 @@ import cn.fenix.ry.serviceImple.NotOrderInformationFound;
 import cn.fenix.ry.util.CustomResult;
 
 public interface ScheduleService {
-	//根据订单号和产品名称查出进度表
+		//展示所有订单进度
+		List<Map<String,Object>> findAllSchedule();
+	    //根据订单号和产品名称查出进度表
 		List<Map<String,Object>> listSchedule(String orderNo,String productName) throws Exception;
 		//增加进度信息
 		CustomResult insert(Schedule schedule) throws Exception;

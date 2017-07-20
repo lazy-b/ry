@@ -16,6 +16,9 @@
     <result column="planOrderFinish" property="planOrderFinish" jdbcType="TIMESTAMP" />
     <result column="orderFinishStatus" property="orderFinishStatus" jdbcType="INTEGER" />
   </resultMap>
+  <select id="findAllSchedule" parameterType="String" resultType="map">
+  	select * from ScheduleTable where 1=1 order by productName;
+  </select>
   <select id="findScheduleByParames" parameterType="map" resultType="map">
   	select 
   				id,

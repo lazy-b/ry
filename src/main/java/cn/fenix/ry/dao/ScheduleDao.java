@@ -10,11 +10,8 @@ import cn.fenix.ry.entity.Schedule;
 
 
 public interface ScheduleDao {
-	/**
-	 * @param orderNo
-	 * @param productName
-	 * @return
-	 */
+	//展示订单进度
+	List<Map<String,Object>> findAllSchedule();
 	//根据订单号和产品名称查出进度表
 	List<Map<String,Object>> findScheduleByParames(@Param("orderNo")String orderNo,@Param("productName")String productName);
 	//添加订单

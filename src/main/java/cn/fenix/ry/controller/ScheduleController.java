@@ -28,6 +28,12 @@ public class ScheduleController extends AbstractController{
 	
 	@Resource
 	ScheduleService scheduleService;
+	@RequestMapping("/findAll.do")
+	@ResponseBody
+	public JsonResult<List<Map<String,Object>>> findAllSchedule(){
+		List<Map<String,Object>> list=scheduleService.findAllSchedule();
+		return new JsonResult<List<Map<String,Object>>>(list);
+	}
 	@RequestMapping("/find.do")
 	@ResponseBody
 	/**
