@@ -11,9 +11,9 @@ FENIX.namespace("INFO.ORDER");
 
 // 初始化全局变量
 FENIX.INFO.ORDER = {
-    saveUrl: "../../order/insert.do",
-    updateUrl: "../../order/update.do",
-    destroyUrl: "../../order/deleteBatch.do",
+    saveUrl: "../../schedule/insert.do",
+    updateUrl: "../../schedule/update.do",
+    destroyUrl: "../../schedule/deleteBatch.do",
     rows: null
 }
 
