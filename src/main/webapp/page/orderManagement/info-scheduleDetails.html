@@ -35,7 +35,7 @@
         <form id="fm" method="post"><!-- 表单开始 -->
             <div class="fitem">
                 <label >订单号：</label>
-                <input name="orderNo" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input name="orderNo" required validType="lazzyOrderNo" missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >产品名称：</label>
@@ -43,7 +43,7 @@
             </div>
                 <div class="fitem">
                 <label >物料长编号：</label>
-                <input type="text" name="materialCoding" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="materialCoding" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >规格型号：</label>
@@ -51,19 +51,19 @@
             </div>
             <div class="fitem">
                 <label >数量：</label>
-                <input name="orderAmount" required missingMessage="此处必须填写" class="easyui-validatebox" >
+                <input name="orderAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox" >
             </div>
             <div class="fitem">
                 <label >库存：</label>
-                <input name="stockAmount" class="easyui-validatebox">
+                <input name="stockAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >备品：</label>
-                <input type="text" name="spareParts" class="easyui-validatebox">
+                <input type="text" name="spareParts" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >需生产数：</label>
-                <input type="text" name="planAmount" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="planAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >下单日期：</label>
@@ -79,7 +79,7 @@
             </div>
             <div class="fitem">
                 <label >交期：</label>
-                <input type="text" name="replyDate" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="replyDate" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >订单状态：</label>
@@ -88,6 +88,18 @@
             <div class="fitem">
                 <label >异常原因：</label>
                 <input type="text" name="exceptionReason" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >订单类型：</label>
+                <input type="text" name="orderType" required missingMessage="此处必须填写" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >单价：</label>
+                <input type="text" name="price" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >备注：</label>
+                <input type="text" name="remark" class="easyui-validatebox">
             </div>
         </form><!-- 表单结束 -->
         <div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
