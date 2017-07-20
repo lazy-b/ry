@@ -11,7 +11,6 @@ import cn.fenix.ry.entity.Schedule;
 
 public interface ScheduleDao {
 	/**
-	 * 测试
 	 * @param orderNo
 	 * @param productName
 	 * @return
