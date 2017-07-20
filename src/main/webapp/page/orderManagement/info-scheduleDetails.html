@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <table id="datagrid" data-info="../../schedule/list.do"></table><!-- 数据表格占位 -->
+    <table id="datagrid" data-info="../../schedule/findAll.do"></table><!-- 数据表格占位 -->
     <div id="toolbar"><!-- 数据菜单栏 -->
         <a href="javascript:;" iconCls="icon-add" plain="true" onclick="FENIX.INFO.ORDER.addRow()" class="easyui-linkbutton">添加行</a>
         <a href="javascript:;" iconCls="icon-remove" plain="true" onclick="FENIX.INFO.ORDER.removeRows();" class="easyui-linkbutton">删除选中行</a>
@@ -42,68 +42,32 @@
                 <input name="productName" required missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
                 <div class="fitem">
-                <label >物料长编号：</label>
-                <input type="text" name="materialCoding" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox">
+                <label >订单接收时间：</label>
+                <input type="text" name="reciverOrder" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
-                <label >规格型号：</label>
-                <input type="text" name="materialModel" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <label >计划生产开始时间：</label>
+                <input type="text" name="planPrductTime" required missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
             <div class="fitem">
-                <label >数量：</label>
-                <input name="orderAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox" >
+                <label >计划生产完成时间：</label>
+                <input name="planProductFinish" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox" >
             </div>
             <div class="fitem">
-                <label >库存：</label>
-                <input name="stockAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
+                <label >生产完成状态：</label>
+                <input name="productFinishStatus" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
             </div>
             <div class="fitem">
-                <label >备品：</label>
-                <input type="text" name="spareParts" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
+                <label >订单计划完成时间：</label>
+                <input type="text" name="planOrderFinish" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
             </div>
             <div class="fitem">
-                <label >需生产数：</label>
-                <input type="text" name="planAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >下单日期：</label>
-                <input type="text" name="orderDate" required missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >要求交货日期：</label>
-                <input type="text" name="requiredDate" required missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >要求：</label>
-                <input type="text" name="purchaseRequirement" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >交期：</label>
-                <input type="text" name="replyDate" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >订单状态：</label>
-                <input type="text" name="orderStatus" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >异常原因：</label>
-                <input type="text" name="exceptionReason" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >订单类型：</label>
-                <input type="text" name="orderType" required missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >单价：</label>
-                <input type="text" name="price" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >备注：</label>
-                <input type="text" name="remark" class="easyui-validatebox">
+                <label >订单完成状态：</label>
+                <input type="text" name="orderFinishStatus" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
         </form><!-- 表单结束 -->
         <div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
-            <a href="../../order/insert.do" iconCls="icon-ok" onclick="FENIX.INFO.ORDER.save();return false;" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
+            <a href="../../schedule/insert.do" iconCls="icon-ok" onclick="FENIX.INFO.ORDER.save();return false;" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
         </div><!-- 表单菜单按钮结束 -->
     </div>
     <script>

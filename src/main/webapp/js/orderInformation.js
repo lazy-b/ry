@@ -46,7 +46,7 @@ FENIX.INFO.ORDER.removeRows = function() {
         ids=[],
         i;
     
-    if (rows) {
+    if (rows.length > 0) {
     	for (i=0; i < rows.length; i +=1) {
              ids.push(rows[i].id);
          }
@@ -72,7 +72,7 @@ FENIX.INFO.ORDER.removeRows = function() {
             }
         });
     }else{
-        alert("请选择一条需要删除的数据！");
+        alert("请先选择一条需要删除的数据！");
     }
 }
 
