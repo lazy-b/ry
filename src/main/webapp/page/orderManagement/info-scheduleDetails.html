@@ -10,6 +10,7 @@
     <link  rel="stylesheet" href="../../css/reset.css" >
     <link  rel="stylesheet" href="../../css/info-orderForm.css" >
     <script src="../../common/js/fenixCommon.js"></script>
+    <script src="../../common/js/jsDatePicker.js"></script>
     <script src="../../common/easyUI/jquery.min.js"></script>
     <script src="../../common/easyUI/jquery.easyui.min.js"></script>
 </head>
@@ -39,7 +40,7 @@
             </div>
             <div class="fitem">
                 <label >产品名称：</label>
-                <input name="productName" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input name="productName" required missingMessage="此处必须填写" class="easyui-validatebox lazy-datePicker">
             </div>
                 <div class="fitem">
                 <label >订单接收时间：</label>
@@ -105,6 +106,7 @@
                 return data;
             }
         });
+        addDatePicker();
     </script>   
     <script src="../../js/orderInformation - 副本.js"></script>
 </body>
