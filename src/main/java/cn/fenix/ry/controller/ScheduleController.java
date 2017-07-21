@@ -87,10 +87,12 @@ public class ScheduleController extends AbstractController{
 	@RequestMapping("/deleteBatch.do")
 	@ResponseBody
 	public  CustomResult delete(String[] ids) throws Exception {
-		if(ids==null){
+	    if(ids==null||ids.equals(" ")){
 			throw new NotParamterException("ids不存在");
 		}
-		CustomResult result = scheduleService.deleteBatchs(ids);
-		return result;
+	    CustomResult result = scheduleService.deleteBatchs(ids);
+	    return result;
+	    
 	}
+	
 }

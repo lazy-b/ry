@@ -79,7 +79,7 @@
                 try{
                     data = $.parseJSON(data);
                     // 如果和后端连接成功
-                    if (data.status === 200) {
+                    if (data.status === "200") {
                         str = "成功！\n"  + data.msg;               
                     } else {
                         str = "警告！\n"  + data.msg; 
