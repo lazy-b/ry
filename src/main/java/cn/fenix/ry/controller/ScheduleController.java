@@ -46,22 +46,23 @@ public class ScheduleController extends AbstractController{
 	
 	/**
 	 * 插入订单进度表
+	 * aaa
 	 * @param schedule
 	 * @param bindingResult
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/insert.do")
-	@ResponseBody
-	public CustomResult insert(@Valid Schedule schedule,BindingResult bindingResult)throws Exception{
-		CustomResult result;
-		if(bindingResult.hasErrors()){
-			FieldError fieldError=bindingResult.getFieldError();
-			System.out.println(fieldError.getDefaultMessage());
-			return CustomResult.build(100,fieldError.getDefaultMessage());
-		}	
-		return scheduleService.insert(schedule);
-	}
+    @ResponseBody
+    public CustomResult insert(@Valid Schedule schedule,BindingResult bindingResult)throws Exception{
+        CustomResult result;
+        if(bindingResult.hasErrors()){
+            FieldError fieldError=bindingResult.getFieldError();
+            System.out.println(fieldError.getDefaultMessage());
+            return CustomResult.build(100,fieldError.getDefaultMessage());
+        }   
+        return scheduleService.insert(schedule);
+    }
 	/**
 	 * 修改订单进度
 	 * @param schedule
