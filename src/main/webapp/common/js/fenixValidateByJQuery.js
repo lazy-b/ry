@@ -1,7 +1,7 @@
 $.extend($.fn.validatebox.defaults.rules,{
-	lazzyNumber: {//验证订单号
+	lazzyNumber: {//验证数字
         validator: function(value,param) {
-            var reg = "^\d",
+            var reg = "^\\d",
                 regExp;
 
             if (param.length === 0) {
@@ -18,7 +18,7 @@ $.extend($.fn.validatebox.defaults.rules,{
     },
     lazzyOrderNo: {//验证订单号
         validator: function(value,param) {
-            var reg = "^PO\d{4}$",
+            var reg = "^PO\\d{8}$",
                 regExp;
             regExp = new RegExp(reg);
             return regExp.test(value);
@@ -27,7 +27,7 @@ $.extend($.fn.validatebox.defaults.rules,{
     },
     lazzyMaterialCoding: {//验证物料长代码
         validator: function(value,param) {
-            var reg = "^\d{2}\.(\d{3}\.){2}\d{3}$",
+            var reg = "^\\d{2}\.(\\d{3}\.){2}\\d{3}$",
                 regExp;
             regExp = new RegExp(reg);
             return regExp.test(value);
