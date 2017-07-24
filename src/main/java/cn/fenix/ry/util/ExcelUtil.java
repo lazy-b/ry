@@ -60,19 +60,28 @@ public class ExcelUtil {
 	            //遍历当前sheet中的所有行    
 	            for (int j = sheet.getFirstRowNum(); j <=sheet.getLastRowNum(); j++) {    
 	                row=sheet.getRow(j);//||row.getPhysicalNumberOfCells()<17
+	                System.out.println(sheet.getLastRowNum());
 	                if(row==null||row.getFirstCellNum()==j){continue;}   
 	                
 	                //遍历所有的列    
 	                List<Object> li = new ArrayList<Object>();
-	                if(row.getLastCellNum()>=17){}else{}
-	                for (int y =row.getFirstCellNum(); y < row.getLastCellNum()+8; y++){
-	                     cell = row.getCell(y); 
-	                     li.add(getCellValue(cell));
-	                }    
+	                if(row.getLastCellNum()<16){
+	                    for (int y =0; y < row.getLastCellNum()+25; y++){
+	                         cell = row.getCell(y); 
+	                         li.add(getCellValue(cell));
+	                         }
+	                }else{
+	                    for (int y =row.getFirstCellNum(); y < row.getLastCellNum()+2; y++){
+	                         cell = row.getCell(y); 
+	                         li.add(getCellValue(cell));
+	                }
+	               }
 	                list.add(li);    
 	            }    
 	        }    
-	        return list;    
+	        System.out.println(list);
+	        return list;
+	       
 	    }    
 	        
 	    /**  
