@@ -1,7 +1,7 @@
-/*ÑÏ¸ñÄ£Ê½*/
+/*ä¸¥æ ¼æ¨¡å¼*/
 "use strict"
 
-/*1¡¢Éú³ÉÃüÃû¿Õ¼ä-FENIX*/
+/*1ã€ç”Ÿæˆå‘½åç©ºé—´-FENIX*/
 var FENIX = {
 	namespace: function(ns) {
 		var parts = ns.split("."),
@@ -19,8 +19,8 @@ var FENIX = {
 	}
 };
 
-/*2¡¢»ñÈ¡HTTPÁ¬½Ó¶ÔÏó*/
-FENIX.getHTTPObject = function() {
+/*2ã€è·å–HTTPè¿æ¥å¯¹è±¡*/
+FENIX.getHTTPObject = function getHTTPObject() {
 	var request = false ;
 	
 	if (window.XMLHttpRequest) { 
@@ -30,19 +30,19 @@ FENIX.getHTTPObject = function() {
 	}
 	
 	return request;
-}
+};
 
-/*3¡¢Í¨¹ıid²éÕÒÔªËØµÄ·½·¨*/
-FENIX.getById = function(id) {
+/*3ã€é€šè¿‡idæŸ¥æ‰¾å…ƒç´ çš„æ–¹æ³•*/
+FENIX.getById = function getById(id) {
 	if (!document.getElementById || !document.getElementById(id)) {
 		return false;
 	}
 	
 	return document.getElementById(id);
-}
+};
 
-/*4¡¢·â×°°ó¶¨Ò³Ãæ¼ÓÔØº¯Êı,ÔÚĞèÒª°ó¶¨Ò»¸öÊÂ¼şÊ±Ö»ĞèÔËĞĞÒ»´ÎÕâ¸öº¯Êı*/
-FENIX.addLoadEvent = function(func) {
+/*4ã€å°è£…ç»‘å®šé¡µé¢åŠ è½½å‡½æ•°,åœ¨éœ€è¦ç»‘å®šä¸€ä¸ªäº‹ä»¶æ—¶åªéœ€è¿è¡Œä¸€æ¬¡è¿™ä¸ªå‡½æ•°*/
+FENIX.addLoadEvent = function addLoadEvent(func) {
 	var oldonload = window.onload;
 	
 	if (typeof window.onload != "function") {
@@ -53,10 +53,10 @@ FENIX.addLoadEvent = function(func) {
 			func();
 		}
 	}
-}
+};
 
-/*5¡¢¸øDOMÔªËØ×·¼ÓÀà*/
-FENIX.addClass = function(element, value) {
+/*5ã€ç»™DOMå…ƒç´ è¿½åŠ ç±»*/
+FENIX.addClass = function addClass(element, value) {
 	var reg =new RegExp("\\b"+value+"\\b"),
 		newClassName = "";
 	
@@ -68,27 +68,27 @@ FENIX.addClass = function(element, value) {
 		newClassName += value;
 		element.className = newClassName;
 	}
-}
+};
 
-/*6¡¢¸øDOMÔªËØÉ¾³ıÀà*/
-FENIX.removeClass = function(element, value) {
+/*6ã€ç»™DOMå…ƒç´ åˆ é™¤ç±»*/
+FENIX.removeClass = function removeClass(element, value) {
 	var reg = new RegExp("\\b"+value+"\\b","g"),
 		newClassName = "";
 		
 	if (reg.test(element.className)){
 		
-		//¼ò»¯°æ±¾£¬Êµ¼Ê»¹Ó¦µ±¶Ô¿Õ¸ñ½øĞĞÊÊµ±µÄÉ¾³ı£¬´Ë´¦Ó¦ÓÃ³¡¾°¿ÉÒÔ²»×ö´¦Àí
+		//ç®€åŒ–ç‰ˆæœ¬ï¼Œå®é™…è¿˜åº”å½“å¯¹ç©ºæ ¼è¿›è¡Œé€‚å½“çš„åˆ é™¤ï¼Œæ­¤å¤„åº”ç”¨åœºæ™¯å¯ä»¥ä¸åšå¤„ç†
 		newClassName = element.className.replace(reg, "");
 		element.className = newClassName;
 	}
-}
+};
 
-/*7¡¢Í¨¹ıÀàÃû²éÕÒDOM¶ÔÏó£¨µ¥¸öÀàÃû£©*/
-FENIX.getElementsByClassName = function(classname, node) {
+/*7ã€é€šè¿‡ç±»åæŸ¥æ‰¾DOMå¯¹è±¡ï¼ˆå•ä¸ªç±»åï¼‰*/
+FENIX.getElementsByClassName = function getElementsByClassName(classname, node) {
 	var node = node || document;
 	
 	if (node.getElementsByClassName) {
-		//Èç¹ûä¯ÀÀÆ÷Ö§³ÖgetElementsByClassName·½·¨£¬ÔòÊ¹ÓÃä¯ÀÀÆ÷Ìá¹©µÄ·½·¨
+		//å¦‚æœæµè§ˆå™¨æ”¯æŒgetElementsByClassNameæ–¹æ³•ï¼Œåˆ™ä½¿ç”¨æµè§ˆå™¨æä¾›çš„æ–¹æ³•
 		return node.getElementsByClassName(classname);
 	} else {
 		var results=[],
@@ -105,5 +105,26 @@ FENIX.getElementsByClassName = function(classname, node) {
 		}
 		return results;
 	}
-}
+};
 
+/*8ã€å°è£…æ·»åŠ äº‹ä»¶å¥æŸ„çš„å‡½æ•°*/
+FENIX.addHandler = function addHandler(element, type, handler) {
+    if (element.addEventListener) {
+        element.addEventListener(type, handler, false);
+    } else if (element.attachEvent) {
+        element.attachEvent('on' + type, handler);
+    } else {
+        element['on' + type] = handler;
+    }
+};
+
+/*9ã€é˜»æ­¢é»˜è®¤äº‹ä»¶æ¯”å¦‚aé“¾æ¥è·³è½¬*/
+FENIX.preventDefault = function preventDefault(event) {
+        if (event.preventDefault) {
+            event.preventDefault(); // æ ‡å‡†æŠ€æœ¯
+        } else if (event.returnValue) {
+            event.returnValue = false; // IE
+        } else {
+            return false; // ç”¨äºå¤„ç†ä½¿ç”¨å¯¹è±¡å±æ€§æ³¨å†Œçš„å¤„ç†ç¨‹åº
+        }
+    }
