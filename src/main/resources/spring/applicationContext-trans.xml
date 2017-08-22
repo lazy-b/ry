@@ -35,7 +35,8 @@
 	</tx:advice>
 	
 	<!-- 切面 -->
-		<aop:config>
+		
+	<aop:config>
 		<!-- 切点 管理所有Service的方法 -->
 		<aop:pointcut expression="execution(* cn.fenix.ry.service.*.*(..))" id="transactionPointCut"/>
 		<!-- 增强，进行事务控制 Advisor -->

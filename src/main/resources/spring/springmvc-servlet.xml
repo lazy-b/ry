@@ -13,14 +13,13 @@
 		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	
-		<!-- 注解驱动 -->
-	<mvc:annotation-driven  conversion-service="conversionService" validator="validator"/>
-    
+	<!-- 注解驱动 -->
+    <mvc:annotation-driven  conversion-service="conversionService" validator="validator"/>
 	<!-- 开启aop，对类代理 -->
-	
-	<aop:config proxy-target-class="true"></aop:config>
+    <aop:config proxy-target-class="true"></aop:config>
 	<!-- 使用spring组件扫描 -->
 	<context:component-scan base-package="cn.fenix.ry.controller"/> 
+	
 	<!-- 配置内部资源视图解析器，要求将jstl的包加到classpath -->
 	<!-- 
 	<bean
@@ -92,4 +91,6 @@
 		<!-- 对资源文件内容缓存时间，单位秒 -->
 		<property name="cacheSeconds" value="120" />
 	</bean>
+	
+
 </beans>
