@@ -39,13 +39,13 @@ public class OrderInfoController{
 				PrintWriter out = null;  
 		        out = response.getWriter();
 		        if(count!=0){
-		        	date += "\"200\",\"data\":\"null\",\"msg\":\"导入" + count + "条成功！\"}";
-		        	out.print(date);  
-		        }else{
-		        	date += "\"100\",\"data\":\"null\",\"msg\":\"导入文件失败，请检查后重新导入或者联系管理员！\"}";
-		        	out.print(date);  
-		        }
-		        out.flush();  
-		        out.close(); 
+                    date += "\"200\",\"data\":\"null\",\"msg\":\"导入" + count + "条成功！\"}";
+                    out.print(date);  
+                }else{
+                    date += "\"100\",\"data\":\"null\",\"msg\":\"导入文件失败，请检查后重新导入或者联系管理员！\"}";
+                    out.print(date);  
+                }
+                out.flush();  
+                out.close(); 
 	}
 }

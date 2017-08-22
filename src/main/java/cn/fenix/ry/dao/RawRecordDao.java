@@ -23,4 +23,5 @@ public interface RawRecordDao {
 	
 	//批量删除
 	int deleteBatch(String[] ids);
+	
 }
