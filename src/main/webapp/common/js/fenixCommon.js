@@ -19,6 +19,201 @@ var FENIX = {
 	}
 };
 
+FENIX.namespace("INFO");      // 订单信息表的命名空间
+
+// （增）打开新增行的表单
+FENIX.INFO.addRow = function addRow($target) {
+    
+    var url = $target.attr("href"); // 获得a元素的href
+
+    //部分样式必须使用js定义，剩下部分在dialog-layout类中定义
+    $("#dlg").dialog({
+        top: 20,//单位为px
+        modal: true,
+        resizable:true,
+        cls:"dialog-layout",//新增类，控制弹窗的部分样式
+        queryParams: {//传递url给表单
+                url: url
+        }
+    }).dialog("hcenter");
+    $("#ftitle").html("新增信息");
+    $("#dlg").dialog("open").dialog("setTitle","新增信息");
+    $("#fm").form("clear");
+}
+
+// （删）根据选择行的id集合删除一条记录或者多条记录
+FENIX.INFO.removeRows = function removeRows($target) {
+
+    var rows = $("#datagrid").datagrid("getSelections"),
+        url = $target.attr("href"),
+        idArr=[], ids,
+        i;
+    
+    if (rows.length > 0) {
+        for (i=0; i < rows.length; i +=1) {
+             idArr.push(rows[i].id);
+         }
+        ids = idArr.join(","); 
+        $.messager.confirm("警告！", "你确定需要删除选中的"+rows.length+"条记录嘛？", function(r){
+
+            if (r) {
+                $.post(url,{ids:ids}, function(result){
+
+                    if (result.status === 200) {
+                        $.messager.show({
+                            title: "删除成功！",
+                            msg: result.msg
+                        });
+                        $("#datagrid").datagrid("reload");//删除成功则刷新表格
+                    } else {
+                        $.messager.show({
+                            title: "删除失败！",
+                            msg: result.msg
+                        });
+                    }
+                }, "json");
+            }
+        });
+    }else{
+        alert("请先选择一条需要删除的数据！");
+    }
+}
+
+// （改）打开修改行的表单
+FENIX.INFO.editRow = function editRow($target) {
+    
+    var rows = $("#datagrid").datagrid("getSelections"),
+        url = $target.attr("href"),
+        remind_message,                 //提示信息
+        openDialog;                     //打开会话窗口函数
+
+    //定义打开会话窗口函数
+    openDialog = function openDialog(rows){
+        $("#ftitle").html("编辑信息");
+        $("#dlg").dialog({
+            top: 20,//单位为px
+            modal: true,
+            resizable:true,
+            cls:"dialog-layout",//新增类，控制弹窗的部分样式
+            queryParams: {//传递url给表单
+                url: url
+            }
+        }).dialog("hcenter");
+        $("#dlg").dialog("open").dialog("setTitle","编辑信息");
+        $("#fm").form("load",rows[0]);
+    }
+
+    //如果用户选择了一条以上记录，提示用户，如果用户仍然需要修改，则修改选中的第一条记录
+    if (rows.length > 1) {
+        remind_message = "<p>您选择了&nbsp;"+rows.length+"&nbsp;条数据！</p><p>本次操作只能修改第一条数据：</p>"+
+                        "<p style='text-indent:6em'>订单号："+
+                        rows[0].orderNo+"，产品名称："+rows[0].productName+
+                        "</p><p style='text-indent:4em'>您确定需要继续进行操作嘛？</p>";
+        $.messager.defaults = {
+            ok: "仍然确认",
+            cancel: "返回选择",
+            width:"500px"
+        }         
+        $.messager.confirm("警告！", remind_message, function(r){
+
+            //用户仍然确认修改，则打开修改会话窗口
+            if (r) {
+                openDialog(rows);
+            }
+        });
+    } else if (rows.length === 1) {
+        openDialog(rows);
+    } else {
+        alert("请选择一条需要修改的数据！");
+    }
+}
+
+// 保存表单记录（新增的记录或者被修改后的记录）
+FENIX.INFO.save = function save() {
+	//定义提交表单的回调函数
+	$.ajax({
+		url: $("#dlg").dialog("options")["queryParams"].url,	//配置表单提交的URL
+		type: "POST",
+		data: $("#fm").serialize(),				// 序列化表单
+		dataType: "json",
+		beforeSend: function(){
+			var result = $("#fm").form("validate");	// 表单验证结果
+			if (!result) {
+				$.messager.show({
+                    title: "表单验证错误",
+                    msg: "数据未能提交，请检查您的输入是否无误"
+                });
+			}
+			return result;	// 返回验证结果，验证通过才会提交表单
+		},
+		success: function(data, textStatus){	// 表单提交成功的回调函数
+            if (data.status !== 200) {
+                $.messager.show({
+                    title: "发生了一个错误",
+                    msg: data.msg
+                });
+            }else{
+                $("#dlg").dialog("close");			//关闭弹窗
+                $("#datagrid").datagrid("reload");	//更新表格
+                $.messager.show({
+                    title: "更新成功",
+                    msg: "数据修改成功，并且重新加载表格数据"
+                });
+                //如果FENIX.INFO.rows已经被赋值了，刷新为最新的表格
+                if (FENIX.INFO.rows) {
+                    FENIX.INFO.rows = null;
+                };
+            }
+            console.log(textStatus);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+               console.log(jqXHR, textStatus, errorThrown);
+            } 
+	});
+} 
+
+// （查）前台搜索逻辑，不再从后台重新获取数据
+FENIX.INFO.doSearch = function(value, name) {
+    var rows_info = FENIX.INFO.rows || $("#datagrid").datagrid("getRows"),
+        resultRows = [],
+        reload = false;
+
+    if (value != "") {
+        for (var i = 0;i < rows_info.length;i++) {
+            if (rows_info[i][name] == value) {
+                resultRows.push(rows_info[i]);
+            }
+        }
+    } else {//如果输入为空则刷新表格
+        $("#datagrid").datagrid("loadData",rows_info);
+        return ;
+    }
+
+    if (resultRows.length>0 && resultRows.length<=rows_info.length) {
+        reload = true;
+    }
+
+    if (reload) {
+        $("#datagrid").datagrid("loadData",resultRows);
+        FENIX.INFO.rows = rows_info;
+    } else {
+        $("#datagrid").datagrid("loadData",rows_info);
+        alert("请输入正确的参数！")
+    } 
+}
+
+// 重新从后台加载表格
+FENIX.INFO.reloadTable = function reloadTable() {
+    $("#datagrid").datagrid("reload");
+}
+
+// 关闭表单页面
+FENIX.INFO.closeDialog = function closeDialog() {
+    $("#dlg").dialog("close");
+    return false;
+}
+    
+    
 /*2、获取HTTP连接对象*/
 FENIX.getHTTPObject = function getHTTPObject() {
 	var request = false ;

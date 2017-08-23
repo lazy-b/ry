@@ -66,3 +66,8 @@
     overflow-y: auto;
 }
 
+/* 隐藏不需要用户输入的输入框 */
+.hidden {
+	display: none;
+}
+
