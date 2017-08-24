@@ -13,9 +13,9 @@
     /*box-shadow: 0 0 .5em #008686 ;*/
 /*             padding: 10px;
     outline: rgba(0,134,134,.5) solid 10px; */
-    z-index:10001;
+    z-index: 10001;
 }
-*{
+#lazy-date-picker, #lazy-date-picke * {
     /*设置整个控件的基础单位，不能低于14px
      建议使用大于16px的数值,以获得更好的展示效果
     */
@@ -26,16 +26,16 @@
     padding: 0;
 }
 /*重设字体的大小*/
-#lazy-date-picker .lazy-date-text{
+#lazy-date-picker .lazy-date-text {
     display: block;
     font-size: .5em;
 }
 /*设置面板的背景色*/
 #lazy-date-picker {
-    background-color: rgba(134,134,134,.1);
+    background-color: rgba(222,222,222,1);
 }
 .lazy-marking-triangle {
-    border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(134,134,134,.1) rgba(0,0,0,0) ;
+    border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(222,222,222,1) rgba(0,0,0,0) ;
 }
 /*上面的小三角*/
 .lazy-marking-triangle {

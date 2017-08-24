@@ -555,8 +555,8 @@ function addDatePicker(event, classname){
                 // 先校验用户输入合法性
                 checkOut(event);
 
-                // checkOut();处理完的2秒后更新（存储的时间）
-                // 设置200毫秒后执行时为了避免用户连续修改造成无意义更改的情况
+                // checkOut();处理完后200毫秒再更新（存储的时间）
+                // 设置200毫秒后执行时为了避免用户连续点击造成频繁更改的情况
                 clock = setTimeout(setTimeOutHandler,200);
 
                 // 将该定时器存储为showDataPicker函数的属性
@@ -661,7 +661,7 @@ function addDatePicker(event, classname){
                     chosenDate = showDataPicker.info.getChosenDate(), // 获得日期对象（存储的时间）
                     oDate; // 原始存储的“日”
                     
-                // 由于事件绑定有点混乱，此处取到的值仍然有可能是非法值，故在此处对于非法值修正为0
+                // 此处取到的值仍然有可能是非法值，故在此处对于非法值修正为0
                 hours = isNaN(hours) ? 0 : hours; 
                 minutes = isNaN(minutes) ? 0 : minutes;
                 seconds = isNaN(seconds) ? 0 : seconds;
@@ -737,7 +737,8 @@ function addDatePicker(event, classname){
             var rect = bindTag.getBoundingClientRect(),
                 datePicker = document.getElementById("lazy-date-picker"),
                 getScrollOffsets, // 一个辅助函数
-                scroll, top, left, str;
+                windowScroll, pickerTop, pickerLeft, str,
+                pickerHeight, windowHeight;
 
             // 以一个对象的x和y属性的方式返回滚动条的偏移量
             getScrollOffsets = function(w) {
@@ -768,11 +769,33 @@ function addDatePicker(event, classname){
                 };
             }
 
-            scroll = getScrollOffsets(); // 获取页面滚动条位置
+            windowScroll = getScrollOffsets(); // 获取页面滚动条位置
 
-            top = rect.bottom + scroll.y;
-            left = rect.left + scroll.x;
-            str = "top:" + top + "px;left:" + left + "px";
+            pickerTop = rect.bottom + windowScroll.y;
+            pickerLeft = rect.left + windowScroll.x;
+
+            str = "top:" + pickerTop + "px;left:" + pickerLeft + "px";
+            
+            // 如果输入框距离底部的高度比日期选择器还小，则日期选择器将有部分溢出
+            // 此时将日期选择器定位到距离页面底部10px的位置处。
+            // 先改变display使得能够获取到日期选择器的宽高，获取结束后再重新隐藏
+            datePicker.className = "";
+            pickerHeight = datePicker.offsetHeight;
+            // 获得视口高度
+            if (window.innerWidth != null) {    // 除IE 8及更早的版本以外
+                windowHeight = window.innerHeight;
+            } else if (document.compatMode == "CSS1Compat") { // 标准模式下的IE（或任何浏览器）
+                windowHeight = window.document.documentElement.clientHeight;
+            } else {
+                windowHeight = window.document.body.clientHeight;
+            }
+            // 添加类名"lazy-hidden"，实现隐藏效果
+            datePicker.className = "lazy-hidden";
+            // 如果输入框下边缘小于日期选择器高度加10px，则定位在定位到距离页面底部10px的位置处。
+            if ((windowHeight - rect.bottom) < (pickerHeight + 10)){
+                str = "bottom: 10px;left:" + pickerLeft + "px";
+            }
+            
             datePicker.setAttribute("style",str);     
         }
 
@@ -926,11 +949,13 @@ function addDatePicker(event, classname){
             x = event.clientX,      // 获得鼠标事件的x坐标
             y = event.clientY,      // 获得鼠标事件的y坐标
             datePicker = document.getElementById("lazy-date-picker"),
+            time = gClass("lazy-time",datePicker)[0],
+            inputArr = gTag("input", time),
             pickerMap = addDatePicker.dates.getPickerMap(),   // 获得目标元素和日期选择器之间的映射
             currentPicker = addDatePicker.dates.getCurrentPicker(),   // 当前激活状态的日期选择器
             currentInputArea, datePickerArea,    // 元素的位置区域
             isInArea, stopPro,          // 辅助函数
-            chosenDate,      
+            hours, minutes, seconds, chosenDate,      
             i;
 
         // 辅助函数，判断给定x、y坐标的点是否处在区域内
@@ -963,29 +988,38 @@ function addDatePicker(event, classname){
 
             datePickerArea = datePicker.getBoundingClientRect();
             
-            // 用户点击了日期选择器和目标输入框之外的区域时，隐藏日期选择器
-            if (!isInArea(x, y, currentInputArea) && !isInArea(x, y, datePickerArea)) {
-                // 获得用户选择的时间
+            // 用户点击了日期选择器和目标输入框之外的区域时，将未保存的日期进行保存
+            if (!isInArea(x, y, datePickerArea)) {
+                // 获得用户选择的时间(日期选择器被突然关闭时，只有时分秒可能没有被保存，故只更新存时分秒)
+                hours = parseInt(inputArr[0].value,0);
+                minutes = parseInt(inputArr[1].value,0);
+                seconds = parseInt(inputArr[2].value,0);
+                
+                // 此处取到的值仍然有可能是非法值，故在此处对于非法值修正为0
+                hours = isNaN(hours) ? 0 : hours; 
+                minutes = isNaN(minutes) ? 0 : minutes;
+                seconds = isNaN(seconds) ? 0 : seconds;
+                
                 chosenDate = showDataPicker.info.getChosenDate();
+                
+                chosenDate.setHours(hours);
+                chosenDate.setMinutes(minutes);
+                chosenDate.setSeconds(seconds);
 
                 // 隐藏日期选择器之前，将被选中时间的日期对象存入addDatePicker.dates
                 addDatePicker.dates.setTheChosenDate(chosenDate, currentPicker);
-
-                // 添加类名"lazy-hidden"，实现隐藏效果
-                datePicker.className = "lazy-hidden";
-
-                // 取消当前激活的日期选择器
-                addDatePicker.dates.setCurrentPicker("");
+                // 将被选中时间的日期对象存入showDataPicker.info(主要是为了运行setChosenDate的output函数)
+                showDataPicker.info.setChosenDate(chosenDate);
                 
-            // 用户点击了目标元素
-            // 因为前面的逻辑问题，对任意目标元素的单击都将触发日期选择器重新加载操作
-            // 所以在重载之前将开始选择的日期进行保存
-            } else if (isInArea(x, y, currentInputArea)) {
-                // 获得用户选择的时间
-                chosenDate = showDataPicker.info.getChosenDate();
+                // 用户点击了日期输入框之外的区域则隐藏日期选择器
+                if (!isInArea(x, y, currentInputArea)) {
+                    // 添加类名"lazy-hidden"，实现隐藏效果
+                    datePicker.className = "lazy-hidden";
 
-                // 重载日期选择器之前，将被选中时间的日期对象存入addDatePicker.dates
-                addDatePicker.dates.setTheChosenDate(chosenDate, currentPicker);
+                    // 取消当前激活的日期选择器
+                    addDatePicker.dates.setCurrentPicker("");
+                }
+                
             }
 
             stopPro(event); //阻止冒泡
@@ -1040,7 +1074,7 @@ function addDatePicker(event, classname){
             // 设置日期选择器被选中的时间
             // 可以传入一个日期对象或者字符串，如果是字符串则会匹配快捷指令，匹配成功同样可以进行设置
             // 第二个参数可选，配合“month”或者“date”快捷指令设置为的第n月或者第n天，对于“month”n从0开始，对于“date”n从1开始
-            setChosenDate: function(date/*shortcut|date*/,n) {
+            setChosenDate: function(date/*shortcut|date*/, n) {
                 var m, oYear, oMonth, oDate,
                     outPut;         // 输出函数
 
@@ -1066,7 +1100,7 @@ function addDatePicker(event, classname){
                         M = M < 10 ? "0" + M : M;
                         S = S < 10 ? "0" + S : S;
                         
-                        str = y + "/" + m + "/" + d + " " + H + ":" + M + ":" + S ;
+                        str = y + "-" + m + "-" + d + " " + H + ":" + M + ":" + S ;
                         return str;
                     }
 
@@ -1161,7 +1195,7 @@ addDatePicker.dates = (function() {
         currentPicker = "",      // 当前激活状态的日期选择器
         config = {
             "readonly": "readonly",
-            "style": "font-size:.5em;cursor:pointer;",
+            "style": "cursor:pointer;",
             "value": ""
         };            // 一些简单的配置，目前只有input的一些样式
         

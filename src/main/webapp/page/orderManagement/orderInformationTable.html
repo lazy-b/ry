@@ -9,11 +9,13 @@
     <link  rel="stylesheet" href="../../common/easyUI/themes/myIcon.css" />
     <link  rel="stylesheet" href="../../css/reset.css" >
     <link  rel="stylesheet" href="../../css/info-orderForm.css" >
+    <link  rel="stylesheet" href="../../common/css/datePicker.css" />
     <script src="../../common/js/fenixCommon.js"></script>
     <script src="../../common/easyUI/jquery.min.js"></script>
     <script src="../../common/easyUI/jquery.easyui.min.js"></script>
     <script src="../../common/js/fenixValidateByJQuery.js"></script>
     <script src="../../js/orderInformation.js"></script>
+    <script src="../../common/js/jsDatePicker.js"></script>
 </head>
 
 <body>
@@ -43,7 +45,19 @@
                 <label >产品名称：</label>
                 <input name="productName" required missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
-                <div class="fitem">
+            <div class="fitem">
+                <label >下单日期：</label>
+                <input type="text" name="orderDate" required missingMessage="此处必须填写" class="easyui-validatebox lazy-datePicker">
+            </div>
+            <div class="fitem">
+                <label >要求交货日期：</label>
+                <input type="text" name="requiredDate" required missingMessage="此处必须填写" class="easyui-validatebox lazy-datePicker">
+            </div>
+            <div class="fitem">
+                <label >交期：</label>
+                <input type="text" name="replyDate" class="easyui-validatebox lazy-datePicker">
+            </div>
+            <div class="fitem">
                 <label >物料长编号：</label>
                 <input type="text" name="materialCoding" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox">
             </div>
@@ -66,22 +80,10 @@
             <div class="fitem">
                 <label >需生产数：</label>
                 <input type="text" name="planAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >下单日期：</label>
-                <input type="text" name="orderDate" required missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >要求交货日期：</label>
-                <input type="text" name="requiredDate" required missingMessage="此处必须填写" class="easyui-validatebox">
-            </div>
+            </div>  
             <div class="fitem">
                 <label >要求：</label>
                 <input type="text" name="purchaseRequirement" class="easyui-validatebox">
-            </div>
-            <div class="fitem">
-                <label >交期：</label>
-                <input type="text" name="replyDate" class="easyui-validatebox">
             </div>
             <div class="fitem">
                 <label >订单状态：</label>
