@@ -8,13 +8,13 @@
     <link  rel="stylesheet" href="../../common/easyUI/demo/demo.css" />
     <link  rel="stylesheet" href="../../common/easyUI/themes/myIcon.css" />
     <link  rel="stylesheet" href="../../css/reset.css" >
-    <link  rel="stylesheet" href="../../css/info-orderForm.css" >
+    <link  rel="stylesheet" href="../../css/table.css" >
     <link  rel="stylesheet" href="../../common/css/datePicker.css" />
 </head>
 
 <body>
-    <table id="datagrid"></table><!-- 数据表格占位 -->
-    <div id="toolbar"><!-- 数据菜单栏 -->
+    <table id="datagrid" class="invisible"></table><!-- 数据表格占位 -->
+    <div id="toolbar" class="invisible"><!-- 数据菜单栏 -->
         <a href="javascript:;" iconCls="icon-add" plain="true" class="easyui-linkbutton">添加行</a>
         <a href="javascript:;" iconCls="icon-remove" plain="true"  class="easyui-linkbutton">删除选中行</a>
         <a href="javascript:;" iconCls="icon-edit" plain="true"  class="easyui-linkbutton">修改行</a>
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
+    <div id="dlg" class="easyui-dialog lazy-orderInfo invisible" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
         <div class="ftitle" id="ftitle"></div>
         <form id="fm" method="post"><!-- 表单开始 -->
             <div class="fitem">
@@ -109,6 +109,11 @@
             <a href="javascript:;" iconCls="icon-ok" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
         </div><!-- 表单菜单按钮结束 -->
     </div>
+    <!-- 使用js加载，表格加载完毕再删除
+        <div class="mask">
+            <p>数据加载中，请稍后、、、</p>
+        </div>
+    -->    
     <script src="../../common/easyUI/jquery.min.js"></script>
     <script src="../../common/js/fenixCommon.js"></script>
     <script src="../../common/js/jsDatePicker.js"></script>
@@ -127,7 +132,7 @@
                             autoRowHeight: false,   // 设为true则基于该行内容设置行高度，同时降低加载
                             striped: true,  // 设为true则奇偶行使用不同背景色
                             nowrap: true,   // 设置为true，把数据显示在一行，可提高加载性能
-                            loadMsg: "加载中、、、、", // 从远程加载数据时，显示的提示信息
+                            loadMsg: false, // 从远程加载数据时，显示的提示信息，设置为false不加载
                             pagination: false,  // 底部分页栏
                             rownumbers: true,   // 显示行号
                             remoteSort: false,  // 本地排序

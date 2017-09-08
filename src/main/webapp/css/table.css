@@ -1,60 +1,94 @@
 @charset "utf-8";
-/*重设css样式*/
-*{
-	outline:0;
-	padding:0;
-	margin:0;
-	border:0;
+/*设置新增、修改表单的样式*/
+.lazy-orderInfo .ftitle{
+	font-size: 2em;
+	text-align: center;
+	line-height: 2em;
+	margin: 10px;
 }
-/*自己定义的样式*/ 
-/*加个圆角外框，定义最小宽度，加个内边距*/
-#table{
-	padding:5px;
-	margin:5px;
-	
-		
+.lazy-orderInfo #fm .fitem{
+	margin:5px 10px;
+	font-size: 1.5em;
+	text-align: center;
+	line-height: 1.5em;
 }
-/*隐藏表标题*/ 
-#table caption{
-	display:none;
+
+.lazy-orderInfo #fm .fitem label{
+	display: inline-block;
+	width:180px;
+	text-align: right;
+	padding-right: 20px;
 }
-/*设置表格单元格边框合并*/ 
-#table table{
-	font-size:12px;
-	border-collapse: collapse;
-	
-	
-	-webkit-box-shadow: 0 0 0 4px #b2e3e3, 2px 1px 4px 4px rgba(10,10,0,.5);
-    -moz-box-shadow: 0 0 0 4px #b2e3e3, 2px 1px 4px 4px rgba(10,10,0,.5);
-    box-shadow: 0 0 0 4px #b2e3e3, 2px 1px 4px 4px rgba(10,10,0,.5);
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-	
-	margin:5px auto;
-	line-height:2em;
-	
+.lazy-orderInfo #fm .fitem input{
+	width:340px;
+	text-align: left;
 }
-#table td,th{
-	border:1px solid #ccc;
-	padding:0 5px;
-	width:60px;
+#infoSubmit{
+	width:500px;
+	margin:10px auto;
 }
-/*奇数行和偶数行变换背景颜色*/
-/*table tr:nth-child(even){
-	background-color:#fff;
+
+#infoSubmit .easyui-linkbutton{
+	font-size: 1.5em;
+	width:200px;
+	text-align: center;
+	margin:0 20px;
 }
-table tr:nth-child(odd){
-	background-color:#b2e3e3;
-}*/
-/*设置表头样式*/
-#table th{
-	background-color:#b2e3e3;
-	font-size:large;
+
+
+/*设置数据网格菜单栏最小宽度，防止窗口太小时搜索框错位*/
+#toolbar{
+    min-width: 850px;
 }
-/*设置单元格样式*/
-#table td{
-	padding:0 3px;
-	text-align:center;
-	white-space:nowrap;
+
+#searchBox {
+	float:right;
+	width:400px;
+}
+
+#searchBox input{
+	width:300px;
+}
+
+#selectList{
+	width:100px;
+}
+
+
+/*针对easyUI渲染后的页面做的样式*/
+.panel-tool a {
+    margin-right: 20px;
+}
+
+.dialog-layout {
+    bottom: 20px;
+    width: 650px;
+    max-height: 680px;
+    overflow-y: auto;
+}
+
+/* 隐藏不需要用户输入的输入框 */
+.hidden {
+	display: none;
+}
+
+/*在表格加载前使body不可见，避免展示出无样式的表单*/
+.invisible{
+    visibility: hidden;
+}
+
+/*居中遮罩层，兼容IE8、IE8+*/
+.mask{
+    position: absolute;
+    font-size: 20px;
+    font-weight: 700;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    width: 300px;
+    margin:auto;
+    text-align: center;
+    z-index: 1000;
 }

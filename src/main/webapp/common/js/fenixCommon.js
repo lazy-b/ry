@@ -333,6 +333,10 @@ FENIX.Table = function Table(loadParameter, otherParameter, instanceName) {
 }
 FENIX.Table.prototype = {
     initalize: function() {
+
+        // 增加遮罩层
+        this.addMask();
+
         // 对dom进行小小的改动
         this.changeDom();
 
@@ -345,8 +349,23 @@ FENIX.Table.prototype = {
         // 使用easyUI框架加载datagrid
         this.load();
 
+        // 显示部分不想在加载前显示的组件。
+        this.show();
+
         // 给页面绑定交互功能
         this.bind();
+    },
+    addMask: function() {   // 增加遮罩层
+        var mask = $("<div class='mask'><p>数据加载中，请稍后、、、</p></div>");
+
+        $("body").append(mask);
+    },
+    show: function() {  // 取消特定的invisible样式
+        var $target = $("#datagrid, #toolbar, #toolbar"),
+            $mask = $(".mask");
+
+        $target.removeClass("invisible")
+        $mask.remove();
     },
     changeDom: function() {
         // 给input的data-options属性添加",searcher:newTable.doSearch"属性值
@@ -405,7 +424,6 @@ FENIX.Table.prototype = {
 
             return false;
         });
-
     },
     addRow: function() {
         var url = this.opts.addUrl; // 获得a元素的href
