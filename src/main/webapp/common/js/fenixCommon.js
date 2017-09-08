@@ -349,11 +349,11 @@ FENIX.Table.prototype = {
         // 使用easyUI框架加载datagrid
         this.load();
 
-        // 显示部分不想在加载前显示的组件。
-        this.show();
-
         // 给页面绑定交互功能
         this.bind();
+
+        // 显示部分不想在加载前显示的组件。
+        this.show();
     },
     addMask: function() {   // 增加遮罩层
         var mask = $("<div class='mask'><p>数据加载中，请稍后、、、</p></div>");
@@ -387,6 +387,10 @@ FENIX.Table.prototype = {
         $script.last().before(str);
     },
     load: function() {
+        var _this = this;
+        this.loadPara.onLoadSuccess = function() {
+            _this.show();
+        }
         $("#datagrid").datagrid(this.loadPara);
     },
     bind: function() {
@@ -528,7 +532,7 @@ FENIX.Table.prototype = {
         // 弹窗通知更新成功
     },
     showDetails: function() {
-        var $tab = window.top.$(".content-tab"),
+        var $tab = window.top.$(".content-tab"),    // 调用顶层框架 window.top的jQuery
             $iframe = window.top.$(".body-iframe"),
             dataId = this.opts.targetIframeId,
             _row = $('#datagrid').datagrid('getSelected'),  // 获取被选择的行，后面用来获取主键，然后查找对应的详细信息
