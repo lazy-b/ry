@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单进度管理</title>
+    <link  rel="stylesheet" href="../../common/easyUI/themes/default/easyui.css" />
+    <link  rel="stylesheet" href="../../common/easyUI/demo/demo.css" />
+    <link  rel="stylesheet" href="../../common/easyUI/themes/myIcon.css" />
+    <link  rel="stylesheet" href="../../css/reset.css" >
+    <link  rel="stylesheet" href="../../css/info-orderForm.css" >
+    <link  rel="stylesheet" href="../../common/css/datePicker.css" />
+    <script src="../../common/js/fenixCommon.js"></script>
+    <script src="../../common/easyUI/jquery.min.js"></script>
+    <script src="../../common/easyUI/jquery.easyui.min.js"></script>
+    <script src="../../common/js/fenixValidateByJQuery.js"></script>
+    <script src="../../js/orderSchedule.js"></script>
+    <script src="../../common/js/jsDatePicker.js"></script>
+</head>
+
+<body>
+	<table id="datagrid" data-info="../../order/list.do"></table><!-- 数据表格占位 -->
+    <div id="toolbar"><!-- 数据菜单栏 -->
+        <a href="../../order/insert.do" iconCls="icon-add" plain="true" class="easyui-linkbutton">添加行</a>
+        <a href="../../order/deleteBatch.do" iconCls="icon-remove" plain="true"  class="easyui-linkbutton">删除选中行</a>
+        <a href="../../order/update.do" iconCls="icon-edit" plain="true"  class="easyui-linkbutton">修改行</a>
+        <a href="../../order/list.do" iconCls="icon-reload" plain="true"  class="easyui-linkbutton">重新加载表格</a>
+        <a href="details/detailTest.html" iconCls="icon-more" plain="true"  class="easyui-linkbutton">查看订单进度</a>
+        <div id="searchBox">
+            <input  class="easyui-searchbox" data-options="prompt:'请输入',menu:'#selectList',searcher:FENIX.INFO.doSearch">
+            <div id="selectList">
+                <div data-options="name:'orderNo'">订单号</div>
+                <div data-options="name:'productName'">产品名称</div>
+            </div>
+        </div>
+    </div>
+    <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
+        <div class="ftitle" id="ftitle"></div>
+        <form id="fm" method="post"><!-- 表单开始 -->
+            <div class="fitem">
+                <label >订单号：</label>
+                <input name="orderNo" required validType="lazzyOrderNo" missingMessage="此处必须填写" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >产品名称：</label>
+                <input name="productName" required missingMessage="此处必须填写" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >下单日期：</label>
+                <input type="text" name="orderDate" required missingMessage="此处必须填写" class="easyui-validatebox lazy-datePicker">
+            </div>
+            <div class="fitem">
+                <label >要求交货日期：</label>
+                <input type="text" name="requiredDate" required missingMessage="此处必须填写" class="easyui-validatebox lazy-datePicker">
+            </div>
+            <div class="fitem">
+                <label >交期：</label>
+                <input type="text" name="replyDate" class="easyui-validatebox lazy-datePicker">
+            </div>
+            <div class="fitem">
+                <label >物料长编号：</label>
+                <input type="text" name="materialCoding" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >规格型号：</label>
+                <input type="text" name="materialModel" required missingMessage="此处必须填写" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >数量：</label>
+                <input name="orderAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox" >
+            </div>
+            <div class="fitem">
+                <label >库存：</label>
+                <input name="stockAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >备品：</label>
+                <input type="text" name="spareParts" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写，没有可以填零" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >需生产数：</label>
+                <input type="text" name="planAmount" required validType="lazzyNumber[1,6]" missingMessage="此处必须填写" class="easyui-validatebox">
+            </div>  
+            <div class="fitem">
+                <label >要求：</label>
+                <input type="text" name="purchaseRequirement" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >订单状态：</label>
+                <input type="text" name="orderStatus" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >异常原因：</label>
+                <input type="text" name="exceptionReason" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >订单类型：</label>
+                <input type="text" name="orderType" required missingMessage="此处必须填写" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >单价：</label>
+                <input type="text" name="price" class="easyui-validatebox">
+            </div>
+            <div class="fitem">
+                <label >备注：</label>
+                <input type="text" name="remark" class="easyui-validatebox">
+            </div>
+            <div class="fitem hidden">
+                <label >ID：</label>
+                <input type="text" name="id" class="easyui-validatebox">
+            </div>
+        </form><!-- 表单结束 -->
+        <div class="dlg-buttons" id="infoSubmit"><!-- 表单菜单按钮开始 -->
+            <a href="javascript:;" iconCls="icon-ok" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
+        </div><!-- 表单菜单按钮结束 -->
+    </div>
+	<script>
+		$('#dg').edatagrid({
+			url:$("#datagrid").attr("data-info"),//将url存放在data属性中
+            toolbar: "#toolbar",
+            fit: true,//表格宽度自适应，不设置默认为false（对于长表格最好设置为true，否则使用体验很差）
+            //fitColumns: true,//列宽度自适应，设置为true后设置的固定宽度不起作用
+            autoRowHeight: false,//设为true则基于该行内容设置行高度，同时降低加载
+            striped: true,//设为true则奇偶行使用不同背景色
+            nowrap: true,//设置为true，把数据显示在一行，可提高加载性能
+            loadMsg: "加载中、、、、",//从远程加载数据时，显示的提示信息
+            pagination: false,//底部分页栏
+            rownumbers: true,//显示行号
+
+			columns:[[
+				{field:'orderNo',title:'订单号',width:80,align:'center',editor:'text'},
+				{field:'productName',title:'产品名称',width:80,align:'center',editor:'text'},
+				{field:'name4',title:'产品工序',width:40,align:'center',editor:'text'},
+				{field:'name5',title:'总工序数',width:40,align:'center',editor:'text'},
+				{field:'name6',title:'计划数量',width:40,fontsize:20,align:'center',editor:'text'},
+				{field:'name7',title:'订单数量',width:80,align:'center',editor:'text'},
+				{field:'name8',title:'库存数量',width:80,align:'center',editor:'text'},
+				{field:'name9',title:'未生产数',width:180,align:'center',editor:'text'},
+				{field:'name10',title:'已生产数',width:180,align:'center',editor:'text'},
+				{field:'name11',title:'当前工序完成率',width:40,align:'center',editor:'text'},
+				{field:'name12',title:'总完成率',width:40,align:'center',editor:'text'}
+			]],
+			toolbar:[{
+				text:'添加行',
+				iconCls:'icon-add',
+				handler:function(){alert('添加一行')}
+			},{
+				text:'删除行',
+				iconCls:'icon-remove',
+				handler:function(){alert('删除一行')}
+			},{
+				text:'保存',
+				iconCls:'icon-save',
+				handler:function(){alert('保存')}
+			},{
+				text:'撤销修改',
+				iconCls:'icon-undo',
+				handler:function(){alert('撤销修改')}
+			},{
+				text:'查看生产详情',
+				iconCls:'icon-more',
+				handler:showDetails//获得行号，取出主键，然后查找出详细信息，通过跨框架调用主页面的addIframe函数打开页面。
+			}]
+		});
+		function showDetails(row){
+			/*获取被选择的行，后面用来获取主键，然后查找对应的详细信息*/
+			var _row=$('#dg').datagrid('getSelected');
+			/*如果存在被选择的行跳转到对应页面，否则弹窗提醒*/
+			if(_row){
+				/*var rowIndex=$('#dg').datagrid('getRowIndex',_row)+1;
+				alert('行号:'+rowIndex);*/
+				/*alert(_row.name1);*/
+				/*将对应页面在框架中打开*/
+			var str = $("<a href='details/demo.html'><i class='icon-font'>&#xe610;</i><span>PD35筒身生产详情</span></a>");
+			//var $parent=$(window.top.$(".menu-item-child")[0]);
+			//$parent.append(str);//可以直接在父页面中添加菜单列
+			window.top.addIframe(str);
+			}else{
+				alert("请选择一行数据");
+			}
+		}
+	</script>
+</body>
+</html>
