@@ -18,8 +18,8 @@
 	<!-- 开启aop，对类代理 -->
     <aop:config proxy-target-class="true"></aop:config>
 	<!-- 使用spring组件扫描 -->
-	<context:component-scan base-package="cn.fenix.ry.controller"/> 
-	
+
+    <context:component-scan base-package="cn.fenix.ry.controller"/> 
 	<!-- 配置内部资源视图解析器，要求将jstl的包加到classpath -->
 	<!-- 
 	<bean
