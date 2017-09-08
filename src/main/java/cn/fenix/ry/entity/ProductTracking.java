@@ -32,7 +32,6 @@ public class ProductTracking implements Serializable {
 		private Date updated;              //修改日期
 		public ProductTracking() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 		public ProductTracking(String productTackingId, String dailyOutputId, String groups, String dates, String shift,
 				String machineNumber, String orderNo, String productName, String process, Integer planeAmount,

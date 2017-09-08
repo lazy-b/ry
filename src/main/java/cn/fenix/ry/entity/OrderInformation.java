@@ -168,6 +168,5 @@ public class OrderInformation implements Serializable{
 	public void setOrderType(Integer orderType) {
 		this.orderType = orderType;
 	}
-	   
-	
+
 }
