@@ -334,7 +334,7 @@ FENIX.Table = function Table(loadParameter, otherParameter, instanceName) {
 FENIX.Table.prototype = {
     initalize: function() {
 
-        // 增加遮罩层
+        // 增加遮罩层，并同时添加事件监听函数，待ajax请求结束删除遮罩层。
         this.addMask();
 
         // 对dom进行小小的改动
@@ -351,14 +351,21 @@ FENIX.Table.prototype = {
 
         // 给页面绑定交互功能
         this.bind();
-
-        // 显示部分不想在加载前显示的组件。
-        this.show();
     },
     addMask: function() {   // 增加遮罩层
-        var mask = $("<div class='mask'><p>数据加载中，请稍后、、、</p></div>");
+        var mask = $("<div class='mask'><p>数据加载中，请稍后、、、</p></div>"),
+            _this = this;
 
         $("body").append(mask);
+
+        // 添加ajaxStop事件监听函数，
+        // 该函数冲jQuery 1.8之后只能绑定在$(document)上
+        // 当ajax请求结束时删除该监听函数并删除遮罩层
+             
+        $(document).bind("ajaxStop", function() {
+            _this.show();
+            $(this).unbind("ajaxStop");
+        });
     },
     show: function() {  // 取消特定的invisible样式
         var $target = $("#datagrid, #toolbar, #toolbar"),
@@ -387,10 +394,6 @@ FENIX.Table.prototype = {
         $script.last().before(str);
     },
     load: function() {
-        var _this = this;
-        this.loadPara.onLoadSuccess = function() {
-            _this.show();
-        }
         $("#datagrid").datagrid(this.loadPara);
     },
     bind: function() {
