@@ -60,7 +60,7 @@ function addIframe(cur){
 		label = $this.find("span").text(),
 		isHas = false;
 		/*如果href的值为空或者去除空格后的长度为零（地址为空），返回false*/
-		/*或者是通过“javascript：”伪协议执行空语句时 -- 2017.06.24 by lazzy*/
+		/*或者是通过“javascript:;”伪协议执行空语句时 -- 2017.06.24 by lazzy*/
 	if (h == "" || $.trim(h).length == 0 || h == "javascript:;") {
 		return false;
 	}

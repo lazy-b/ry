@@ -334,7 +334,7 @@ FENIX.Table = function Table(loadParameter, otherParameter, instanceName) {
 FENIX.Table.prototype = {
     initalize: function() {
 
-        // 增加遮罩层
+        // 增加遮罩层，并同时添加事件监听函数，待ajax请求结束删除遮罩层。
         this.addMask();
 
         // 对dom进行小小的改动
@@ -349,16 +349,23 @@ FENIX.Table.prototype = {
         // 使用easyUI框架加载datagrid
         this.load();
 
-        // 显示部分不想在加载前显示的组件。
-        this.show();
-
         // 给页面绑定交互功能
         this.bind();
     },
     addMask: function() {   // 增加遮罩层
-        var mask = $("<div class='mask'><p>数据加载中，请稍后、、、</p></div>");
+        var mask = $("<div class='mask'><p>数据加载中，请稍后、、、</p></div>"),
+            _this = this;
 
         $("body").append(mask);
+
+        // 添加ajaxStop事件监听函数，
+        // 该函数冲jQuery 1.8之后只能绑定在$(document)上
+        // 当ajax请求结束时删除该监听函数并删除遮罩层
+             
+        $(document).bind("ajaxStop", function() {
+            _this.show();
+            $(this).unbind("ajaxStop");
+        });
     },
     show: function() {  // 取消特定的invisible样式
         var $target = $("#datagrid, #toolbar, #toolbar"),
@@ -528,27 +535,40 @@ FENIX.Table.prototype = {
         // 弹窗通知更新成功
     },
     showDetails: function() {
-        // 获取被选择的行，后面用来获取主键，然后查找对应的详细信息
-        var _row = $('#datagrid').datagrid('getSelected'),
-            url = this.opts.detailUrl,      //拼接url以及参数
-            str;                            //拼接出来的字符串，用来在标签行添加标签
+        var $tab = window.top.$(".content-tab"),    // 调用顶层框架 window.top的jQuery
+            $iframe = window.top.$(".body-iframe"),
+            dataId = this.opts.targetIframeId,
+            _row = $('#datagrid').datagrid('getSelected'),  // 获取被选择的行，后面用来获取主键，然后查找对应的详细信息
+            para,                            //拼接出来的查询参数
+            iframeName;             // 目标框架iframe的name，暂时没用
 
         // 如果存在被选择的行跳转到对应页面，否则弹窗提醒
         if (_row) {
-            // var rowIndex=$('#datagrid').datagrid('getRowIndex',_row)+1;
-            // alert('行号:'+rowIndex);
-            url += "?orderNo="+_row.orderNo+"&productName="+_row.productName;
-            
-            // 下面三句可以将新打开的页面添加进入菜单中（临时）
-            // var str = $("<a href='details/demo.html'><i class='icon-font'>&#xe610;</i><span>订单进度详情</span></a>");
-            // var $parent=$(window.top.$(".menu-item-child")[0]);
-            // $parent.append(str);//可以直接在父页面中添加菜单列
-            
+            // 展示详情页以及对应tab并隐藏其他页面以及对应tab
+            $tab.each(function() {
+                if($(this).data("id") == dataId) {
+                    $(this).addClass("active").siblings(".content-tab").removeClass("active");
+                }
+            });
+            $iframe.each(function() {
+                // 找到目标iframe
+                if ($(this).data("id") == dataId) {
+                    iframeName = "iframe" + $(this).data("index");
+                    // 调用该页面的方法发起一次ajax请求
+                    // 
+                    // 
+                    // 
+                    // 
+                    // 
+                    // var rowIndex=$('#datagrid').datagrid('getRowIndex',_row)+1;
+                    // alert('行号:'+rowIndex);
+                    // 拼接发起ajax需要的参数
+                    para += "?orderNo="+_row.orderNo+"&productName="+_row.productName;
 
-            // 将对应页面在框架中打开
-            var str = $("<a href="+url+"><span>查看详情</span></a>");
-
-            window.top.addIframe(str);
+                    $(this).show().siblings(".body-iframe").hide();
+                }
+            });
+            
         }else{
             alert("请先选择需要查看的数据！");
         }
