@@ -7,8 +7,46 @@
 	<link rel="stylesheet" href="../../css/reset.css">
 	<link rel="stylesheet" href="../../css/orderStateDetailBefore.css">
     <link rel="stylesheet" href="../../common/font/css/font-awesome.css">
+    <script src="../../common/easyUI/jquery.min.js"></script>
     <script src="../../common/js/fenixCommon.js"></script>
     <script src="../../js/searchDetail.js"></script>
+    <style>
+        /*下拉提示信息样式*/
+        .lazy-drop-down{
+            /*由js确定左侧偏移以及宽度*/
+            /*border: 1px solid #ccc;*/
+            /*border-top: none;*/
+            display: block;
+            /*min-height: 300px;
+            max-height: 600px;*/
+            height: 300px;
+            background: #fff;
+            position: absolute;
+            z-index: 1;
+        }  
+        .lazy-drop-down ul {
+            margin: 0;
+            padding: 0;
+        }   
+        .lazy-drop-down ul li{
+            list-style: none;
+            line-height: 25px;
+            padding-left: 10px;
+            cursor: pointer;
+            border-bottom: 1px dotted #ccc;
+        }
+        /*被选中样式*/
+        .lazy-drop-down .sel{
+            background:#ddd;
+        }   
+        /*鼠标悬停样式*/
+        .lazy-drop-down .fo{
+            background:#eee;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 	<div class="tips"><!-- 提示信息开始 -->
@@ -18,7 +56,7 @@
 	</div><!-- 提示信息结束 -->
     <div id="search-box" class="wrap">
         <div class="form-container">
-            <form name="f" id="form" class="fm" onsubmit="javascript:return FENIX.STATE.ORDER.getStateDetails();" action="detailTest.html">
+            <form name="f" id="form" class="fm"  action="javascript:;">
                 <span>
                     <label for="orderNo">订单号：</label>
                 </span>
@@ -28,10 +66,10 @@
                 </span>
                 <input class="lazzy-state-input" id="productName" name="productName" placeholder="请输入产品名称" type="text">
                 <input type="submit" value="搜索" id="su" class="btn self-btn bg s_btn">
+                <div id="msg" class="hidden">
+                    <p>这是一个提示信息、、、</p>
+                </div>
             </form>
-        </div>
-        <div id="msg" class="hidden">
-            这是一个提示信息、、、
         </div>
     </div>
 	<div class="wrap" id="container"><!-- 主内容开始 -->
@@ -277,5 +315,47 @@
 			</div>
 		</div><!-- 进度详情结束 -->
 	</div><!-- 主内容结束 -->
+    <script>
+        ;(function() {
+            var fm = document.getElementById("form");
+
+            FENIX.addHandler(fm, "submit", function() {
+                    var orderNo = FENIX.getById("orderNo"),
+                        productName = FENIX.getById("productName"),
+                        orderNoValue,productNameValue;
+
+                orderNoValue = orderNo.value;
+                productNameValue = productName.value;
+                FENIX.STATE.ORDER.getStateDetails(orderNoValue, productNameValue);
+                return false;
+            });
+        }());
+    </script>
+    <script>
+        $(function() {
+            var $input1 = $(".lazzy-state-input").eq(0),
+                $input2 = $(".lazzy-state-input").eq(1),
+                msgList1 = ["PO2017055", "PO2017055", "PO17010137", 4, 5, 6, 7, 111, 222, 111, 111],
+                msgList2 = ["PD35筒身", "PD32筒身", "E05灯座", 4, 5, 6, 7, 111, 222, 111, 111],
+                para1, para2, tip1, tip2;
+
+            para1 = {
+                target: $input1,
+                msgList: msgList1,
+                ignoreCase: true
+            };
+            para2 = {
+                target: $input2,
+                msgList: msgList2,
+                ignoreCase: true 
+            };
+
+            tip1 = new FENIX.Tips(para1);
+            tip2 = new FENIX.Tips(para2);
+
+            tip1.init();
+            tip2.init();
+        })
+    </script>
 </body>
 </html>

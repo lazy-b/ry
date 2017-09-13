@@ -116,7 +116,7 @@
     </div>
     <!-- 使用js加载，表格加载完毕再删除
         <div class="mask">
-            <p>数据加载中，请稍后、、、</p>
+            <p>数据加载中，请稍后、、 .、</p>
         </div>
     -->    
     <script src="../../common/easyUI/jquery.min.js"></script>
@@ -128,58 +128,57 @@
     <script>
     // 此处定义全局变量是为了得到newTable.doSearch方法
     // 然后给searchBox的搜索按钮调用
-    var newTable =$(function() {
-                    var loadParameter = {               // 表格参数
-                            url: "../../order/list.do", //url
-                            toolbar: "#toolbar",
-                            fit: true,  // 表格宽度自适应，不设置默认为false（对于长表格最好设置为true，否则使用体验很差）
-                            //fitColumns: true, // 列宽度自适应，设置为true后设置的固定宽度不起作用
-                            autoRowHeight: false,   // 设为true则基于该行内容设置行高度，同时降低加载
-                            striped: true,  // 设为true则奇偶行使用不同背景色
-                            nowrap: true,   // 设置为true，把数据显示在一行，可提高加载性能
-                            loadMsg: "数据加载中、、、", // 从远程加载数据时，显示的提示信息，设置为false不加载
-                            pagination: false,  // 底部分页栏
-                            rownumbers: true,   // 显示行号
-                            remoteSort: false,  // 本地排序
-                            multiSort: true,    // 允许多列排序
+    $(function() {
+        "use strict"
+        var loadParameter = {               // 表格参数
+                url: "../../order/list.do", //url
+                toolbar: "#toolbar",
+                fit: true,  // 表格宽度自适应，不设置默认为false（对于长表格最好设置为true，否则使用体验很差）
+                //fitColumns: true, // 列宽度自适应，设置为true后设置的固定宽度不起作用
+                autoRowHeight: false,   // 设为true则基于该行内容设置行高度，同时降低加载
+                striped: true,  // 设为true则奇偶行使用不同背景色
+                nowrap: true,   // 设置为true，把数据显示在一行，可提高加载性能
+                loadMsg: "数据加载中、、、", // 从远程加载数据时，显示的提示信息，设置为false不加载
+                pagination: false,  // 底部分页栏
+                rownumbers: true,   // 显示行号
+                remoteSort: false,  // 本地排序
+                multiSort: true,    // 允许多列排序
 
-                            columns: [[
-                                {field: "ck",checkbox: true},
-                                {sortable: true, field: "orderNo", title: "订单号", width: 100,align: "center"},
-                                {sortable: true, field: "productName", title: "产品名称", width: 80,align: "center"},
-                                {sortable: true, field: "orderAmount", title: "订单数量", width: 50,align: "center"},
-                                {sortable: true, field: "stockAmount", title: "库存", width: 40,align: "center"},
-                                {sortable: true, field: "spareParts", title: "备品", width: 40,align: "center"},
-                                {sortable: true, field: "planAmount", title: "需生产数", width: 60,fontsize: 20,align: "center"},
-                                {sortable: true, field: "orderDate", title: "下单日期", width: 80,align: "center"},
-                                {sortable: true, field: "requiredDate", title: "要求交货日期", width: 80,align: "center"},
-                                {sortable: true, field: "replyDate", title: "交期", width: 180,align: "center"},
-                                {sortable: true, field: "purchaseRequirement", title: "特别要求", width: 180,align: "center"},
-                                {sortable: true, field: "materialCoding", title: "物料长代码", width: 100,align: "center"},                
-                                {sortable: true, field: "materialModel", title: "规格型号", width: 50,width: 80,height: 30,align: "center"}, 
-                                {sortable: true, field: "orderStatus", title: "生产状态", width: 50,align: "center"},
-                                {sortable: true, field: "remark", title: "备注", width: 80,align: "center"},
-                                {sortable: true, field: "exceptionReason", title: "异常原因", width: 80,align: "center"},
-                                {sortable: true, field: "-----", title: "交货结果", width: 80,align: "center"},
-                                {sortable: true, field: "orderType", title: "订单类型", width: 50,align: "center"},
-                                {sortable: true, field: "price", title: "单价", width: 40,align: "center"},
-                                {field: "id", title: "表id", width: 80,align: "center", hidden:true}
-                            ]]
-                        },                  
-                        otherParameter = {              // url等
-                            addUrl: "../../order/insert.do",
-                            removeUrl: "../../order/deleteBatch.do",
-                            editUrl: "../../order/update.do",
-                            reLoadUrl: "../../order/list.do",
-                            // detailUrl: "details/detailTest.html"        
-                            // detailUrl: "details/details-SearchPage.html",
-                            targetIframeId: "details-SearchPage.html"        
-                        },
-                        table;          // Table实例
-                    newTable = new FENIX.Table(loadParameter, otherParameter, "newTable");
-                    newTable.initalize();
-                    return newTable;
-                });
+                columns: [[
+                    {field: "ck",checkbox: true},
+                    {sortable: true, field: "orderNo", title: "订单号", width: 100,align: "center"},
+                    {sortable: true, field: "productName", title: "产品名称", width: 80,align: "center"},
+                    {sortable: true, field: "orderAmount", title: "订单数量", width: 50,align: "center"},
+                    {sortable: true, field: "stockAmount", title: "库存", width: 40,align: "center"},
+                    {sortable: true, field: "spareParts", title: "备品", width: 40,align: "center"},
+                    {sortable: true, field: "planAmount", title: "需生产数", width: 60,fontsize: 20,align: "center"},
+                    {sortable: true, field: "orderDate", title: "下单日期", width: 80,align: "center"},
+                    {sortable: true, field: "requiredDate", title: "要求交货日期", width: 80,align: "center"},
+                    {sortable: true, field: "replyDate", title: "交期", width: 180,align: "center"},
+                    {sortable: true, field: "purchaseRequirement", title: "特别要求", width: 180,align: "center"},
+                    {sortable: true, field: "materialCoding", title: "物料长代码", width: 100,align: "center"},                
+                    {sortable: true, field: "materialModel", title: "规格型号", width: 50,width: 80,height: 30,align: "center"}, 
+                    {sortable: true, field: "orderStatus", title: "生产状态", width: 50,align: "center"},
+                    {sortable: true, field: "remark", title: "备注", width: 80,align: "center"},
+                    {sortable: true, field: "exceptionReason", title: "异常原因", width: 80,align: "center"},
+                    {sortable: true, field: "-----", title: "交货结果", width: 80,align: "center"},
+                    {sortable: true, field: "orderType", title: "订单类型", width: 50,align: "center"},
+                    {sortable: true, field: "price", title: "单价", width: 40,align: "center"},
+                    {field: "id", title: "表id", width: 80,align: "center", hidden:true}
+                ]]
+            },                  
+            otherParameter = {              // url等
+                addUrl: "../../order/insert.do",
+                removeUrl: "../../order/deleteBatch.do",
+                editUrl: "../../order/update.do",
+                reLoadUrl: "../../order/list.do",
+                // detailUrl: "details/detailTest.html"        
+                // detailUrl: "details/details-SearchPage.html",
+                targetIframeId: "details-SearchPage.html"        
+            };          // Table实例
+        window.newTable = new FENIX.Table(loadParameter, otherParameter, "newTable");
+        window.newTable.initalize();
+    });
     </script>
 </body>
 </html>

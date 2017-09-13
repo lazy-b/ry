@@ -209,16 +209,10 @@ FENIX.STATE.ORDER.toggleMsg = function(state,message) {
 };
 
 // 异步搜索结果，如果查询成功则无跳转加载内容
-FENIX.STATE.ORDER.getStateDetails = function() {
+FENIX.STATE.ORDER.getStateDetails = function(orderNoValue, productNameValue) {
     var request = FENIX.getHTTPObject(),
         success = true,//操作结果标识
-        orderNo = FENIX.getById("orderNo"),
-        productName = FENIX.getById("productName"),
-        responseText = null,        
-        orderNoValue,productNameValue;
-
-        orderNoValue = orderNo.value;
-        productNameValue = productName.value;
+        responseText = null;
 
     if (request) {
         request.onreadystatechange = function() {
@@ -230,13 +224,14 @@ FENIX.STATE.ORDER.getStateDetails = function() {
                     
                     if (responseText.status == 200) {//查询成功
                         FENIX.STATE.ORDER.reloadDetails(responseText);
-                        FENIX.STATE.ORDER.toggleMsg("hide");
+                        FENIX.STATE.ORDER.toggleMsg("show","数据查询成功！！！&nbsp;&nbsp;&nbsp;&nbsp;查询时间为：&nbsp;" +
+                            (new Date()).toLocaleString());
                         FENIX.STATE.ORDER.toggleDetails("show");
-                    } else {//查询失败
+                    } else { //查询失败
                         FENIX.STATE.ORDER.toggleDetails("hide");
                         FENIX.STATE.ORDER.toggleMsg("show","查询错误："+responseText.msg);
                     }
-                } else {//响应异常
+                } else { //响应异常
                     FENIX.STATE.ORDER.toggleDetails("hide");
                     FENIX.STATE.ORDER.toggleMsg("show","服务器异常响应"+request.msg);
                 }

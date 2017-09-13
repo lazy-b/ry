@@ -358,13 +358,11 @@ FENIX.Table.prototype = {
 
         $("body").append(mask);
 
-        // 添加ajaxStop事件监听函数，
+        // 添加ajaxStop事件一次性监听函数，
         // 该函数冲jQuery 1.8之后只能绑定在$(document)上
-        // 当ajax请求结束时删除该监听函数并删除遮罩层
              
-        $(document).bind("ajaxStop", function() {
+        $(document).one("ajaxStop", function() {
             _this.show();
-            $(this).unbind("ajaxStop");
         });
     },
     show: function() {  // 取消特定的invisible样式
@@ -539,8 +537,8 @@ FENIX.Table.prototype = {
             $iframe = window.top.$(".body-iframe"),
             dataId = this.opts.targetIframeId,
             _row = $('#datagrid').datagrid('getSelected'),  // 获取被选择的行，后面用来获取主键，然后查找对应的详细信息
-            para,                            //拼接出来的查询参数
-            iframeName;             // 目标框架iframe的name，暂时没用
+            para;                            //拼接出来的查询参数
+            // iframeName;             // 目标框架iframe的name，暂时没用
 
         // 如果存在被选择的行跳转到对应页面，否则弹窗提醒
         if (_row) {
@@ -553,17 +551,16 @@ FENIX.Table.prototype = {
             $iframe.each(function() {
                 // 找到目标iframe
                 if ($(this).data("id") == dataId) {
-                    iframeName = "iframe" + $(this).data("index");
+                    // iframeName = "iframe" + $(this).data("index");
                     // 调用该页面的方法发起一次ajax请求
-                    // 
-                    // 
-                    // 
-                    // 
-                    // 
+                    window.top.frames[0].FENIX.STATE.ORDER.getStateDetails(_row.orderNo, _row.productName);
+                    // 同时为了显示效果，将对应输入框中填入参数
+                    window.top.frames[0].FENIX.getById("orderNo").value = _row.orderNo;
+                    window.top.frames[0].FENIX.getById("productName").value = _row.productName;
                     // var rowIndex=$('#datagrid').datagrid('getRowIndex',_row)+1;
                     // alert('行号:'+rowIndex);
                     // 拼接发起ajax需要的参数
-                    para += "?orderNo="+_row.orderNo+"&productName="+_row.productName;
+                    // para += "?orderNo="+_row.orderNo+"&productName="+_row.productName;
 
                     $(this).show().siblings(".body-iframe").hide();
                 }
@@ -645,5 +642,205 @@ FENIX.Table.prototype = {
             $("#datagrid").datagrid("loadData",rows_info);
             alert("请输入正确的参数！")
         } 
+    }
+};
+
+// 输入框提示信息类
+FENIX.Tips = function Tips(para) {
+    this.target = para.target;
+    this.list = para.msgList;    // 展示的列表项
+    this.cache = para.msgList;   // 请求一次之后就将结果缓存起来
+    this.ignoreCase = !!para.ignoreCase; // 是否忽略大小写，默认不忽略（传入真值则忽略）
+    this.dropDown = null;     // 整个列表
+    this.first = true;      // 是否第一次聚焦在该输入框
+    this.KEY_CODE = {
+        up: 38,     // 上
+        down: 40,   // 下
+        enter: 13,   // 回车
+        tab: 9,     // table键
+        backspace: 8    // 后退键
+    }
+};
+FENIX.Tips.prototype = {
+    init: function() {
+        // 绑定事件
+        this.bindTarget();
+    },
+    bindTarget: function() {
+        var _this = this;
+        // 绑定目标输入框的聚焦事件
+        this.target.on({
+            focus: function() {
+                if (_this.first) {
+                    // 生成父元素
+                    _this.createDiv();
+                    // 添加列表子元素
+                    _this.appendUl();
+                    // 绑定交互事件
+                    _this.bind();
+                    // 设置目标输入框样式
+                    _this.setInputStyle();
+                    // 设置标识，标识已经被加载过
+                    _this.first = false;
+                }
+
+                // 如果被列表被隐藏才需要展示并定位
+                if (!_this.dropDown.is(":visible")){
+                    // 先展示下拉列表然后再定位，反过来会导致定位出问题
+                    _this.show();
+                    // 正确定位列表父元素
+                    _this.location();
+                }
+            },
+            keyup: function(event) {
+                var key = event.which,      // 事件的键值
+                    keycode = _this.KEY_CODE,
+                    val = _this.target.val(),
+                    list;   // 存放列表数据的数组
+
+                // 如果按的是后退键或者输入框中没有了数据
+                // 则将备选列表重置为缓存数据 
+                if (key == keycode.backspace || !val) {
+                    _this.list = _this.cache;
+                }
+
+                list = _this.list;
+
+                // 在外部做是否转换大小写判断避免在迭代内部做判断
+                if (_this.ignoreCase) {
+                    val = val.toLowerCase();
+                    list = list.filter(function(item) {
+                                // 使用"" + item转换为字符串
+                                return ("" + item).toLowerCase().indexOf(val) != -1;
+                            });
+                } else {
+                    list = list.filter(function(item) {
+                                // 使用"" + item转换为字符串
+                                return ("" + item).indexOf(val) != -1;
+                            });
+                }
+                _this.list = list;
+                _this.appendUl();
+            }
+        });
+    },
+    setInputStyle: function() {
+        var val = this.target.val() ? this.target.val() :
+            this.dropDown.find("li").first().text();
+        this.target.attr({
+            autocomplete: "off",
+            disableautocomplete: true
+        });
+        this.target.val(val);
+    },
+    bind: function() {
+        var _this = this;
+        this.dropDown.on({
+            click: function() {
+                var val = $(this).text();
+                // 将兄弟节点中类名为sel的节点的sel类名移除
+                $(this).siblings().filter(".sel").removeClass("sel");
+                $(this).addClass("sel");
+                _this.target.val(val);
+            },
+            mouseenter: function() {
+                $(this).siblings().removeClass("fo");
+                $(this).addClass("fo");
+            },
+            mouseleave: function() {
+                $(this).removeClass("fo");
+            }
+        }, "li");
+        this.target.on("keydown", function(event) {
+            var key = event.which,
+                keycode = _this.KEY_CODE,
+                $chosen = _this.dropDown.find(".fo").length != 0 ?
+                          _this.dropDown.find(".fo") : _this.dropDown.find(".sel");    // 被选中的元素
+
+            if (key == keycode.up && $chosen.prev().length != 0) {
+                $chosen.removeClass("fo");
+                $chosen.prev().addClass("fo");
+                return false;
+            } else if ((key == keycode.down || key == keycode.tab) && $chosen.next().length != 0) {
+                $chosen.removeClass("fo");
+                $chosen.next().addClass("fo");
+                return false;
+            } else if(key == keycode.enter) {
+                $chosen.siblings().removeClass("sel");
+                $chosen.addClass("sel");
+                _this.target.val($chosen.text());
+                return false;
+            }
+        });
+        $(document).on({
+            click: function(event) {
+                var target = event.target,
+                    input = _this.target.get(0),
+                    dropDown = _this.dropDown.get(0);
+                // 如果点击的是目标或者下拉列表区域，则直接退出
+                while(target) {
+                    // 循环判断至根节点
+                    if (target == input || target == dropDown) {
+                        return;
+                    }
+                    target = target.parentNode;
+                }
+                // 点击的不是目标元素或其子元素,隐藏下拉列表
+                _this.hide();
+            }
+        });
+    },
+    createDiv: function() {
+        this.dropDown = $("<div class='lazy-drop-down hidden'></div>");
+    },
+    appendUl: function() {
+        var listArr = [],   // 用数组实现字符串连接
+            list = this.list,
+            len = list.length,
+            str, i;
+
+        this.dropDown.empty();
+
+        listArr.push("</ul>");
+        for(i = len; i--; /*无循环体*/) {
+            listArr.push("</li>");
+            listArr.push(list[i]);
+            if(i) {
+                listArr.push("<li>");
+            } else {
+                listArr.push("<li class='sel'>");
+            }
+        }
+        listArr.push("<ul>");
+        listArr.reverse();
+        // 连接字符串
+        str = listArr.join("");
+        this.dropDown.append(str);
+    },
+    change: function() {
+        var inputText, list = this.list,
+        inputText = this.target.text();
+
+        // 如果输入框有数据，则根据输入框的数据进行筛选
+        // 如果输入框没有数据，则将缓存数据（原始数据）输出
+        this.list = inputText ? list.filter(function(item) {
+            return item.indexOf(inputText) != -1;
+        }) : this.cache;
+    },
+    location: function() {
+        var $dropDown = this.dropDown,
+            $tar = this.target,
+            $tarLeft = $tar.offset().left,
+            $tarWidth = $tar.innerWidth();
+
+        this.target.after($dropDown);
+        $dropDown.offset({left: $tarLeft});
+        $dropDown.css({width: $tarWidth});
+    },
+    show: function() {
+        this.dropDown.slideDown(200);
+    },
+    hide: function() {
+        this.dropDown.slideUp(200);
     }
 };
