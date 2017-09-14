@@ -14,18 +14,59 @@
         body{
             overflow: hidden;
         }
+
+        /*下拉提示信息样式*/
+        .lazy-drop-down{
+            /*由js确定左侧偏移以及宽度*/
+            border: 1px solid #ccc;
+            /*border-top: none;*/
+            display: block;
+            /*min-height: 300px;
+            max-height: 600px;*/
+            height: 300px;
+            background: #fff;
+            position: absolute;
+            z-index: 1;
+            overflow: auto;
+            text-align: left;
+        }  
+        .lazy-drop-down ul {
+            margin: 0;
+            padding: 0;
+        }   
+        .lazy-drop-down ul li{
+            list-style: none;
+            line-height: 25px;
+            text-indent: 0;
+            padding-left: 10px;
+            cursor: pointer;
+            border-bottom: 1px dotted #ccc;
+        }
+        /*被选中样式*/
+        .lazy-drop-down .sel{
+            background:#dedede;
+        }   
+        /*鼠标悬停样式*/
+        .lazy-drop-down .fo{
+            background:#eee;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
-
 <body>
-    <table id="datagrid" class="invisible"></table><!-- 数据表格占位 -->
-    <div id="toolbar" class="invisible"><!-- 数据菜单栏 -->
+    <!-- 表格加载完毕后删除 -->
+    <div class="mask">
+        <p>数据加载中，请稍后、、、</p>
+    </div>
+    <table id="datagrid"></table><!-- 数据表格占位 -->
+    <div id="toolbar"><!-- 数据菜单栏 -->
         <a href="javascript:;" iconCls="icon-add" plain="true" class="easyui-linkbutton">添加行</a>
         <a href="javascript:;" iconCls="icon-remove" plain="true"  class="easyui-linkbutton">删除选中行</a>
         <a href="javascript:;" iconCls="icon-edit" plain="true"  class="easyui-linkbutton">修改行</a>
         <a href="javascript:;" iconCls="icon-reload" plain="true"  class="easyui-linkbutton">重新加载表格</a>
         <a href="javascript:;" iconCls="icon-more" plain="true"  class="easyui-linkbutton">查看详情</a>
-        <!-- 先设置id为before，然后通过js修改为searchBox，防止页面加载时直接绑定搜索处理函数 -->
         <div id="searchBox">
             <input  class="easyui-searchbox" data-options="prompt:'请输入',menu:'#selectList'">
             <div id="selectList">
@@ -34,16 +75,16 @@
             </div>
         </div>
     </div>
-    <div id="dlg" class="easyui-dialog lazy-orderInfo invisible" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
+    <div id="dlg" class="easyui-dialog lazy-orderInfo" closed="true" buttons="#dlg-buttons"><!-- 新增数据窗口开始 -->
         <div class="ftitle" id="ftitle"></div>
         <form id="fm" method="post"><!-- 表单开始 -->
             <div class="fitem">
                 <label >订单号：</label>
-                <input name="orderNo" required validType="lazzyOrderNo" missingMessage="此处必须填写" class="easyui-validatebox">
+                <input name="orderNo" required validType="lazzyOrderNo" missingMessage="此处必须填写" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >产品名称：</label>
-                <input name="productName" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input name="productName" required missingMessage="此处必须填写" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >下单日期：</label>
@@ -59,11 +100,11 @@
             </div>
             <div class="fitem">
                 <label >物料长编号：</label>
-                <input type="text" name="materialCoding" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="materialCoding" required validType="lazzyMaterialCoding" missingMessage="此处必须填写" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >规格型号：</label>
-                <input type="text" name="materialModel" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="materialModel" required missingMessage="此处必须填写" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >数量：</label>
@@ -83,19 +124,19 @@
             </div>  
             <div class="fitem">
                 <label >要求：</label>
-                <input type="text" name="purchaseRequirement" class="easyui-validatebox">
+                <input type="text" name="purchaseRequirement" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >订单状态：</label>
-                <input type="text" name="orderStatus" class="easyui-validatebox">
+                <input type="text" name="orderStatus" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >异常原因：</label>
-                <input type="text" name="exceptionReason" class="easyui-validatebox">
+                <input type="text" name="exceptionReason" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >订单类型：</label>
-                <input type="text" name="orderType" required missingMessage="此处必须填写" class="easyui-validatebox">
+                <input type="text" name="orderType" required missingMessage="此处必须填写" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem">
                 <label >单价：</label>
@@ -103,7 +144,7 @@
             </div>
             <div class="fitem">
                 <label >备注：</label>
-                <input type="text" name="remark" class="easyui-validatebox">
+                <input type="text" name="remark" class="easyui-validatebox auto-complete">
             </div>
             <div class="fitem hidden">
                 <label >ID：</label>
@@ -114,12 +155,8 @@
             <a href="javascript:;" iconCls="icon-ok" class="easyui-linkbutton">保存</a><a href="javascript:;" iconCls="icon-cancel" class="easyui-linkbutton">放弃编辑并关闭窗口</a>
         </div><!-- 表单菜单按钮结束 -->
     </div>
-    <!-- 使用js加载，表格加载完毕再删除
-        <div class="mask">
-            <p>数据加载中，请稍后、、 .、</p>
-        </div>
-    -->    
     <script src="../../common/easyUI/jquery.min.js"></script>
+    <script src="../../common/js/fenixUtil.js"></script>
     <script src="../../common/js/fenixCommon.js"></script>
     <script src="../../common/js/jsDatePicker.js"></script>
     <!-- 由于doSearch方法会在jquery.easyui.min.js加载时立刻绑定，故先用js增加searcher再插入 -->
@@ -168,16 +205,54 @@
                 ]]
             },                  
             otherParameter = {              // url等
-                addUrl: "../../order/insert.do",
-                removeUrl: "../../order/deleteBatch.do",
-                editUrl: "../../order/update.do",
-                reLoadUrl: "../../order/list.do",
-                // detailUrl: "details/detailTest.html"        
-                // detailUrl: "details/details-SearchPage.html",
-                targetIframeId: "details-SearchPage.html"        
+                addUrl: "../../order/insert.do",        // 增
+                removeUrl: "../../order/deleteBatch.do",// 删
+                editUrl: "../../order/update.do",       // 改
+                reLoadUrl: "../../order/list.do",       // 重载
+                targetIframeId: "details-SearchPage.html"   // 详情跳转框架的iframeName        
             };          // Table实例
         window.newTable = new FENIX.Table(loadParameter, otherParameter, "newTable");
         window.newTable.initalize();
+
+        // 绑定自动完成列表
+        $(document).one("ajaxStop", bindAutoComplete);
+        function bindAutoComplete() {
+            var $targetList = $(".auto-complete"),  // 需要绑定自动完成列表的目标元素
+                nameList = [],   // 目标元素的name
+                source = $("#datagrid").datagrid("getRows"),
+                len1 = source.length,
+                len2 = $targetList.length,
+                msgList = [],    // 备选列表数组（二维数组）
+                i, j;
+
+            // 获得目标元素的name数组
+            for (j = len2; j--; /*空语句*/) {
+                msgList[j] = [];
+                nameList[j] = $targetList.eq(j).attr("name");
+            }
+
+            // 嵌套循环，得到备选列表数组
+            for (i = len1; i--; /*空语句*/) {
+                for (j = len2; j--; /*空语句*/) {
+                    // 将source第i个元素的nameList[j]的属性值存入msgList的第j个数组中
+                    msg = source[i][nameList[j]];
+
+                    // 存入非空字符串
+                    if (msg != "") {
+                        msgList[j].push(msg);
+                    }
+                }
+            }
+
+            // 对数组去重
+            for(j = len2; j--; /*空语句*/) {
+                // 对数组去重
+                msgList[j] = FENIX.UTIL.unique(msgList[j]);
+            }
+
+            // 调用fenixCommon.js文件中的FENIX.bindAutoComplete函数
+            FENIX.bindAutoComplete($targetList, msgList);
+        }
     });
     </script>
 </body>

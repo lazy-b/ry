@@ -8,13 +8,14 @@
 	<link rel="stylesheet" href="../../css/orderStateDetailBefore.css">
     <link rel="stylesheet" href="../../common/font/css/font-awesome.css">
     <script src="../../common/easyUI/jquery.min.js"></script>
+    <script src="../../common/js/fenixUtil.js"></script>
     <script src="../../common/js/fenixCommon.js"></script>
     <script src="../../js/searchDetail.js"></script>
     <style>
         /*下拉提示信息样式*/
         .lazy-drop-down{
             /*由js确定左侧偏移以及宽度*/
-            /*border: 1px solid #ccc;*/
+            border: 1px solid #ccc;
             /*border-top: none;*/
             display: block;
             /*min-height: 300px;
@@ -23,6 +24,8 @@
             background: #fff;
             position: absolute;
             z-index: 1;
+            overflow: auto;
+            text-align: left;
         }  
         .lazy-drop-down ul {
             margin: 0;
@@ -31,13 +34,14 @@
         .lazy-drop-down ul li{
             list-style: none;
             line-height: 25px;
+            text-indent: 0;
             padding-left: 10px;
             cursor: pointer;
             border-bottom: 1px dotted #ccc;
         }
         /*被选中样式*/
         .lazy-drop-down .sel{
-            background:#ddd;
+            background:#dedede;
         }   
         /*鼠标悬停样式*/
         .lazy-drop-down .fo{
@@ -333,28 +337,42 @@
     </script>
     <script>
         $(function() {
-            var $input1 = $(".lazzy-state-input").eq(0),
-                $input2 = $(".lazzy-state-input").eq(1),
-                msgList1 = ["PO2017055", "PO2017055", "PO17010137", 4, 5, 6, 7, 111, 222, 111, 111],
-                msgList2 = ["PD35筒身", "PD32筒身", "E05灯座", 4, 5, 6, 7, 111, 222, 111, 111],
-                para1, para2, tip1, tip2;
+            $.getJSON("../../schedule/list.do", function(data) {
+                var $targetList = $(".lazzy-state-input"),  // 需要绑定自动完成列表的目标元素
+                    nameList = [],   // 目标元素的name
+                    len1 = data.length,
+                    len2 = $targetList.length,
+                    msgList = [],    // 备选列表数组（二维数组）
+                    i, j;
 
-            para1 = {
-                target: $input1,
-                msgList: msgList1,
-                ignoreCase: true
-            };
-            para2 = {
-                target: $input2,
-                msgList: msgList2,
-                ignoreCase: true 
-            };
+                // 获得目标元素的name数组
+                for (j = len2; j--; /*空语句*/) {
+                    msgList[j] = [];
+                    nameList[j] = $targetList.eq(j).attr("name");
+                }
 
-            tip1 = new FENIX.Tips(para1);
-            tip2 = new FENIX.Tips(para2);
+                // 嵌套循环，得到备选列表数组
+                for (i = len1; i--; /*空语句*/) {
+                    for (j = len2; j--; /*空语句*/) {
+                        // 将data第i个元素的nameList[j]的属性值存入msgList的第j个数组中
+                        msg = data[i][nameList[j]];
 
-            tip1.init();
-            tip2.init();
+                        // 存入非空字符串
+                        if (msg != "") {
+                            msgList[j].push(msg);
+                        }
+                    }
+                }
+
+                // 对数组去重
+                for(j = len2; j--; /*空语句*/) {
+                    // 对数组去重
+                    msgList[j] = FENIX.UTIL.unique(msgList[j]);
+                }
+
+                // 调用fenixCommon.js文件中的FENIX.bindAutoComplete函数
+                FENIX.bindAutoComplete($targetList, msgList);
+            });
         })
     </script>
 </body>
