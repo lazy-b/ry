@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.fenix.ry.entity.OrderInformation;
 import cn.fenix.ry.entity.Schedule;
+import cn.fenix.ry.service.OrderService;
 import cn.fenix.ry.service.ScheduleService;
 import cn.fenix.ry.serviceImple.NotOrderInformationFound;
 import cn.fenix.ry.serviceImple.NotParamterException;
@@ -28,12 +29,24 @@ public class ScheduleController extends AbstractController{
 	
 	@Resource
 	ScheduleService scheduleService;
+	@Resource
+	private OrderService orderService;
 	@RequestMapping("/findAll.do")
 	@ResponseBody
 	public JsonResult<List<Map<String,Object>>> findAllSchedule(){
 		List<Map<String,Object>> list=scheduleService.findAllSchedule();
 		return new JsonResult<List<Map<String,Object>>>(list);
 	}
+	
+	@RequestMapping("/list.do")
+	@ResponseBody
+	public JsonResult<List<Map<String,Object>>> list()throws Exception {
+	    List<Map<String, Object>> list=
+	            orderService.listOrderInformation();
+	            return new JsonResult<List<Map<String,Object>>>(list);
+    }
+	
+	
 	@RequestMapping("/find.do")
 	@ResponseBody
 	/**
