@@ -18,6 +18,9 @@ public interface OrderService{
 	//根据产品名称查找订单
 	List<Map<String, Object>>getOrdersByName(String productName)throws Exception;
 	
+	//查找订单号及产品名称
+    List<Map<String,Object>> selectOrderNoProductName();
+	
 	//根据产品名称查找订单
 	List<Map<String, Object>>getOrdersByParams(Map<String,Object> params)throws Exception;
 	

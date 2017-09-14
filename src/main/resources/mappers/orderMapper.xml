@@ -44,6 +44,18 @@
   	   where 
   	        materialCoding=#{materialCoding} order by productName;
   	</select>
+  	
+  	 <!--查找订单号及产品名称 -->
+    <select id="selectOrderNoProductName" resultType="map" parameterType="string">
+      select 
+            orderNo,productName
+       from
+            orderInformation 
+       where 
+           1=1
+    </select>
+  	
+  	
 	<!-- 根据产品名称查找订单 -->				  
  	<select id="selectOrderByName" resultType="map" parameterType="string">
   	  select 

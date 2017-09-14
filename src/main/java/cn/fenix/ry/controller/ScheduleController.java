@@ -42,16 +42,15 @@ public class ScheduleController extends AbstractController{
 	@ResponseBody
 	public JsonResult<List<Map<String,Object>>> list()throws Exception {
 	    List<Map<String, Object>> list=
-	            orderService.listOrderInformation();
+	            orderService.selectOrderNoProductName();
 	            return new JsonResult<List<Map<String,Object>>>(list);
     }
 	
-	
+	 /**
+     *根据订单号和产品名称查出进度表
+     */
 	@RequestMapping("/find.do")
 	@ResponseBody
-	/**
-	 *根据订单号和产品名称查出进度表
-	 */
 	public JsonResult<List<Map<String,Object>>> findSchedule(String orderNo,String productName)throws Exception {
 		List<Map<String,Object>> list=scheduleService.listSchedule(orderNo,productName);
 		return new JsonResult<List<Map<String,Object>>>(list);
