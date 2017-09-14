@@ -17,9 +17,12 @@ public interface OrderDao{
 	
 	//多条件查找订单(订单号&物料编码)
 	List<Map<String, Object>> selectOrderByParams(Map<String,Object> params);
-
+	
 	//根据产品名称查找订单
 	List<Map<String,Object>> selectOrderByName(String productName);
+	
+	//查找订单号及产品名称                  
+	List<Map<String,Object>> selectOrderNoProductName();
 	
 	//根据物料编码查找订单
 	List<Map<String,Object>> selectOrderByMaterialCoding(String materialCoding);

@@ -117,5 +117,10 @@ public class OrderServiceImple implements OrderService {
 		}
 	}
 
+    @Override
+    public List<Map<String,Object>> selectOrderNoProductName() {
+        return orderDao.selectOrderNoProductName();
+    }
+
 
 }
