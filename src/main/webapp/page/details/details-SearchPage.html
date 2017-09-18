@@ -340,7 +340,8 @@
             $.getJSON("../../schedule/list.do", function(data) {
                 var $targetList = $(".lazzy-state-input"),  // 需要绑定自动完成列表的目标元素
                     nameList = [],   // 目标元素的name
-                    len1 = data.length,
+                    source = data.rows, // 获取数据
+                    len1 = source.length,
                     len2 = $targetList.length,
                     msgList = [],    // 备选列表数组（二维数组）
                     i, j;
@@ -354,8 +355,8 @@
                 // 嵌套循环，得到备选列表数组
                 for (i = len1; i--; /*空语句*/) {
                     for (j = len2; j--; /*空语句*/) {
-                        // 将data第i个元素的nameList[j]的属性值存入msgList的第j个数组中
-                        msg = data[i][nameList[j]];
+                        // 将source第i个元素的nameList[j]的属性值存入msgList的第j个数组中
+                        msg = source[i][nameList[j]];
 
                         // 存入非空字符串
                         if (msg != "") {

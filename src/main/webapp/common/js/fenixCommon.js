@@ -546,8 +546,8 @@ FENIX.bindAutoComplete = function bindAutoComplete($targetList, msgList) {
     // 循环初始化
     for(i = len; i--; /*空语句*/) {
         para = {
-            target: $targetList.eq(j),
-            msgList: msgList[j],
+            target: $targetList.eq(i),
+            msgList: msgList[i],
             ignoreCase: true
         }
         tip = new FENIX.Tips(para);
