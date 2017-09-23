@@ -1,3 +1,9 @@
+/*
+* @Author: yang
+* @Date:   2017-08-22 16:12:57
+* @Last Modified by:   yang
+* @Last Modified time: 2017-09-20 10:54:15
+*/
 /**
  * 展示数据表格封装类
  * @param {obj} loadParameter  easyUI加载datagrid需要的初始化参数，必须
@@ -7,7 +13,7 @@
  */
 FENIX.Table = function Table(loadParameter, otherParameter, instanceName) {
     this.loadPara = loadParameter;
-    this.opts = otherParameter; 
+    this.opts = otherParameter;
     this.instanceName = instanceName;
     this.rows = [];                 // 保存表格数据
 }
@@ -39,7 +45,7 @@ FENIX.Table.prototype = {
         var mask = $("<div class='mask'><p>数据加载中，请稍后、、、</p></div>"),
             _this = this;
 
-        $("body").append(mask);   
+        $("body").append(mask);
     },
     show: function() {
         var $mask = $(".mask");
@@ -59,7 +65,7 @@ FENIX.Table.prototype = {
         $input = $("#searchBox input.easyui-searchbox").first();
         dataOptions = $input.attr("data-options");
         dataOptions += (",searcher:" + this.instanceName + ".doSearch");
-        $input.attr("data-options", dataOptions); 
+        $input.attr("data-options", dataOptions);
     },
     addJSFile: function() {
         // 手动加载需要延迟加载的JS文件
@@ -90,7 +96,7 @@ FENIX.Table.prototype = {
             } else if ($targetText === "查看详情") {
                 _this.showDetails($targetA);
             }
-            
+
             return false;
         });
 
@@ -130,12 +136,12 @@ FENIX.Table.prototype = {
             url = this.opts.removeUrl,
             idArr=[], ids,
             i;
-        
+
         if (rows.length > 0) {
             for (i=0; i < rows.length; i +=1) {
                  idArr.push(rows[i].id);
              }
-            ids = idArr.join(","); 
+            ids = idArr.join(",");
             $.messager.confirm("警告！", "你确定需要删除选中的"+rows.length+"条记录嘛？", function(r){
 
                 if (r) {
@@ -192,7 +198,7 @@ FENIX.Table.prototype = {
                 ok: "仍然确认",
                 cancel: "返回选择",
                 width:"500px"
-            }         
+            }
             $.messager.confirm("警告！", remind_message, function(r){
 
                 //用户仍然确认修改，则打开修改会话窗口
@@ -243,7 +249,7 @@ FENIX.Table.prototype = {
                     $(this).show().siblings(".body-iframe").hide();
                 }
             });
-            
+
         }else{
             alert("请先选择需要查看的数据！");
         }
@@ -287,7 +293,7 @@ FENIX.Table.prototype = {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                    console.log(jqXHR, textStatus, errorThrown);
-                } 
+                }
         });
     },
     closeDialog: function() {
@@ -320,12 +326,12 @@ FENIX.Table.prototype = {
         } else {
             $("#datagrid").datagrid("loadData",rows_info);
             alert("请输入正确的参数！")
-        } 
+        }
     }
 };
 
 /**
- * 输入框自动完成封装类 
+ * 输入框自动完成封装类
  * @param {obj} para 初始化参数对象
  * para.target：需要绑定自动完成的jQuery对象，必须
  * para.msgList：自动完成的备选列表，一个数组类型，必须
@@ -384,7 +390,7 @@ FENIX.Tips.prototype = {
                     list;   // 存放列表数据的数组
 
                 // 如果按的是后退键或者输入框中没有了数据
-                // 则将备选列表重置为缓存数据 
+                // 则将备选列表重置为缓存数据
                 if (key == keycode.backspace || !val) {
                     _this.list = _this.cache;
                 }

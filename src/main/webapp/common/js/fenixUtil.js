@@ -1,3 +1,9 @@
+/*
+* @Author: yang
+* @Date:   2017-09-14 08:34:24
+* @Last Modified by:   yang
+* @Last Modified time: 2017-09-20 10:43:07
+*/
 /*严格模式*/
 "use strict"
 
