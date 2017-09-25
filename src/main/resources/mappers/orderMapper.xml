@@ -25,7 +25,6 @@
   </resultMap>
   
   	<!--查找所有订单信息 -->
-  	
     <select id="findAllOrder" parameterType="string" resultType="map"> 
     	select 
     		id,orderDate,requiredDate,orderNo,materialCoding,

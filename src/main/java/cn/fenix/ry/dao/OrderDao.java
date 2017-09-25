@@ -12,6 +12,7 @@ import cn.fenix.ry.entity.OrderInformation;
  *
  */
 public interface OrderDao{
+  
 	//展示所有订单
 	List<Map<String,Object>> findAllOrder();
 	
