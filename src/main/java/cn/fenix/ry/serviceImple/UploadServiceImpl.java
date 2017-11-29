@@ -10,25 +10,26 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.fenix.ry.dao.OrderInfoDao;
-import cn.fenix.ry.entity.OrderInfos;
-import cn.fenix.ry.service.OrderInfoService;
-
+import cn.fenix.ry.dao.CorderDao;
+import cn.fenix.ry.dao.UploadDao;
+import cn.fenix.ry.entity.Corder;
+import cn.fenix.ry.service.UploadService;
 import cn.fenix.ry.util.ExcelUtil;
+
 @Service
-public class OrderInfoServiceImpl implements OrderInfoService {
+public class UploadServiceImpl implements UploadService {
 	@Resource
-	private OrderInfoDao orderInfoDao;
+	private UploadDao uploadDao;
 	@Override
 	public int OrderInfo(InputStream in, MultipartFile file) throws Exception {
 		List<List<Object>> listob=ExcelUtil.getBankListByExcel(in,file.getOriginalFilename());
-		List<OrderInfos> orderList=new ArrayList<OrderInfos>();
+		List<Corder> orderList=new ArrayList<Corder>();
 		String regex="([\\D]*)"; 
 		if(listob!=null){
 		for(int i=0;i<listob.size();i++){
 			String id=UUID.randomUUID().toString();
 			List<Object> list=listob.get(i);
-			OrderInfos order=new OrderInfos();
+			Corder order=new Corder();
 				order.setId(id);
 				if(list.get(0)==null||list.get(0)==" "||list.get(0)==""){
 					order.setOrderDate(" ");
@@ -118,7 +119,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 				}
 			orderList.add(order);
 			}
-		} 	
-		return orderInfoDao.insertInfoBatch(orderList);
+		} 		
+		return  uploadDao.insertInfoBatch(orderList);
 	}
+
 }

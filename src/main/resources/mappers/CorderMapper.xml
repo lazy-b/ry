@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
  <!-- 订单处理Mapper -->
-<mapper namespace="cn.fenix.ry.dao.OrderDao">
-  <resultMap id="BaseResultMap" type="cn.fenix.ry.entity.OrderInformation" >
+<mapper namespace="cn.fenix.ry.dao.CorderDao">
+  <resultMap id="BaseResultMap" type="cn.fenix.ry.entity.Corder">
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="orderDate" property="orderDate" jdbcType="VARCHAR" />
     <result column="requiredDate" property="requiredDate" jdbcType="VARCHAR" />
@@ -25,67 +25,17 @@
   </resultMap>
   
   	<!--查找所有订单信息 -->
-    <select id="findAllOrder" parameterType="string" resultType="map"> 
+    <select id="find" parameterType="string" resultType="map"> 
     	select 
     		id,orderDate,requiredDate,orderNo,materialCoding,
   			productName,orderAmount,spareParts,stockAmount,planAmount,materialModel,
     		purchaseRequirement, replyDate, orderStatus, exceptionReason,	
   			price,remark,orderType
   		 from 
-    		 orderInformation order by productName;
+    		 orderInformation order by orderNo;
     </select>
- 	 <!--根据物料编码查找订单信息 -->
-   	<select id="selectOrderByMaterialCoding" resultType="map" parameterType="string">
-  	  select 
-  		    *
-  	   from
-  	   	    orderInformation 
-  	   where 
-  	        materialCoding=#{materialCoding} order by productName;
-  	</select>
-  	
-  	 <!--查找订单号及产品名称 -->
-    <select id="selectOrderNoProductName" resultType="map" parameterType="string">
-      select 
-            orderNo,productName
-       from
-            orderInformation 
-       where 
-           1=1
-    </select>
-  	
-  	
-	<!-- 根据产品名称查找订单 -->				  
- 	<select id="selectOrderByName" resultType="map" parameterType="string">
-  	  select 
-  		  *
-  	   from
-  	   	    orderInformation 
-  	   where 
-  	        productName=#{productName} order by productName;
-  	        
-  	</select>
-  <!-- 多条件查询 -->
-  	<select id="selectOrderByParams" parameterType="map" resultType="map">
-		select 
-			id,orderDate,requiredDate,orderNo,materialCoding,
-  			productName,orderAmount,materialModel,orderStatus,price,orderType
-		from 
-			orderInformation 
-		<where>
-			<trim prefixOverrides="and">
-				<if test="orderNo!=null">
-  					orderNo=#{orderNo}
-  				</if>
-  				<if test="materialCoding!=null">
-  					and materialCoding=#{materialCoding} 
-  				</if>
-  			</trim>
-  		</where>	
-  	</select>
- 	
    	<!--插入订单 -->
-   	<insert id="addOrder" parameterType="cn.fenix.ry.entity.OrderInformation" >
+   	<insert id="insert" parameterType="cn.fenix.ry.entity.Corder" >
     	insert into orderinformation (id, orderDate, requiredDate, 
      	 	orderNo, materialCoding, productName, 
       	 	orderAmount, spareParts, stockAmount, 
@@ -114,15 +64,16 @@
        	 	#{orderType,jdbcType=INTEGER})	
   	</insert>
   <!-- 批量删除 -->
-	<delete id="deleteBatchs">
+	<delete id="delete">
 		delete from orderInformation
     	where id in
 		<foreach collection="array" item="ids" open="(" close=")" separator=",">
 			#{ids}
 		</foreach>
 	</delete>
+	
   <!-- 修改订单 -->                                
-  <update id="updateByPrimaryKey" parameterType="cn.fenix.ry.entity.OrderInformation">
+  <update id="update" parameterType="cn.fenix.ry.entity.Corder">
     update orderInformation
     <set>
       <if test="orderDate != null" >
@@ -178,26 +129,5 @@
       </if>
     </set>
     where id=#{id,jdbcType=VARCHAR}
-  </update>
-   <update id="updateAll" parameterType="cn.fenix.ry.entity.OrderInformation">
-    update orderinformation
-    set orderDate = #{orderDate,jdbcType=VARCHAR},
-      requiredDate = #{requiredDate,jdbcType=VARCHAR},
-      orderNo = #{orderNo,jdbcType=VARCHAR},
-      materialCoding = #{materialCoding,jdbcType=VARCHAR},
-      productName = #{productName,jdbcType=VARCHAR},
-      orderAmount = #{orderAmount,jdbcType=VARCHAR},
-      spareParts = #{spareParts,jdbcType=VARCHAR},
-      stockAmount = #{stockAmount,jdbcType=VARCHAR},
-      planAmount = #{planAmount,jdbcType=VARCHAR},
-      materialModel = #{materialModel,jdbcType=VARCHAR},
-      purchaseRequirement = #{purchaseRequirement,jdbcType=VARCHAR},
-      replyDate = #{replyDate,jdbcType=VARCHAR},
-      orderStatus = #{orderStatus,jdbcType=VARCHAR},
-      exceptionReason = #{exceptionReason,jdbcType=VARCHAR},
-      price = #{price,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      orderType = #{orderType,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR};
   </update>
 </mapper>

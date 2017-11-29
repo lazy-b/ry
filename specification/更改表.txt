@@ -1,0 +1,42 @@
+进度表
+ CREATE TABLE SCHEDULE
+(
+   schedule_id          VARCHAR(50) NOT NULL,
+   order_no             VARCHAR(50),
+   product_name         VARCHAR(50),
+   place_order          VARCHAR(50),
+   p_planetime          DATETIME,
+   p_facttime           DATETIME,
+   p_remarks            VARCHAR(250),
+   picking              VARCHAR(50),
+   pick_planetime       DATETIME,
+   pick_facttime        DATETIME,
+   pick_remarks         VARCHAR(250),
+   arrange              VARCHAR(50),
+   arrange_planetime    DATETIME,
+   arrange_facttime     DATETIME,
+   arrange_remarks      VARCHAR(250),
+   product              VARCHAR(50),
+   pro_planetime        DATETIME,
+   pro_facttime         DATETIME,
+   pro_remarks          VARCHAR(250),
+   delivery             VARCHAR(50),
+   delivery_planetime   DATETIME,
+   delivery_facttime    DATETIME,
+   delivery_remarks     VARCHAR(250),
+   PRIMARY KEY (schedule_id)
+);
+
+访问路径
+//展示订单
+http://localhost:8080/fenixlightryjm/corder/list.do
+//新增订单信息
+http://localhost:8080/fenixlightryjm/corder/insert.do
+//修改订单信息
+http://localhost:8080/fenixlightryjm/corder/update.do
+//删除订单信息
+http://localhost:8080/fenixlightryjm/corder/delete.do
+//上传订单信息
+http://localhost:8080/fenixlightryjm/upload/corder.do
+//订单进度（节点）
+http://localhost:8080/fenixlightryjm/schedule/find.do

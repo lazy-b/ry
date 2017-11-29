@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.fenix.ry.dao.OrderScheduleDao">
+ <resultMap type="cn.fenix.ry.entity.OrderSchedule" id="OrderScheduleRM">
+ 	<id property="id" column="schedule_id"/>
+ 	<result property="orderNo" column="order_no"/>
+ 	<result property="productName" column="product_name"/>
+ 	<result property="placeOrder" column="place_order"/>
+ 	<result property="pPlanetime" column="p_planetime"/>
+ 	<result property="pFacttime" column="p_facttime"/>
+ 	<result property="pRemarks" column="p_remarks"/>
+ 	<result property="picking" column="picking"/>
+ 	<result property="pickPlanetime" column="pick_planetime"/>
+ 	<result property="pickFacttime" column="pick_facttime"/>
+ 	<result property="pickRemarks" column="pick_remarks"/>
+ 	<result property="arrange" column="arrange"/>
+ 	<result property="arrangePlanetime" column="arrange_planetime"/>
+ 	<result property="arrangeFacttime" column="arrange_facttime"/>
+ 	<result property="arrangeRemarks" column="arrange_remarks"/>
+ 	<result property="product"  column="product"/>
+ 	<result property="proPlanetime" column="pro_planetime"/>
+ 	<result property="proFacttime" column="pro_facttime"/>
+ 	<result property="proRemarks" column="pro_remarks"/>
+ 	<result property="delivery" column="delivery"/>
+ 	<result property="deliveryPlanetime" column="delivery_planetime"/>
+ 	<result property="deliveryFacttime" column="delivery_facttime"/>
+ 	<result property="deliveryRemarks" column="delivery_remarks"/>
+ </resultMap>
+ 
+	<select id="tfind" parameterType="String" resultType="map">
+		 select * from test where 1=1;
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

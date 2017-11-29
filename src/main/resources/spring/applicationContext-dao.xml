@@ -14,7 +14,6 @@
 		http://www.springframework.org/schema/util 
 		http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util-4.0.xsd">
-        
     <!-- 指明配置文件存放位置 -->         
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!-- druid  -->
@@ -43,10 +42,6 @@
       	<property name="testOnBorrow" value="false" />
       	<property name="testOnReturn" value="false" />
 
-		<!-- mysql 不支持 poolPreparedStatements-->  
-      	<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-      	<!--<property name="poolPreparedStatements" value="true" />-->
-      	<!--<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />-->
 
       	<!-- 配置监控统计拦截的filters -->
       	<property name="filters" value="stat" /> 
