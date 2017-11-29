@@ -20,6 +20,9 @@ import cn.fenix.ry.util.ExcelUtil;
 public class UploadServiceImpl implements UploadService {
 	@Resource
 	private UploadDao uploadDao;
+	/**
+	 * 上传订单信息；
+	 */
 	@Override
 	public int OrderInfo(InputStream in, MultipartFile file) throws Exception {
 		List<List<Object>> listob=ExcelUtil.getBankListByExcel(in,file.getOriginalFilename());

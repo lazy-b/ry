@@ -27,6 +27,16 @@
    PRIMARY KEY (schedule_id)
 );
 
+insert into `schedule` (`schedule_id`, `order_no`, `product_name`, `place_order`, `p_planetime`, `p_facttime`, `p_remarks`, `picking`, `pick_planetime`, `pick_facttime`, `pick_remarks`, `arrange`, `arrange_planetime`, `arrange_facttime`, `arrange_remarks`, `product`, `pro_planetime`, `pro_facttime`, `pro_remarks`, `delivery`, `delivery_planetime`, `delivery_facttime`, `delivery_remarks`) 
+    values('1','PO2017112701','PD35筒身','下单','2017-11-05 00:00:00','2017-11-06 00:00:00',NULL,'领料','2017-11-08 00:00:00','2017-11-10 00:00:00',NULL,'计划','2017-11-12 00:00:00','2017-11-13 00:00:00',NULL,'生产','2017-11-16 00:00:00','2017-11-18 00:00:00',NULL,'交货','2017-11-20 00:00:00','2017-11-22 00:00:00',NULL);
+
+insert into `schedule` (`schedule_id`, `order_no`, `product_name`, `place_order`, `p_planetime`, `p_facttime`, `p_remarks`, `picking`, `pick_planetime`, `pick_facttime`, `pick_remarks`, `arrange`, `arrange_planetime`, `arrange_facttime`, `arrange_remarks`, `product`, `pro_planetime`, `pro_facttime`, `pro_remarks`, `delivery`, `delivery_planetime`, `delivery_facttime`, `delivery_remarks`)
+    values('2','PO2017112702','PD35筒尾','下单','2017-11-05 00:00:00','2017-11-06 00:00:00',NULL,'领料','2017-11-08 00:00:00','2017-11-10 00:00:00',NULL,'计划','2017-11-12 00:00:00','2017-11-13 00:00:00',NULL,'生产','2017-11-16 00:00:00','2017-11-18 00:00:00',NULL,'交货','2017-11-20 00:00:00','2017-11-22 00:00:00',NULL);
+
+insert into `schedule` (`schedule_id`, `order_no`, `product_name`, `place_order`, `p_planetime`, `p_facttime`, `p_remarks`, `picking`, `pick_planetime`, `pick_facttime`, `pick_remarks`, `arrange`, `arrange_planetime`, `arrange_facttime`, `arrange_remarks`, `product`, `pro_planetime`, `pro_facttime`, `pro_remarks`, `delivery`, `delivery_planetime`, `delivery_facttime`, `delivery_remarks`) 
+    values('3','PO2017112703','PD35灯座','下单','2017-11-05 00:00:00','2017-11-06 00:00:00',NULL,'领料','2017-11-08 00:00:00','2017-11-10 00:00:00',NULL,'计划','2017-11-12 00:00:00','2017-11-13 00:00:00',NULL,'生产','2017-11-16 00:00:00','2017-11-18 00:00:00',NULL,'交货','2017-11-20 00:00:00','2017-11-22 00:00:00',NULL);
+
+
 访问路径
 //展示订单
 http://localhost:8080/fenixlightryjm/corder/list.do

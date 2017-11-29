@@ -9,6 +9,8 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import cn.fenix.ry.dao.OrderScheduleDao;
+import cn.fenix.ry.entity.OrderSchedule;
+import cn.fenix.ry.exception.ScheduleException;
 import cn.fenix.ry.service.OrderScheduleService;
 
 @Service
@@ -57,9 +59,46 @@ public class OrderScheduleServiceImpl implements OrderScheduleService {
 		}
 		return list;
 	}
+	/**
+	 * 进度新增
+	 */
+	public int insert(OrderSchedule schedule) throws ScheduleException {
+		String id=UUID.randomUUID().toString();
+		schedule.setId(id);
+		int count = orderScheduleDao.insert(schedule);
+		if(schedule==null){
+			 throw new ScheduleException("不存在");
+		}
+		if(count<=0){
+			 throw new ScheduleException("增加失败");
+		}
+		return count;
+	}
+	/**
+	 * 进度修改
+	 */
+	public boolean update(OrderSchedule schedule) throws ScheduleException {
+		if(schedule==null){
+			throw new ScheduleException("不存在");
+		}
+		int n=orderScheduleDao.update(schedule);
+		return n==1;
+	}
+	/**
+	 * 进度删除
+	 */
+	public int delete(String[] ids) throws ScheduleException {
+		int n=orderScheduleDao.delete(ids);
+		if(n<=0){
+			throw new ScheduleException("删除失败");
+		}
+		return n;
+	}
 	
-	
-	
-	
+	@Override
+	public OrderSchedule get(String id) throws ScheduleException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
